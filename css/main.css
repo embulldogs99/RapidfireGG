@@ -38,9 +38,10 @@ header{
   font-size: 40px;
   /*background-color: rgba(60,150,255,.6);*/
   font-weight: 900;
-  background-image: url(Rapidfire.jpg);
-  background-size: 130px;
-  font-family:"Elemental End"
+  background-image: url(\pics\header.jpg);
+  background-size: 10px;
+  width: 100%;
+  font-family:"Elemental End";
 
 }
 .title{
