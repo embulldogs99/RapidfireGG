@@ -38,10 +38,9 @@ header{
   font-size: 40px;
   /*background-color: rgba(60,150,255,.6);*/
   font-weight: 900;
-  background-image: url(\pics\header.jpg);
   background-size: 10px;
   width: 100%;
-  font-family:"Elemental End";
+  font-family: "Elemental End.ttf";
 
 }
 .title{
