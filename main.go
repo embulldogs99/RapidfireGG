@@ -18,6 +18,7 @@ func main() {
   http.Handle("/favicon/", http.StripPrefix("/favicon/", http.FileServer(http.Dir("./favicon"))))
   http.Handle("/pics/", http.StripPrefix("/pics/", http.FileServer(http.Dir("./pics"))))
   http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("./css"))))
+  http.Handle("/svg/", http.StripPrefix("/svg/", http.FileServer(http.Dir("./svg"))))
   http.HandleFunc("/", serve)
   log.Fatal(s.ListenAndServe())
 }
