@@ -48,7 +48,7 @@ header{
   /*background-color: rgba(60,150,255,.6);*/
   font-weight: 900;
   background: url('header.jpg');
-  background-size: 200%;
+  background-size: 100%;
   width: 100%;
   font-family: 'MyWebFont', Fallback, sans-serif;
   height: 600px;
