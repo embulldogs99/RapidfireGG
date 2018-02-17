@@ -25,6 +25,6 @@ func main() {
 
 func serve(w http.ResponseWriter, r *http.Request){
   var tpl *template.Template
-  tpl = template.Must(template.ParseFiles("main.gohtml","css/main.css","css/mcleod-reset.css"))
+  tpl = template.Must(template.ParseFiles("main.gohtml","css/main.css","css/mcleod-reset.css","verification.gohtml","tregistration.gohtml"))
   tpl.Execute(w, nil)
 }
