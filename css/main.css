@@ -48,7 +48,7 @@ header{
   /*background-color: rgba(60,150,255,.6);*/
   font-weight: 900;
   background: url('header.jpg');
-  background-size: 1200px 600px;
+  background-size: 1920px 600px;
   width: 100%;
   font-family: 'MyWebFont', Fallback, sans-serif;
   height: 600px;
@@ -71,7 +71,7 @@ header{
 }
 
 .slogan{
-  font-size: 50px;
+  font-size: 20px;
 text-shadow:
 -1px -1px 0 #E0FFFF,
 1px -1px 0 #E0FFFF,
