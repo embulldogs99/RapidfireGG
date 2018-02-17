@@ -23,11 +23,6 @@ img{
   flex: center;
 }
 
-.page{
-  display: flex;
-  flex-direction: row;
-  /*border: 2px solid black;*/
-}
 .posts{
   display: flex;
   flex-direction: column;
@@ -35,12 +30,11 @@ img{
   align-items: center;
   width: 100%;
   /*border: solid 2px orange;*/
-  margin-right: 0px;
-  padding-right: 0px;
+  margin: 5px;
+  padding: 5px;
   background-color: rgba(0,0,0,1);
   color:white;
 }
-
 
 article{
   padding: 2rem 2rem 2rem 2rem;
@@ -73,6 +67,7 @@ header{
   height:500px;
   background-repeat: no-repeat;
 }
+
 .banner{
   font-weight: 900;
   background-size: 100%;
@@ -81,6 +76,7 @@ header{
   font-family: 'MyWebFont', Fallback, sans-serif;
   background-repeat: no-repeat;
 }
+
 .title{
   padding: 1%;
   margin-left: 3%;
@@ -110,6 +106,32 @@ text-shadow:
     /*border-bottom: 2px solid rgba(60,60,255,1);*/
     width: 100%;
 }
+
+input{
+  color: black;
+  font-family:sans-serif;
+  text-shadow:
+  -1px -1px 0 #E0FFFF,
+  1px -1px 0 #E0FFFF,
+  -1px 1px 0 #E0FFFF,
+  1px 1px 0 #E0FFFF;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .button{
   display: flex;
