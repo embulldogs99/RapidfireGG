@@ -31,7 +31,7 @@ img{
 }
 .posts{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -140,6 +140,11 @@ padding: 2rem .5rem 10rem .5rem;
 font-weight: 600;
 /*border: solid red 5px;*/
 }
+
+.fb-like{
+  color:white;
+}
+
 .sidebar:link{
 color: orange;
 }
