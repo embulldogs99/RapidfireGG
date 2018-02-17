@@ -6,6 +6,9 @@ body{
 img{
   width: 70%;
   height:400px;
+  display: flex;
+  flex-direction: column;
+  flex: center;
 }
 
 .page{
