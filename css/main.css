@@ -45,20 +45,19 @@ img{
 
 header{
   /*border-bottom: 2px solid rgba(60,60,255,1);*/
-  font-size: 40px;
   /*background-color: rgba(60,150,255,.6);*/
   font-weight: 900;
   background: url('header.jpg');
-  background-size: 800px 600px;
+  background-size: 1200px 600px;
   width: 100%;
   font-family: 'MyWebFont', Fallback, sans-serif;
   height: 600px;
 
 }
 .title{
-  padding: 3%;
+  padding: 1%;
   margin-left: 3%;
-  font-size: 60px;
+  font-size: 100px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -72,13 +71,13 @@ header{
 }
 
 .slogan{
-  font-size: 22px;
+  font-size: 50px;
 text-shadow:
 -1px -1px 0 #E0FFFF,
 1px -1px 0 #E0FFFF,
 -1px 1px 0 #E0FFFF,
 1px 1px 0 #E0FFFF;
-  padding: 0% 0% 1.5% 20%;
+  padding: 0% 0% 0% 20%;
   color: rgb(0,0,0);
   font-weight: 600;
     /*border-bottom: 2px solid rgba(60,60,255,1);*/
