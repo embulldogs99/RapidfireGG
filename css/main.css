@@ -42,6 +42,15 @@ img{
   color:white;
 }
 
+
+article{
+  padding: 2rem 2rem 2rem 2rem;
+  line-height: 20px;
+  text-align: center;
+  background-color: rgba(0,0,0,1);
+  color:white;
+}
+
 @font-face {
   font-family: 'MyWebFont';
   src: /*url('webfont.eot')  IE9 Compat Modes
@@ -191,15 +200,6 @@ svg:hover{
   font-size: 110%;
 }
 
-article{
-  padding: 2rem 2rem;
-  margin: 0rem 0rem 0rem 2rem;
-  background-color: rgba(255,255,255,.8);
-  width: 80%;
-  line-height: 20px;
-      text-align: center;
-  text-align: left;
-}
 
 h {
   font-size: 20px;
