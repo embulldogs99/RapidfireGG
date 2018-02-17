@@ -63,6 +63,7 @@ header{
   font-family: 'MyWebFont', Fallback, sans-serif;
   max-height: 600px;
   height:600px;
+  background-repeat: no-repeat;
 }
 .title{
   padding: 1%;
