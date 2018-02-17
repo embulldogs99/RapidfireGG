@@ -73,6 +73,14 @@ header{
   height:500px;
   background-repeat: no-repeat;
 }
+.banner{
+  font-weight: 900;
+  background-size: 100%;
+  width: 100%;
+  background-size: 100% 100%;
+  font-family: 'MyWebFont', Fallback, sans-serif;
+  background-repeat: no-repeat;
+}
 .title{
   padding: 1%;
   margin-left: 3%;
