@@ -20,11 +20,25 @@ func main() {
   http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("./css"))))
   http.Handle("/svg/", http.StripPrefix("/svg/", http.FileServer(http.Dir("./svg"))))
   http.HandleFunc("/", serve)
+  http.HandleFunc("/verify", serveverify)
+  http.HandleFunc("/weeklyregister", weeklyregister)
   log.Fatal(s.ListenAndServe())
 }
 
 func serve(w http.ResponseWriter, r *http.Request){
   var tpl *template.Template
-  tpl = template.Must(template.ParseFiles("main.gohtml","css/main.css","css/mcleod-reset.css","verification.gohtml","tregistration.gohtml"))
+  tpl = template.Must(template.ParseFiles("main.gohtml","css/main.css","css/mcleod-reset.css"))
+  tpl.Execute(w, nil)
+}
+
+func serveverify(w http.ResponseWriter, r *http.Request){
+  var tpl *template.Template
+  tpl = template.Must(template.ParseFiles("verification.gohtml","css/main.css","css/mcleod-reset.css",))
+  tpl.Execute(w, nil)
+}
+
+func weeklyregister(w http.ResponseWriter, r *http.Request){
+  var tpl *template.Template
+  tpl = template.Must(template.ParseFiles("tregistration.gohtml","css/main.css","css/mcleod-reset.css",))
   tpl.Execute(w, nil)
 }
