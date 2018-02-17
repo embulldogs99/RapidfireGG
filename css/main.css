@@ -38,10 +38,11 @@ header{
   font-size: 40px;
   /*background-color: rgba(60,150,255,.6);*/
   font-weight: 900;
-  background: url('pics/header.jpg');
-  background-size: 10px;
+  background: url('header.jpg');
+  background-size: 800px 600px;
   width: 100%;
   font-family: "Elemental End";
+  height: 600px;
 
 }
 .title{
