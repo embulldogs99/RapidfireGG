@@ -94,8 +94,9 @@ header{
   background-image: url("/pics/banner-flames.png");
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   width: 100%;
   height: 40px;
   position: fixed;
@@ -194,35 +195,10 @@ a{
   padding: 0px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-.button{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 40px;
-  background-color: rgba(255,255,255,.5);
-  /*border: 1px solid blue;*/
-}
 .buttons{
-  padding: 0px 10px 0px 4px;
+  padding: 0px 4px 0px 4px;
   margin: 1% 1%;
   /*border: solid 2px black;*/
-  display: flex;
-  text-align: center;
-  align-items: center;
   border-radius: 20rem;
   font-size: 7px;
   height: 80%;
@@ -244,49 +220,6 @@ font-weight: 600;
 /*border: solid red 5px;*/
 }
 
-.fb-like{
-  color:white;
-}
-
-.sidebar:link{
-color: orange;
-}
-.link {
-  color: darkorange;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-}
-.link2{
-  color: darkorange;
-  font-weight: 600;
-}
-
-.link2:hover{
-  color:rgba(0,150,255,1);
-  font-size: 110%;
-}
-
-.images{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-d{
-  font-weight: 900;
-}
-b{
-  font-weight: 900;
-}
-i{
-  font-style: italic;
-}
-h{
-  margin: 50px 0px 0px 50px;
-}
 
 svg{
   color:rgba(255,106,0,1);
@@ -298,32 +231,4 @@ svg:hover{
   cursor: crosshair;
   height:200px;
   width: 200px;
-}
-.link:hover{
-  color:rgba(255,255,255,1);
-  cursor: crosshair;
-  font-size: 110%;
-}
-
-
-h {
-  font-size: 20px;
-  font-weight: 900;
-  text-align: left;
-  margin-left: 0px;
-}
-
-table{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-td,th{
-  padding: 3px;
-  border: .5px solid black;
-}
-
-#spec{
-  background-color: yellow;
 }
