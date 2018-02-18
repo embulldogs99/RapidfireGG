@@ -22,6 +22,7 @@ func main() {
   http.HandleFunc("/", serve)
   http.HandleFunc("/verify", serveverify)
   http.HandleFunc("/weeklyregister", weeklyregister)
+  http.HandleFunc("/waitingregister", waitingregister)
   log.Fatal(s.ListenAndServe())
 }
 
@@ -40,5 +41,11 @@ func serveverify(w http.ResponseWriter, r *http.Request){
 func weeklyregister(w http.ResponseWriter, r *http.Request){
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("tregistration.gohtml","css/main.css","css/mcleod-reset.css",))
+  tpl.Execute(w, nil)
+}
+
+func waitingregister(w http.ResponseWriter, r *http.Request){
+  var tpl *template.Template
+  tpl = template.Must(template.ParseFiles("waitingverification.gohtml","css/main.css","css/mcleod-reset.css",))
   tpl.Execute(w, nil)
 }
