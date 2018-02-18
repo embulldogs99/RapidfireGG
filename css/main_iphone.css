@@ -39,9 +39,9 @@ img:hover{
 }
 
 .tester{
-  height:20px;
-  width:20px;
-  src: url('pics/instagram.jpg');
+  height:300px;
+  width:3000px;
+  src: url("/pics/instagram.jpg");
 
 }
 
