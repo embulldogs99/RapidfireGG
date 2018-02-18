@@ -5,7 +5,9 @@ import(
   	"html/template"
     "log"
     "fmt"
-    "os"
+    "io/ioutil"
+
+
 )
 
 
@@ -16,6 +18,9 @@ func main() {
     Addr:    ":8080",
     Handler: nil,
   }
+
+
+
 
   http.Handle("/favicon/", http.StripPrefix("/favicon/", http.FileServer(http.Dir("./favicon"))))
   http.Handle("/pics/", http.StripPrefix("/pics/", http.FileServer(http.Dir("./pics"))))
@@ -40,20 +45,6 @@ func verify(w http.ResponseWriter, r *http.Request){
   tpl = template.Must(template.ParseFiles("verification.gohtml","css/main.css","css/mcleod-reset.css",))
   tpl.Execute(w, nil)
 
-
-  if r.Method == http.MethodPost {
-
-    email := r.FormValue("email")
-    pass := r.FormValue("pass")
-    fmt.Println(email + " signed up with pass:" + pass)
-    file, err := os.Create("userlog.txt")
-    if err != nil {
-      log.Fatal("Cannot create file", err)
-    }
-    fmt.Fprintf(file, email + " signed up with pass:" + pass)
-    file.Close()
-    http.Redirect(w, r, "/waitingregister", http.StatusSeeOther)
-    }
 }
 
 
@@ -66,16 +57,21 @@ func weeklyregister(w http.ResponseWriter, r *http.Request){
 func waitingregister(w http.ResponseWriter, r *http.Request){
 
   if r.Method == http.MethodPost {
-
     email := r.FormValue("email")
     pass := r.FormValue("pass")
     fmt.Println(email + " signed up with pass:" + pass)
-    http.Redirect(w, r, "/waitingregister", http.StatusSeeOther)
+
+    err := ioutil.WriteFile("test.txt", []byte(email+":"+pass), 0666)
+    if err != nil {
+        log.Fatal(err)
     }
 
+    http.Redirect(w, r, "/waitingregister", http.StatusSeeOther)
+    }
 
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("waitingverification.gohtml","css/main.css","css/mcleod-reset.css",))
   tpl.Execute(w, nil)
+
 
 }
