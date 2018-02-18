@@ -8,7 +8,7 @@ body{
       font-family: 'MyWebFont', Fallback, sans-serif;
 }
 iframe{
-  padding:1px 1px 1px 40px;
+  padding:0px 0px 0px 10px;
   width: 200px;
 
 }
@@ -174,7 +174,7 @@ input[type="submit"]:hover {
 .socialmedia{
   display:flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center
   padding: 0px;
   margin: 0px;
