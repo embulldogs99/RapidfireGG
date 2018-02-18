@@ -8,7 +8,9 @@ body{
       font-family: 'MyWebFont', Fallback, sans-serif;
 }
 iframe{
-  padding:1px 1px 1px 20px;
+  padding:1px 1px 1px 40px;
+  width: 200px;
+
 }
 form{s
   padding: 30px 30px 30px 30px;
