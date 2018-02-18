@@ -1,3 +1,5 @@
+
+
 body{
   background-color: rgba(0,0,0,.25);
     flex-direction: row;
@@ -5,7 +7,13 @@ body{
     align-items: center;
       font-family: 'MyWebFont', Fallback, sans-serif;
 }
-
+iframe{
+  padding:1px 1px 1px 80px;
+}
+form{
+  padding: 30px 30px 30px 30px;
+  font size: 16px;
+}
 .layer {
     background-color: rgba(248, 247, 216, .06);
     position: absolute;
@@ -30,10 +38,11 @@ img{
   align-items: center;
   width: 100%;
   /*border: solid 2px orange;*/
-  margin: 5px;
-  padding: 5px;
+  margin: 2px;
+  padding: 2px;
   background-color: rgba(0,0,0,1);
   color:white;
+    /*border: 1px solid blue;*/
 }
 
 article{
@@ -71,10 +80,15 @@ header{
 .banner{
   font-weight: 900;
   background-size: 100%;
-  width: 100%;
-  background-size: 100% 100%;
   font-family: 'MyWebFont', Fallback, sans-serif;
-  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  background-color: rgba(255,255,255,.5);
+  /*border: 1px solid blue;*/
 }
 
 .title{
@@ -115,10 +129,21 @@ input{
   1px -1px 0 #E0FFFF,
   -1px 1px 0 #E0FFFF,
   1px 1px 0 #E0FFFF;
+  font-size:2.2em;
+  width: 70%;
+}
+input[type=checkbox]
+{
+  -webkit-appearance:checkbox;
 }
 
-
-
+.checked{
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+}
 
 
 
