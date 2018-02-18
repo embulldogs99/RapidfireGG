@@ -175,7 +175,9 @@ input[type="submit"]:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 40px;
+  padding: 0px;
+  margin: 0px;
+  font-size: 10px;
 
 }
 
