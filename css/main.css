@@ -43,11 +43,8 @@ img{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  /*width: 100%;*/
   /*border: solid 2px orange;*/
-  margin: 2px;
-  padding: 2px;
-  background-color: rgba(0,0,0,1);
   color:white;
     /*border: 1px solid blue;*/
 }
@@ -73,11 +70,11 @@ article{
 header{
   /*border-bottom: 2px solid rgba(60,60,255,1);*/
   /*background-color: rgba(60,150,255,.6);*/
-  font-weight: 900;
   background: url('header.jpg');
-  height:500px;
+  background-color: black;
+  background-position: 50%;
+  height:1080px;
   width: 100%;
-  background-size: 100% 100%;
   font-family: 'MyWebFont', Fallback, sans-serif;
   max-height: 500px;
   background-repeat: no-repeat;
@@ -180,7 +177,11 @@ input[type="submit"]:hover {
 }
 
 a:hover{
-  background-color: rgba(50,50,50,.5);
+  background-color: rgba(255,255,255,1);
+}
+
+.tourney:hover{
+    background-color: rgba(255,255,255,1);
 }
 
 a{
