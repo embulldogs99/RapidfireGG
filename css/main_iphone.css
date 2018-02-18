@@ -105,26 +105,6 @@ header{
    bottom: 0;
    right:0;
    border: 4px solid green;
-
-
-
-  /*border: 1px solid blue;*
-}
-
-.title{
-  padding: 1%;
-  margin-left: 3%;
-  font-size: 100px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  text-align: left;
-  text-shadow:
-  -1px -1px 0 #E0FFFF,
-  1px -1px 0 #E0FFFF,
-  -1px 1px 0 #E0FFFF,
-  1px 1px 0 #E0FFFF;
-  /*border: 2px solid green;*/
 }
 
 .slogan{
@@ -196,7 +176,7 @@ a{
 }
 
 .buttons{
-  padding: 0px 4px 0px 4px;
+  padding: 0px 10px 0px 10px;
   margin: 1% 1%;
   /*border: solid 2px black;*/
   border-radius: 20rem;
