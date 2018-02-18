@@ -153,10 +153,20 @@ input[type="submit"]:hover {
   padding: 0px 0px 0px 40px};
 }
 
+.socialmedia{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 40px;
+}
 
+a:hover{
+  background-color: rgba(50,50,50,.5);
+}
 
-
-
+a{
+  padding: 100px;
+}
 
 
 
