@@ -34,9 +34,6 @@ img{
     padding: 0px 0px;
 }
 
-img:hover{
-  border: 20px solid red;
-}
 
 .tester{
   height:300px;
@@ -58,13 +55,6 @@ img:hover{
     /*border: 1px solid blue;*/
 }
 
-article{
-  padding: 2rem 2rem 2rem 2rem;
-  line-height: 20px;
-  text-align: center;
-  background-color: rgba(0,0,0,1);
-  color:white;
-}
 
 @font-face {
   font-family: 'MyWebFont';
@@ -104,6 +94,19 @@ header{
    left: 0;
    bottom: 0;
    right:0;
+}
+
+.buttons{
+  padding: 0px 10px 0px 10px;
+  margin: 1% 1%;
+  /*border: solid 2px black;*/
+  border-radius: 20rem;
+  font-size: 7px;
+  height: 80%;
+
+}
+.buttons:hover{
+  background-color: rgba(255,255,255,1);
 }
 
 .slogan{
@@ -174,18 +177,7 @@ a{
   padding: 0px;
 }
 
-.buttons{
-  padding: 0px 10px 0px 10px;
-  margin: 1% 1%;
-  /*border: solid 2px black;*/
-  border-radius: 20rem;
-  font-size: 7px;
-  height: 80%;
 
-}
-.buttons:hover{
-  background-color: rgba(255,255,255,1);
-}
 .sidebar{
 display: flex;
 flex-direction: column;
