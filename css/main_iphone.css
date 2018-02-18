@@ -287,8 +287,8 @@ h{
 
 svg{
   color:rgba(255,106,0,1);
-  height:10px;
-  width: 10px;
+  height:300px;
+  width:300px;
 }
 svg:hover{
   color:rgba(255,255,255,1);
