@@ -167,13 +167,14 @@ input[type="submit"]:hover {
 
 .verify{
   background-color: rgb(0,0,0,.2);
-  padding: 0px 0px 0px 10px};
+  padding: 0px 0px 0px 0px};
 }
 
 .socialmedia{
   display:flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   font-size: 40px;
 
 }
