@@ -220,6 +220,9 @@ a{
   padding: 0px 10px 0px 4px;
   margin: 1% 1%;
   /*border: solid 2px black;*/
+  display: flex;
+  text-align: center;
+  align-items: center;
   border-radius: 20rem;
   font-size: 7px;
   height: 80%;
