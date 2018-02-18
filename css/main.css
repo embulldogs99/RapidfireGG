@@ -1,7 +1,7 @@
 
 
 body{
-  background-color: rgba(0,0,0,1);
+  background-color: rgba(0,0,0,.6);
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -9,6 +9,8 @@ body{
 }
 iframe{
   padding:1px 1px 1px 80px;
+  height: 200px;
+  width:300px;
 }
 form{
   padding: 30px 30px 30px 30px;
@@ -23,6 +25,11 @@ form{
     height: 100%;
   }
 
+.tester{
+  height:200px;
+  width:200px;
+
+}
 img{
   width: 1000px;
   height:700px;
@@ -157,14 +164,18 @@ input[type="submit"]:hover {
 
 .verify{
   background-color: rgb(0,0,0,.7);
-  padding: 0px 0px 0px 40px};
+  padding: 0px 0px 0px 40px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .socialmedia{
   display:flex;
   flex-direction: row;
   justify-content: space-between;
-  font-size: 40px;
+  padding: 50px;
+  font-size: 20px;
 }
 
 a:hover{
@@ -172,7 +183,7 @@ a:hover{
 }
 
 a{
-  padding: 100px;
+  padding: 0px;
 }
 
 
@@ -256,7 +267,7 @@ color: orange;
   text-align: center;
 }
 img{
-  padding: 20px 0px;
+  padding: 10px 10px;
 }
 
 d{
@@ -274,14 +285,12 @@ h{
 
 svg{
   color:rgba(255,106,0,1);
-  height:30px;
-  width: 30px;
+  height: 250px;
+  width: 250px;
 }
 svg:hover{
   color:rgba(255,255,255,1);
-  cursor: crosshair;
-  height:40px;
-  width: 40px;
+
 }
 .link:hover{
   color:rgba(255,255,255,1);

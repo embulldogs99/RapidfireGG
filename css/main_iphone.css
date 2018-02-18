@@ -12,7 +12,7 @@ iframe{
   width: 200px;
 
 }
-form{s
+form{
   padding: 30px 30px 30px 30px;
   font size: 16px;
 }
@@ -36,6 +36,12 @@ img{
 
 img:hover{
   border: 20px solid red;
+}
+
+.tester{
+  height:200px;
+  width:200px;
+
 }
 
 .posts{
@@ -161,7 +167,7 @@ input[type="submit"]:hover {
 
 .verify{
   background-color: rgb(0,0,0,.2);
-  padding: 0px 0px 0px 40px};
+  padding: 0px 0px 0px 10px};
 }
 
 .socialmedia{
@@ -169,6 +175,7 @@ input[type="submit"]:hover {
   flex-direction: column;
   justify-content: space-between;
   font-size: 40px;
+
 }
 
 a:hover{
