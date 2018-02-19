@@ -27,10 +27,18 @@
 <div class="posts">
 <br><br><br><br><br><br><br><br>
 
-  Personal Stats:
 
-{{.}}
 
+  hello {{.UserName}}!
+    Personal Stats:
+              {{range .Email}}
+                  an email {{.}}
+              {{end}}
+
+              {{range .}}
+                  my heat is {{.Heat}}
+              {{end}}
+            
 <br><br><br>
 
 Tournaments:<br><br>
