@@ -115,7 +115,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     }
     dbusers.Close()
     fmt.Println(passcheck)
-    fmt.Println(rows)
+    fmt.Println(string(rows))
     }
 }
 
