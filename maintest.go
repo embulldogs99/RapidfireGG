@@ -124,8 +124,22 @@ func profile(w http.ResponseWriter, r *http.Request){
     var credits int
     var grade int
 
+    type Data struct{
+      Email string
+      Pass string
+      Ppal bool
+      Wins int
+      Losses int
+      Heat int
+      Refers int
+      Memberflag string
+      Credits int
+      Grade int
+
+    }
+
     err = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2 AND memberflag=$3",emailcheck,passcheck,"y").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag, &credits, &grade)
-    data:="Wins:"+strconv.Itoa(wins)+" "+"Heat:"+strconv.Itoa(heat)+" "+"Referalls:"+strconv.Itoa(refers)+" "+"Credits:"+strconv.Itoa(credits)+"Grade:"+strconv.Itoa(grade)
+    data:=Data{email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade}
 
     switch{
     case err == sql.ErrNoRows:
@@ -135,7 +149,7 @@ func profile(w http.ResponseWriter, r *http.Request){
       log.Fatal(err)
     default:
       var tpl *template.Template
-      tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
+      tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css"))
 
       tpl.Execute(w,data)
       fmt.Println("success")
