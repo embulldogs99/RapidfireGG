@@ -110,8 +110,8 @@ func profile(w http.ResponseWriter, r *http.Request){
     }
 
     var exists bool
-    err = dbusers.QueryRow("SELECT email FROM rfgg.members WHERE pass=$1 AND email=$2", passcheck, emailcheck).Scan(&exists)
-    if err != nil && err != sql.ErrNoRows {
+    exister,err := dbusers.QueryRow("SELECT email FROM rfgg.members WHERE pass=$1 AND email=$2", passcheck, emailcheck).Scan(&exists)
+    if exister><1 {
               http.Redirect(w, r, "/login", http.StatusSeeOther)
       }
       var tpl *template.Template
