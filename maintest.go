@@ -55,7 +55,7 @@ func main() {
 
 func dbupost(e string,p string,pp bool,m bool) {
 
-	dbusers, err = sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+	dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
 	if err != nil {
 		log.Fatalf("Unable to connect to the database")
 	}
