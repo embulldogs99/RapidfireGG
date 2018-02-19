@@ -116,12 +116,19 @@ func dbpull( w http.ResponseWriter, r *http.Request, e string, p string) []Data{
 		log.Fatalf("Unable to connect to the database")
 	}
 	//queries the rows to view all the data
-	rows, err := db.Exec("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",e,p)
+	rows, err := db.Exec("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",e,p).Scan(&email)
 	if err != nil {
 		http.Error(w, http.StatusText(500), 500)
 		log.Fatal("this is where it breaks")
 	}
-	bks := make([]Data, 0)
+
+  return rows
+
+
+
+
+
+	/*bks := make([]Data, 0)
 	//cycles through the rows to grab the data by row
 	for rows.Next() {
 		bk := Data{}
@@ -139,6 +146,8 @@ func dbpull( w http.ResponseWriter, r *http.Request, e string, p string) []Data{
 	//returns the databse values for use in another function
 	return bks
 }
+*/
+
 
 
 func profile(w http.ResponseWriter, r *http.Request){
