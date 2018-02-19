@@ -108,7 +108,7 @@ func profile(w http.ResponseWriter, r *http.Request){
   	if err != nil {
       log.Fatalf("Unable to connect to the database")
     }
-    var memberflag bool
+    var memberflag string
     err = dbusers.QueryRow("SELECT memberflag FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck).Scan(&memberflag)
     switch{
     case err == sql.ErrNoRows:
@@ -117,7 +117,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     case err != nil:
       log.Fatal(err)
     default:
-      fmt.Println( memberflag)
+      fmt.Println(memberflag)
     }
   }
 }
