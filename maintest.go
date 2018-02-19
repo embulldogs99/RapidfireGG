@@ -9,7 +9,6 @@ import(
     "database/sql"
 _ "github.com/lib/pq"
 
-    "encoding/json"
 )
 
 
@@ -126,8 +125,8 @@ func profile(w http.ResponseWriter, r *http.Request){
       Email string
     }
 
-    m:=Data{email}
-    b, err := json.Marshal(m)
+    data:=Data{email}
+
 
     switch{
     case err == sql.ErrNoRows:
@@ -138,7 +137,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     default:
       var tpl *template.Template
       tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
-      tpl.Execute(w, b)
+      tpl.Execute(w, data)
       fmt.Println("success")
       }
   }
