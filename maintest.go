@@ -108,7 +108,7 @@ func profile(w http.ResponseWriter, r *http.Request){
   	if err != nil {
       log.Fatalf("Unable to connect to the database")
     }
-    var email string
+    var pass string
     err = dbusers.QueryRow("SELECT (email,pass) FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck).Scan(&pass)
     switch{
     case err == sql.ErrNoRows:
