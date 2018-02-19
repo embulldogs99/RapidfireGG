@@ -117,13 +117,13 @@ func dbpull( w http.ResponseWriter, r *http.Request, e string, p string) []Data{
 	}
 	//queries the rows to view all the data
   var email string
-	rows, err := db.QueryRow("SELECT * FROM rfgg.members WHERE email=$1",e).Scan(&email)
+	_, err := db.QueryRow("SELECT * FROM rfgg.members WHERE email=$1",e).Scan(&email)
 	if err != nil {
 		http.Error(w, http.StatusText(500), 500)
 		log.Fatal("this is where it breaks")
 	}
 
-  return rows
+  return email
 
 }
 
