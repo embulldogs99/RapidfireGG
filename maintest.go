@@ -53,15 +53,15 @@ func main() {
 }
 
 
-func dbupost(e string,p string,pp bool,m bool) {
+func dbupost(e string,p string) {
 
 	dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
 	if err != nil {
 		log.Fatalf("Unable to connect to the database")
 	}
 
-  sqlStatement := `INSERT INTO rfgg.members (email, pass, ppal, memberflag) VALUES ($1, $2, $3, $4);`
-  _, err = dbusers.Exec(sqlStatement, e,p,pp,m)
+  sqlStatement := `INSERT INTO rfgg.members (email, pass) VALUES ($1, $2);`
+  _, err = dbusers.Exec(sqlStatement, e,p)
   if err != nil {
     panic(err)
   }
@@ -94,11 +94,9 @@ func waitingregister(w http.ResponseWriter, r *http.Request){
   if r.Method == http.MethodPost {
     email := r.FormValue("email")
     pass := r.FormValue("pass")
-    ppal := true
-    membf := true
 
     fmt.Println(email + " signed up with pass:" + pass)
-    dbupost(email,pass,ppal,membf)
+    dbupost(email,pass)
 
     err := ioutil.WriteFile("test.txt", []byte(email+":"+pass), 0666)
     if err != nil {
