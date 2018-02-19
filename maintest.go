@@ -135,7 +135,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     case err != nil:
       log.Fatal(err)
     default:
-      tpl, _ := template.New("name").Parse("profile.gohtml","css/main.css","css/mcleod-reset.css")
+      tpl, _ := template.New("name").Parse("profile.gohtml")
       tpl.Execute(w,data)
       fmt.Println(email+"has logged in")
 
