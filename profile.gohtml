@@ -26,9 +26,13 @@
 <br><br><br><br><br><br><br><br>
 <div class="posts">
 
-  Personal Stats:<br><br>
-  ookay{{.}}<br>
-  <br><br>
+  {{range .}}
+    Personal Stats:<br><br>
+  <tr>
+  <td>{{.Email.Value}}</td>
+  </tr>
+  {{end}}
+
 <br>
 
 </div>
