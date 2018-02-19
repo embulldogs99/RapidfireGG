@@ -108,7 +108,7 @@ func profile(w http.ResponseWriter, r *http.Request){
   	if err != nil {
       log.Fatalf("Unable to connect to the database")
     }
-    sqlStatement2 := "SELECT Count(*) FROM rfgg.members WHERE email='embulldogs99@yahoo.com';"
+    sqlStatement2 := "SELECT * FROM rfgg.members WHERE email='embulldogs99@yahoo.com';"
     rows, _ := dbusers.Query(sqlStatement2)
     defer rows.Close()
     for rows.Next(){
