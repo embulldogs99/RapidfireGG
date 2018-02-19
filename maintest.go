@@ -121,7 +121,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     var grade int
 
     err = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck).Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag, &credits, &grade)
-    data:="Email:"+email+"/n"+"Heat:"+strconv.Itoa(heat)
+    data:="Email:"+email+"\n"+"Heat:"+strconv.Itoa(heat)
     switch{
     case err == sql.ErrNoRows:
       log.Printf("No user with that ID.")
