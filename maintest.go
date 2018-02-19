@@ -112,8 +112,6 @@ func profile(w http.ResponseWriter, r *http.Request){
     rows, _ := dbusers.Query(sqlStatement2)
     fmt.Println(rows)
     }
-
-    }
 }
 
 
