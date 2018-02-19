@@ -135,7 +135,7 @@ func profile(w http.ResponseWriter, r *http.Request){
       log.Fatal(err)
     default:
       var tpl *template.Template
-      tpl = template.Parse("profile.gohtml","css/main.css","css/mcleod-reset.css",))
+      tpl = template.Parse("profile.gohtml","css/main.css","css/mcleod-reset.css")
       tpl.Execute(w,data)
       fmt.Println(email+"has logged in")
 
