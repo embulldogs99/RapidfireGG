@@ -10,7 +10,6 @@ import(
 _ "github.com/lib/pq"
     "strconv"
 
-
 )
 
 
@@ -135,70 +134,11 @@ func profile(w http.ResponseWriter, r *http.Request){
     case err != nil:
       log.Fatal(err)
     default:
-      tpl, _ := template.New("name").Parse("<!doctype html>
-
-        <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-        <link rel="manifest" href="/manifest.json">
-        <meta name="theme-color" content="#ffffff">
-        <meta name="viewport" content="width=device-width,initial-scale=1">
-
-        <link href="css/mcleod-reset.css" rel="stylesheet">
-        <link href="css/main.css" rel="stylesheet">
-        <link href="css/main_iphone.css" media="(max-width: 600px)" rel="stylesheet">
-
-        <html>
-
-        <div class="banner">
-              <a href="/" class="buttons"> Home </a>
-              <a href="https://www.instagram.com/rapidfire.gg" class="buttons" target="_blank"> Instagram </a>
-              <a href="https://www.paypal.me/embulldogs99" class="buttons" target="_blank"> donate </a>
-              <a href="mailto:OfficialRapidFire.gg@gmail.com" class="buttons" target="_blank"> email Us </a>
-              <a href="https://www.facebook.com/RapidFireSupport/" class="buttons" target="_blank"> Support </a>
-        </div>
-
-
-        <body>
-
-        <div class="posts">
-        <br><br><br><br><br><br><br><br>
-
-
-
-          hello {{.UserName}}!
-            Personal Stats:
-                      {{range .Email}}
-                          an email {{.}}
-                      {{end}}
-
-                      {{range .}}
-                          my heat is {{.Heat}}
-                      {{end}}
-
-        <br><br><br>
-
-        Tournaments:<br><br>
-        Coming soon............
-
-        </div>
-
-
-        <div class="posts">
-        <br><br><br><br><br><br><br>
-        <br><br><br><br><br><br><br>
-        <br><br><br><br><br><br><br>
-        <br><br><br><br><br><br><br><br>
-        <br><br><br><br><br><br><br><br>
-        <br><br><br><br><br><br><br><br>
-        <br><br><br><br><br><br><br><br>
-        </div>
-
-        </body>
-        </html>")
+      var tpl *template.Template
+      tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
 
       tpl.Execute(w,data)
-      fmt.Println(email+"has logged in")
+      fmt.Println("success")
 
       }
   }
