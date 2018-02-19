@@ -106,7 +106,7 @@ func profile(w http.ResponseWriter, r *http.Request){
   	if err != nil {
       log.Fatalf("Unable to connect to the database")
     }
-    rows, err := dbusers.Query("SELECT COUNT(*) as count FROM rfgg.members WHERE (email+pass) = VALUES ($1);", emailcheck+password)
+    rows, err := dbusers.Query(`SELECT COUNT(*) as count FROM rfgg.members WHERE (email+pass) = VALUES ($1);`, emailcheck+password)
     if err != nil {
       log.Fatal(err)
     }
