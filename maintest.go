@@ -96,13 +96,7 @@ func login(w http.ResponseWriter, r *http.Request){
 
 
 func rowExists(query string, args ...interface{}) bool {
-    var exists bool
-    query = fmt.Sprintf("SELECT exists (%s)", query)
-    err := db.QueryRow(query, args...).Scan(&exists)
-    if err != nil && err != sql.ErrNoRows {
-            glog.Fatalf("error checking if row exists '%s' %v", args, err)
-    }
-    return exists
+
 }
 
 
@@ -118,12 +112,17 @@ func profile(w http.ResponseWriter, r *http.Request){
   	if err != nil {
       log.Fatalf("Unable to connect to the database")
     }
-    if rowExists("SELECT email FROM rfgg.members WHERE pass=$1 AND email=$2", passcheck, emailcheck) {
+
+    var exists bool
+    query = fmt.Sprintf("SELECT exists (%s)", query)
+    err := dbusers.QueryRow("SELECT email FROM rfgg.members WHERE pass=$1 AND email=$2", passcheck, emailcheck).Scan(&exists)
+    if err != nil && err != sql.ErrNoRows {
+              http.Redirect(w, r, "/login", http.StatusSeeOther)
+              glog.Fatalf("error checking if row exists '%s' %v", args, err)
+      }
       var tpl *template.Template
       tpl = template.Must(template.ParseFiles("waitingverification.gohtml","css/main.css","css/mcleod-reset.css",))
-      tpl.Execute(w, nil)} else{
-        http.Redirect(w, r, "/login", http.StatusSeeOther)
-      }
+      tpl.Execute(w, nil)
     }
 }
 
