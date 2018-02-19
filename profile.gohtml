@@ -31,17 +31,19 @@
 
   hello {{.Email}}!<br><br>
   you have: {{.Credits}} firecredits<br><br>
-    personal stats:<br>
-                  wins:{{.Wins}}<br><br>
-                  losses:{{.Losses}}<br><br>
-                  heat:{{.Heat}}<br><br>
-                  grade:{{.Grade}}<br><br>
+    Personal Stats:<br><br>
+              {{range .Email}}
+                {{.}}
+              {{end}}
+
+              {{range .Credits}}
+                  {{.}}
+              {{end}}
 
 <br><br><br>
 
 Tournaments:<br><br>
-here is your exclusive tournament registration link: <br>
-<a href="/weeklyregister"
+Coming soon............
 
 </div>
 
