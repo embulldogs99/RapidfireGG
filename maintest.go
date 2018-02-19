@@ -109,7 +109,7 @@ func profile(w http.ResponseWriter, r *http.Request){
       log.Fatalf("Unable to connect to the database")
     }
 
-    exister, err := dbusers.Query("SELECT email FROM rfgg.members WHERE email=$1", emailcheck)
+    exister, err := dbusers.Query("SELECT * FROM rfgg.members WHERE email=$1", emailcheck)
     fmt.Println(err)
     fmt.Println(passcheck)
     fmt.Println(exister)
