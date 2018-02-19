@@ -110,7 +110,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     }
     dbusers.Close()
 
-    if test = true{
+    if test {
       var tpl *template.Template
       tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
       tpl.Execute(w, nil)
