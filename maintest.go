@@ -116,8 +116,17 @@ func profile(w http.ResponseWriter, r *http.Request){
       http.Redirect(w, r, "/login", http.StatusSeeOther)
     case err != nil:
       log.Fatal(err)
-    default:
-      fmt.Println(memberflag)
+    case memberflag=='Y':
+      memb, err := dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck)
+      for memb.Next(){
+        var email as string
+        fmt.Println(&email)
+      }
+      var tpl *template.Template
+      tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
+      tpl.Execute(w, nil)
+    case default:
+      http.Redirect(w, r, "/login", http.StatusSeeOther)
     }
   }
 }
