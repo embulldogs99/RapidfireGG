@@ -95,10 +95,6 @@ func login(w http.ResponseWriter, r *http.Request){
 }
 
 
-func rowExists(query string, args ...interface{}) bool {
-
-}
-
 
 func profile(w http.ResponseWriter, r *http.Request){
   if r.Method == http.MethodPost {
