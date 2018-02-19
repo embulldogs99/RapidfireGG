@@ -122,11 +122,12 @@ func profile(w http.ResponseWriter, r *http.Request){
     err = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck).Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag, &credits, &grade)
 
     type Data struct{
-      Email string
+      Email sql.NullString
+      Wins int
+      Heat int
+      Refers int
+      Grade int
     }
-
-    data:=Data{email}
-
 
     switch{
     case err == sql.ErrNoRows:
@@ -139,9 +140,45 @@ func profile(w http.ResponseWriter, r *http.Request){
       tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
       tpl.Execute(w, data)
       fmt.Println("success")
+      dbpull()
       }
   }
 }
+
+
+func dbpull( w http.ResponseWriter, r *http.Request) []Data{
+	//opens conncetion to db for use
+	db, err = sql.Open("postgres","postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+	if err != nil {
+		log.Fatalf("Unable to connect to the database")
+	}
+	//queries the rows to view all the data
+	rows, err := db.Query("SELECT * FROM rfgg.members")
+	if err != nil {
+		http.Error(w, http.StatusText(500), 500)
+		log.Fatal("this is where it breaks")
+	}
+	bks := make([]Data, 0)
+	//cycles through the rows to grab the data by row
+	for rows.Next() {
+		bk := data{}
+		err := rows.Scan(&bk.email, &bk.Wins, &bk.Heat, &bk.Refers, &bk.Grade)
+		if err != nil {
+			http.Error(w, http.StatusText(500), 500)
+			log.Fatal(err)
+		}
+		// appends the rows
+		bks = append(bks, bk)
+
+	}
+	db.Close()
+	//returns the databse values for use in another function
+	return bks
+}
+
+
+
+
 
 
 func waitingregister(w http.ResponseWriter, r *http.Request){
