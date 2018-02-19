@@ -8,21 +8,10 @@ import(
     "io/ioutil"
     "database/sql"
 _ "github.com/lib/pq"
+    "strconv"
 
 )
 
-type Data struct{
-  Email string
-  Pass string
-  Ppal bool
-  Wins int
-  Losses int
-  Heat int
-  Refers int
-  Memberflag string
-  Credits float64
-  Grade int
-}
 
 func main() {
 
@@ -45,24 +34,6 @@ func main() {
   http.HandleFunc("/login", login)
   http.HandleFunc("/profile", profile)
   log.Fatal(s.ListenAndServe())
-
-
-
-
-/*type user struct {
-	email string
-	pass  string
-	ppal  bool
-	wins  int
-  losses int
-  heat int
-  refers int
-  memberflag int
-  credits float64
-  gread int
-}*/
-
-/*var dbs = map[string]string{} //session id, stores userids*/
 
 
 }
@@ -109,26 +80,6 @@ func login(w http.ResponseWriter, r *http.Request){
 
 
 
-func dbpull( w http.ResponseWriter, r *http.Request, e string) string{
-	//opens conncetion to db for use
-	db, err := sql.Open("postgres","postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-	if err != nil {
-		log.Fatalf("Unable to connect to the database")
-	}
-	//queries the rows to view all the data
-  var email string
-	err = db.QueryRow("SELECT * FROM rfgg.members WHERE email=$1",e).Scan(&email)
-	if err != nil {
-		http.Error(w, http.StatusText(500), 500)
-		log.Fatal("this is where it breaks")
-	}
-
-  return email
-
-}
-
-
-
 	/*bks := make([]Data, 0)
 	//cycles through the rows to grab the data by row
 	for rows.Next() {
@@ -148,8 +99,6 @@ func dbpull( w http.ResponseWriter, r *http.Request, e string) string{
 	return bks
 }
 */
-
-
 
 func profile(w http.ResponseWriter, r *http.Request){
   if r.Method == http.MethodPost {
@@ -176,7 +125,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     var grade int
 
     err = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck).Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag, &credits, &grade)
-
+    data:="Wins:"+strconv.Iota(wins)+" "+"Heat:"+heat+" "+"Referalls:"+refers+" "+"Credits:"+credits+"Grade:"+grade
 
     switch{
     case err == sql.ErrNoRows:
@@ -187,8 +136,8 @@ func profile(w http.ResponseWriter, r *http.Request){
     default:
       var tpl *template.Template
       tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
-      m:=dbpull(w,r,email)
-      tpl.Execute(w, m)
+
+      tpl.Execute(w,data)
       fmt.Println("success")
 
       }
