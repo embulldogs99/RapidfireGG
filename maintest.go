@@ -62,7 +62,7 @@ func dbusignup(e string,p string) {
 	if err != nil {
 		log.Fatalf("Unable to connect to the database")
 	}
-  sqlStatement := `INSERT INTO rfgg.members (email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade ) VALUES ($1, $2, true, 0, 0, 0, 0, true, 0, 0);`
+  sqlStatement := `INSERT INTO rfgg.members (email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade ) VALUES ($1, $2, true, 0, 0, 0, 0, 'Y', 0, 0);`
   _, err = dbusers.Exec(sqlStatement, e,p)
   if err != nil {
     panic(err)
@@ -109,8 +109,17 @@ func profile(w http.ResponseWriter, r *http.Request){
   	if err != nil {
       log.Fatalf("Unable to connect to the database")
     }
-    var memberflag string
-    err = dbusers.QueryRow("SELECT memberflag FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck).Scan(&memberflag)
+
+    var email string
+    var wins int
+    var losses int
+    var heat int
+    var refers int
+    var credits float64
+    var grade int
+
+    err = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck).Scan(&email, &wins, &losses, &heat, &refers, &credits, &grade)
+
     switch{
     case err == sql.ErrNoRows:
       log.Printf("No user with that ID.")
@@ -121,9 +130,13 @@ func profile(w http.ResponseWriter, r *http.Request){
       var tpl *template.Template
       tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
       tpl.Execute(w, nil)
-      var email string
-      _, err = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck).Scan(&email)
-        fmt.Println(email)
+      fmt.Println(email)
+      fmt.Println(wins)
+      fmt.Println(losses)
+      fmt.Println(heat)
+      fmt.Println(refers)
+      fmt.Println(credits)
+      fmt.Println(grade)
       }
   }
 }
