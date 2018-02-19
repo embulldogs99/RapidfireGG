@@ -118,8 +118,6 @@ func profile(w http.ResponseWriter, r *http.Request){
   }
 
 
-}
-
 func waitingregister(w http.ResponseWriter, r *http.Request){
 
   if r.Method == http.MethodPost {
