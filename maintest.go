@@ -108,9 +108,9 @@ func profile(w http.ResponseWriter, r *http.Request){
         var emailcheck string
         var passcheck string
         var memberflag as bool
-        e,p,m, err := rows.Scan(&emailcheck, &passcheck, &memberflag)
+        err = rows.Scan(&emailcheck, &passcheck, &memberflag)
         checkErr(err)
-        if m{
+        if pass=passcheck{
           var tpl *template.Template
           tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
           tpl.Execute(w, nil)
