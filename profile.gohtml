@@ -36,25 +36,8 @@
     losses:{{.Losses}}<br><br>
     heat:{{.Heat}}<br><br>
     grade:{{.Grade}}<br><br>
-    
-              {{range .Email}}
-                {{.}}
-              {{end}}
-              {{range .Credits}}
-                  {{.}}
-              {{end}}
-              {{range .Wins}}
-                  {{.}}
-              {{end}}
-              {{range .Losses}}
-                  {{.}}
-              {{end}}
-              {{range .Heat}}
-                  {{.}}
-              {{end}}
-              {{range .Grade}}
-                  {{.}}
-              {{end}}
+
+
 
 <br><br><br>
 
@@ -76,3 +59,22 @@ Coming soon............
 
 </body>
 </html>
+
+{{range .Email}}
+  {{.}}
+{{end}}
+{{range .Credits}}
+    {{.}}
+{{end}}
+{{range .Wins}}
+    {{.}}
+{{end}}
+{{range .Losses}}
+    {{.}}
+{{end}}
+{{range .Heat}}
+    {{.}}
+{{end}}
+{{range .Grade}}
+    {{.}}
+{{end}}
