@@ -102,26 +102,18 @@ func profile(w http.ResponseWriter, r *http.Request){
   	if err != nil {
       log.Fatalf("Unable to connect to the database")
   	}
-    rows, err := dbusers.Query("SELECT * FROM frgg.members")
+
+    sqlStatement2 := `Select pass FROM rfgg.members WHERE (email,pass) = VALUES ($1, $2);`
+    _, err = dbusers.Exec(sqlStatement2, e,p)
     if err != nil {
-      log.Fatalf("Unable to connect to the database")
-    }
-    for rows.Next() {
-        var emailcheck string
-        var passcheck string
-        var memberflag bool
-        rows.Scan(&emailcheck, &passcheck, &memberflag)
-        if email+pass==emailcheck+passcheck{
-          var tpl *template.Template
-          tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
-          tpl.Execute(w, nil)
-        }else{
-        http.Redirect(w, r, "/login", http.StatusSeeOther)
-      }
-    }
+      log.Fatalf("SLECT statement Fail")
+      http.Redirect(w, r, "/login", http.StatusSeeOther)
+      }else{
+        var tpl *template.Template
+        tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
+        tpl.Execute(w, nil)
+        }
     dbusers.Close()
-
-
     }
 
   }
