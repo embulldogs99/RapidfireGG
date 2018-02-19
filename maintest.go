@@ -11,16 +11,17 @@ _ "github.com/lib/pq"
 
 )
 
+type Data struct{
+  Email sql.NullString
+  Wins int
+  Heat int
+  Refers int
+  Grade int
+}
 
 func main() {
 
-  type Data struct{
-    Email sql.NullString
-    Wins int
-    Heat int
-    Refers int
-    Grade int
-  }
+
 
   s := &http.Server{
 
