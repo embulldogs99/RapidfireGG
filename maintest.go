@@ -109,7 +109,7 @@ func profile(w http.ResponseWriter, r *http.Request){
       log.Fatalf("Unable to connect to the database")
     }
     sqlStatement2 := "SELECT COUNT(*) FROM rfgg.members WHERE email='embulldogs99@yahoo.com';"
-    count, err := dbusers.Exec(sqlStatement2)
+    count, _ := dbusers.Exec(sqlStatement2)
     dbusers.Close()
     fmt.Println(passcheck)
     fmt.Println(count)
