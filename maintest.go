@@ -14,6 +14,14 @@ _ "github.com/lib/pq"
 
 func main() {
 
+  type Data struct{
+    Email sql.NullString
+    Wins int
+    Heat int
+    Refers int
+    Grade int
+  }
+
   s := &http.Server{
 
     Addr:    ":80",
@@ -93,6 +101,8 @@ func login(w http.ResponseWriter, r *http.Request){
   tpl.Execute(w, nil)
 }
 
+
+
 func dbpull( w http.ResponseWriter, r *http.Request) []Data{
 	//opens conncetion to db for use
 	db, err = sql.Open("postgres","postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
@@ -150,13 +160,7 @@ func profile(w http.ResponseWriter, r *http.Request){
 
     err = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck).Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag, &credits, &grade)
 
-    type Data struct{
-      Email sql.NullString
-      Wins int
-      Heat int
-      Refers int
-      Grade int
-    }
+
 
     switch{
     case err == sql.ErrNoRows:
