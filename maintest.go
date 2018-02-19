@@ -110,6 +110,17 @@ func profile(w http.ResponseWriter, r *http.Request){
     }
     sqlStatement2 := "SELECT Count(*) FROM rfgg.members WHERE email='embulldogs99@yahoo.com';"
     rows, _ := dbusers.Query(sqlStatement2)
+    defer rows.Close()
+    for rows.Next(){
+      var pass string
+      if err := rows.Scan(&pass); err != nil {
+        log.Fatal(err)
+      }
+        fmt.Printf("%s is %d\n",pass)
+    }
+    if err := rows.Err(); err != nil {
+        log.Fatal(err)
+}
     fmt.Println(rows)
     fmt.Println(passcheck)
     }
