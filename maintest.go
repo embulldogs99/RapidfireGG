@@ -110,11 +110,9 @@ func profile(w http.ResponseWriter, r *http.Request){
     }
 
     var exists bool
-    query = fmt.Sprintf("SELECT exists (%s)", query)
-    err := dbusers.QueryRow("SELECT email FROM rfgg.members WHERE pass=$1 AND email=$2", passcheck, emailcheck).Scan(&exists)
+    err = dbusers.QueryRow("SELECT email FROM rfgg.members WHERE pass=$1 AND email=$2", passcheck, emailcheck).Scan(&exists)
     if err != nil && err != sql.ErrNoRows {
               http.Redirect(w, r, "/login", http.StatusSeeOther)
-              glog.Fatalf("error checking if row exists '%s' %v", args, err)
       }
       var tpl *template.Template
       tpl = template.Must(template.ParseFiles("waitingverification.gohtml","css/main.css","css/mcleod-reset.css",))
