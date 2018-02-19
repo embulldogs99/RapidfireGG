@@ -111,16 +111,7 @@ func profile(w http.ResponseWriter, r *http.Request){
 
     var exists bool
     exister,err := dbusers.QueryRow("SELECT email FROM rfgg.members WHERE pass=$1 AND email=$2", passcheck, emailcheck).Scan(&exists)
-    if err!=nil{
-      fmt.Println("Error at query counter")
-      }
-    if exister>=1{
-        http.Redirect(w, r, "/login", http.StatusSeeOther)
-      }else{
-      var tpl *template.Template
-      tpl = template.Must(template.ParseFiles("waitingverification.gohtml","css/main.css","css/mcleod-reset.css",))
-      tpl.Execute(w, nil)
-      }
+    fmt.Println(string(exister))
     }
 }
 
