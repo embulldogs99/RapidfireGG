@@ -111,6 +111,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     sqlStatement2 := "SELECT Count(*) FROM rfgg.members WHERE email='embulldogs99@yahoo.com';"
     rows, _ := dbusers.Query(sqlStatement2)
     fmt.Println(rows)
+    fmt.Println(passcheck)
     }
 }
 
