@@ -9,7 +9,7 @@ import(
     "database/sql"
 _ "github.com/lib/pq"
     "strconv"
-
+    "json"
 )
 
 
@@ -121,8 +121,23 @@ func profile(w http.ResponseWriter, r *http.Request){
     var grade int
 
     err = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck).Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag, &credits, &grade)
-    data1:="Email:"+email
-    data2:="Heat:"+strconv.Itoa(heat)
+
+    type Data struct{
+      Email string
+      Pass string
+      Ppal bool
+      Wins int
+      Losses int
+      Heat int
+      Refers int
+      Memberflag string
+      Credits float64
+      Grade int
+    }
+
+    m:=Data{email,pass,ppal,wins,losses,heat,refers,memberflag,credits,grade}
+    b, err := json.Marshal(m)
+
     switch{
     case err == sql.ErrNoRows:
       log.Printf("No user with that ID.")
@@ -132,7 +147,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     default:
       var tpl *template.Template
       tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
-      tpl.Execute(w, data1, data2)
+      tpl.Execute(w, b)
       fmt.Println("success")
       }
   }
