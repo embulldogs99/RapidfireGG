@@ -124,18 +124,9 @@ func profile(w http.ResponseWriter, r *http.Request){
 
     type Data struct{
       Email string
-      Pass string
-      Ppal bool
-      Wins int
-      Losses int
-      Heat int
-      Refers int
-      Memberflag string
-      Credits float64
-      Grade int
     }
 
-    m:=Data{email,pass,ppal,wins,losses,heat,refers,memberflag,credits,grade}
+    m:=Data{email}
     b, err := json.Marshal(m)
 
     switch{
