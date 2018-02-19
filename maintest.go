@@ -109,7 +109,7 @@ func profile(w http.ResponseWriter, r *http.Request){
       log.Fatalf("Unable to connect to the database")
     }
     var memberflag string
-    err = dbusers.QueryRow("SELECT (email,pass,memberflag) FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck).Scan(&memberflag)
+    err = dbusers.QueryRow("SELECT memberflag FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck).Scan(&memberflag)
     switch{
     case err == sql.ErrNoRows:
       log.Printf("No user with that ID.")
