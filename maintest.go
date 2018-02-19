@@ -94,26 +94,39 @@ func login(w http.ResponseWriter, r *http.Request){
   tpl.Execute(w, nil)
 }
 
+
+func rowExists(query string, args ...interface{}) bool {
+    var exists bool
+    query = fmt.Sprintf("SELECT exists (%s)", query)
+    err := db.QueryRow(query, args...).Scan(&exists)
+    if err != nil && err != sql.ErrNoRows {
+            glog.Fatalf("error checking if row exists '%s' %v", args, err)
+    }
+    return exists
+}
+
+
 func profile(w http.ResponseWriter, r *http.Request){
   if r.Method == http.MethodPost {
     var emailcheck string
-    var password string
+    var passcheck string
     emailcheck = r.FormValue("email")
-    password = r.FormValue("pass")
+    passcheck = r.FormValue("pass")
     fmt.Println(emailcheck)
     dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
     fmt.Println("Connected")
   	if err != nil {
       log.Fatalf("Unable to connect to the database")
     }
-    rows, err := dbusers.Query(`SELECT COUNT(*) as count FROM rfgg.members WHERE (email+pass) = VALUES ($1);`, emailcheck+password)
-    if err != nil {
-      log.Fatal(err)
-    }
-    fmt.Println(rows)
-    http.Redirect(w, r, "/login", http.StatusSeeOther)
-    }
+    if rowExists("SELECT email FROM rfgg.members WHERE pass=$1 AND email=$2", passcheck, emailcheck) {
+      var tpl *template.Template
+      tpl = template.Must(template.ParseFiles("waitingverification.gohtml","css/main.css","css/mcleod-reset.css",))
+      tpl.Execute(w, nil)} else{
+        http.Redirect(w, r, "/login", http.StatusSeeOther)
+      }
 }
+
+
 
 
 
