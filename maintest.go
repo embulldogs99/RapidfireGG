@@ -105,9 +105,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     rows, err := dbusers.Query("SELECT * FROM frgg.members")
       checkErr(err)
     for rows.Next() {
-        var email string
-        var pass string
-        var memberflag as boolean
+
         e,p,m, err := rows.Scan(&email, &pass, &memberflag)
         checkErr(err)
         if m{
