@@ -54,16 +54,8 @@ func main() {
 
 
 func dbupost(e string,p string,pp bool,m bool) {
-  const (
-    host     = "localhost"
-    port     = 5432
-    user     = "postgres"
-    password = "rk"
-    dbname   = "psql"
-  )
-  psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+"password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
-	//opens conncetion to db for use
-	dbusers, err := sql.Open("postgres", psqlInfo)
+
+	dbusers, err = sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
 	if err != nil {
 		log.Fatalf("Unable to connect to the database")
 	}
