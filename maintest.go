@@ -8,7 +8,7 @@ import(
     "io/ioutil"
     "database/sql"
 _ "github.com/lib/pq"
-    "strconv"
+    _ "strconv"
 
 )
 
