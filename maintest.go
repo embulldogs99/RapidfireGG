@@ -58,7 +58,7 @@ func dbupost(e string,p string,pp bool,m bool) {
     host     = "localhost"
     port     = 5432
     user     = "postgres"
-    password = "postgres"
+    password = "rk"
     dbname   = "rfgg"
   )
   psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+"password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
