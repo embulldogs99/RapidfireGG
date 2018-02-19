@@ -103,10 +103,8 @@ func profile(w http.ResponseWriter, r *http.Request){
       log.Fatalf("Unable to connect to the database")
   	}
 
-    sqlStatement2 := `Select count(*) FROM rfgg.members WHERE (email,pass) = VALUES ($1, $2);`
-    var count int
-    count, err = dbusers.Exec(sqlStatement2, email,pass)
-    if count >0 {
+    rowz, err :=dbusers.Query("SELECT COUNT(*) as count FROM rfgg.members WHERE (email,pass) = VALUES ($1, $2);")
+    if checkCount(rowz)>0 {
       var tpl *template.Template
       tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
       tpl.Execute(w, nil)
@@ -118,6 +116,15 @@ func profile(w http.ResponseWriter, r *http.Request){
 
   }
 
+  func selectAsInt(db *sql.DB) int {
+  	row := db.QueryRow("SELECT data FROM array_test")
+  	var asString string
+  	err := row.Scan(&asString)
+  	if err != nil {
+  		panic(err)
+  	}
+  	return asString
+  }
 
 func waitingregister(w http.ResponseWriter, r *http.Request){
 
