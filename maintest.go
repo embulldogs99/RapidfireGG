@@ -116,7 +116,7 @@ func dbpull( w http.ResponseWriter, r *http.Request, e string, p string) []Data{
 		log.Fatalf("Unable to connect to the database")
 	}
 	//queries the rows to view all the data
-	rows, err := db.Exec("SELECT * FROM rfgg.members WHERE email=$1",e).Scan(&email)
+	rows, err := db.QueryRow("SELECT * FROM rfgg.members WHERE email=$1",e).Scan(&email)
 	if err != nil {
 		http.Error(w, http.StatusText(500), 500)
 		log.Fatal("this is where it breaks")
