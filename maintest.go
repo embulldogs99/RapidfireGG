@@ -103,15 +103,14 @@ func profile(w http.ResponseWriter, r *http.Request){
       log.Fatalf("Unable to connect to the database")
   	}
 
-    sqlStatement2 := `Select pass FROM rfgg.members WHERE (email,pass) = VALUES ($1, $2);`
-    _, err = dbusers.Exec(sqlStatement2, email,pass)
-    if err != nil {
-      log.Fatalf("SLECT statement Fail")
-      http.Redirect(w, r, "/login", http.StatusSeeOther)
+    sqlStatement2 := `Select count(*) FROM rfgg.members WHERE (email,pass) = VALUES ($1, $2);`
+    count, err := dbusers.Exec(sqlStatement2, email,pass)
+    if count >0 {
+      var tpl *template.Template
+      tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
+      tpl.Execute(w, nil)
       }else{
-        var tpl *template.Template
-        tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
-        tpl.Execute(w, nil)
+        http.Redirect(w, r, "/login", http.StatusSeeOther)
         }
     dbusers.Close()
     }
