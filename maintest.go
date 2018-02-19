@@ -109,7 +109,7 @@ func login(w http.ResponseWriter, r *http.Request){
 
 
 
-func dbpull( w http.ResponseWriter, r *http.Request, e string, p string) string{
+func dbpull( w http.ResponseWriter, r *http.Request) string{
 	//opens conncetion to db for use
 	db, err := sql.Open("postgres","postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
 	if err != nil {
@@ -117,7 +117,7 @@ func dbpull( w http.ResponseWriter, r *http.Request, e string, p string) string{
 	}
 	//queries the rows to view all the data
   var email string
-	_, err = db.QueryRow("SELECT * FROM rfgg.members WHERE email=$1",e).Scan(&email)
+	err = db.QueryRow("SELECT * FROM rfgg.members WHERE email=$1",e).Scan(&email)
 	if err != nil {
 		http.Error(w, http.StatusText(500), 500)
 		log.Fatal("this is where it breaks")
