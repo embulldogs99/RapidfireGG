@@ -107,7 +107,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     for rows.Next() {
         var email string
         var pass string
-        var memberflag as bool
+        var memberflag as boolean
         e,p,m, err := rows.Scan(&email, &pass, &memberflag)
         checkErr(err)
         if m{
