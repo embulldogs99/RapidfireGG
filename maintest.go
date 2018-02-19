@@ -124,11 +124,8 @@ func profile(w http.ResponseWriter, r *http.Request){
       tpl.Execute(w, nil)} else{
         http.Redirect(w, r, "/login", http.StatusSeeOther)
       }
+    }
 }
-
-
-
-
 
 
 func waitingregister(w http.ResponseWriter, r *http.Request){
