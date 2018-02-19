@@ -96,7 +96,7 @@ func login(w http.ResponseWriter, r *http.Request){
 
 func checkCount(rows *sql.Rows) (count int) {
  	for rows.Next() {
-    	err:= rows.Scan(&count)
+    	rows.Scan(&count)
     }
     return count
 }
@@ -110,7 +110,9 @@ func profile(w http.ResponseWriter, r *http.Request){
       log.Fatalf("Unable to connect to the database")
   	}
 
-    rowz, err :=dbusers.Query("SELECT COUNT(*) as count FROM rfgg.members WHERE (email,pass) = VALUES ($1, $2);")
+
+    sqlStatement2 := "SELECT COUNT(*) as count FROM rfgg.members WHERE (email,pass) = VALUES ($1, $2);"
+    rowz, err :=dbusers.Query(sqlStatement2, e, p)
     if checkCount(rowz)>0 {
       var tpl *template.Template
       tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
