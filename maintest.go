@@ -115,8 +115,9 @@ func profile(w http.ResponseWriter, r *http.Request){
           var tpl *template.Template
           tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
           tpl.Execute(w, nil)
-        }
+        }else{
         http.Redirect(w, r, "/login", http.StatusSeeOther)
+      }
     }
     dbusers.Close()
 
