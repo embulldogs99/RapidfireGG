@@ -112,7 +112,7 @@ func profile(w http.ResponseWriter, r *http.Request){
 
     var email string
     var pass string
-    var ppal bool
+    var ppal string
     var wins int
     var losses int
     var heat int
