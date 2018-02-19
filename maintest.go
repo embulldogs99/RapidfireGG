@@ -121,7 +121,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     var credits float64
     var grade int
 
-    err = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck).Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, $memberflag, &credits, &grade)
+    err = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck).Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag, &credits, &grade)
 
     switch{
     case err == sql.ErrNoRows:
