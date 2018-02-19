@@ -94,6 +94,14 @@ func login(w http.ResponseWriter, r *http.Request){
   tpl.Execute(w, nil)
 }
 
+func checkCount(rows *sql.Rows) (count int) {
+ 	for rows.Next() {
+    	err:= rows.Scan(&count)
+    	checkErr(err)
+    }
+    return count
+}
+
 func profile(w http.ResponseWriter, r *http.Request){
   if r.Method == http.MethodPost {
     email := r.FormValue("email")
