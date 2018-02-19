@@ -116,7 +116,7 @@ func profile(w http.ResponseWriter, r *http.Request){
       http.Redirect(w, r, "/login", http.StatusSeeOther)
     case err != nil:
       log.Fatal(err)
-    case fmt.Sprint(memberflag)=='Y':
+    case [memberflag]string=='Y':
       memb, err := dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck)
       for memb.Next(){
         var email string
