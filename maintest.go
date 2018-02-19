@@ -122,6 +122,7 @@ func profile(w http.ResponseWriter, r *http.Request){
       fmt.Println(rows)
       fmt.Println(passcheck)
     }
+  }
 }
 
 
