@@ -119,7 +119,6 @@ func profile(w http.ResponseWriter, r *http.Request){
       log.Fatal(err)
     default:
       fmt.Printf("Email is %s\n", email)
-      fmt.Println(rows)
       fmt.Println(passcheck)
     }
   }
