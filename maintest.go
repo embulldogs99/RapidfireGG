@@ -109,7 +109,7 @@ func login(w http.ResponseWriter, r *http.Request){
 
 
 
-func dbpull( w http.ResponseWriter, r *http.Request) string{
+func dbpull( w http.ResponseWriter, r *http.Request, e string) string{
 	//opens conncetion to db for use
 	db, err := sql.Open("postgres","postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
 	if err != nil {
@@ -187,7 +187,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     default:
       var tpl *template.Template
       tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
-      m:=dbpull(w,r)
+      m:=dbpull(w,r,email)
       tpl.Execute(w, m)
       fmt.Println("success")
 
