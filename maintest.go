@@ -116,7 +116,7 @@ func profile(w http.ResponseWriter, r *http.Request){
       if err := rows.Scan(&pass); err != nil {
         log.Fatal(err)
       }
-        fmt.Printf("%s is %d\n",pass)
+        fmt.Println(pass)
     }
     if err := rows.Err(); err != nil {
         log.Fatal(err)
