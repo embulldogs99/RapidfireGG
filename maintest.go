@@ -120,7 +120,7 @@ func dbpull( w http.ResponseWriter, r *http.Request) []Data{
 	//cycles through the rows to grab the data by row
 	for rows.Next() {
 		bk := Data{}
-		err := rows.Scan(&bk.email, &bk.Wins, &bk.Heat, &bk.Refers, &bk.Grade)
+		err := rows.Scan(&bk.Email, &bk.Wins, &bk.Heat, &bk.Refers, &bk.Grade)
 		if err != nil {
 			http.Error(w, http.StatusText(500), 500)
 			log.Fatal(err)
