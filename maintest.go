@@ -122,7 +122,7 @@ func profile(w http.ResponseWriter, r *http.Request){
       tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
       tpl.Execute(w, nil)
       var email string
-      memb, _ := dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck).Scan(&email)
+      _, err = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck).Scan(&email)
         fmt.Println(email)
       }
   }
