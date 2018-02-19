@@ -110,7 +110,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     }
 
     var exists bool
-    err = dbusers.Query("SELECT email FROM rfgg.members WHERE email=$1", emailcheck).Scan(&exists)
+    exister, err := dbusers.Query("SELECT email FROM rfgg.members WHERE email=$1", emailcheck).Scan(&exists)
     fmt.Println(err)
     }
 }
