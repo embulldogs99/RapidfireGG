@@ -8,6 +8,7 @@ import(
     "io/ioutil"
     "database/sql"
 _ "github.com/lib/pq"
+    "strconv"
 
 
 )
@@ -116,17 +117,15 @@ func profile(w http.ResponseWriter, r *http.Request){
       http.Redirect(w, r, "/login", http.StatusSeeOther)
     case err != nil:
       log.Fatal(err)
-    case [memberflag]string=='Y':
+    default:
+      var tpl *template.Template
+      tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
+      tpl.Execute(w, nil)
       memb, err := dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck)
       for memb.Next(){
         var email string
         fmt.Println(&email)
       }
-      var tpl *template.Template
-      tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
-      tpl.Execute(w, nil)
-    default:
-      http.Redirect(w, r, "/login", http.StatusSeeOther)
     }
   }
 }
