@@ -112,6 +112,8 @@ func profile(w http.ResponseWriter, r *http.Request){
     }
     defer rows.Close()
     for rows.Next() {
+      var email string
+      var pass string
     	err := rows.Scan(&email, &pass)
     	if err != nil {
     		log.Fatal(err)
