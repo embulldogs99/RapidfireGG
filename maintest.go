@@ -98,21 +98,28 @@ func profile(w http.ResponseWriter, r *http.Request){
   if r.Method == http.MethodPost {
     email := r.FormValue("email")
     pass := r.FormValue("pass")
-
     dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   	if err != nil {
       log.Fatalf("Unable to connect to the database")
   	}
-    sqlStatement := `SELECT memberflag FROM rfgg.members WHERE (email, pass) = ($1, $2);`
-    _, err = dbusers.Exec(sqlStatement, email, pass)
-    if err != nil {
-      http.Redirect(w, r, "/login", http.StatusSeeOther)
+    rows, err := dbusers.Query("SELECT * FROM frgg.members")
+      checkErr(err)
+    for rows.Next() {
+        var email string
+        var pass string
+        var memberflag as bool
+        e,p,m, err := rows.Scan(&email, &pass, &memberflag)
+        checkErr(err)
+        if m{
+          var tpl *template.Template
+          tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
+          tpl.Execute(w, nil)
+        }
+        http.Redirect(w, r, "/login", http.StatusSeeOther)
     }
     dbusers.Close()
 
-    var tpl *template.Template
-    tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
-    tpl.Execute(w, nil)
+
     }
 
   }
