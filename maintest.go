@@ -97,7 +97,6 @@ func login(w http.ResponseWriter, r *http.Request){
 func checkCount(rows *sql.Rows) (count int) {
  	for rows.Next() {
     	err:= rows.Scan(&count)
-    	checkErr(err)
     }
     return count
 }
@@ -124,15 +123,7 @@ func profile(w http.ResponseWriter, r *http.Request){
 
   }
 
-  func selectAsInt(db *sql.DB) int {
-  	row := db.QueryRow("SELECT data FROM array_test")
-  	var asString string
-  	err := row.Scan(&asString)
-  	if err != nil {
-  		panic(err)
-  	}
-  	return asString
-  }
+
 
 func waitingregister(w http.ResponseWriter, r *http.Request){
 
