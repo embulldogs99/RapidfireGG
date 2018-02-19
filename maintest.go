@@ -108,21 +108,19 @@ func profile(w http.ResponseWriter, r *http.Request){
   	if err != nil {
       log.Fatalf("Unable to connect to the database")
     }
-    sqlStatement2 := "SELECT * FROM rfgg.members WHERE email='embulldogs99@yahoo.com';"
-    rows, _ := dbusers.Query(sqlStatement2)
-    defer rows.Close()
-    for rows.Next(){
-      var pass string
-      if err := rows.Scan(&pass); err != nil {
-        log.Fatal(err)
-      }
-        fmt.Println(pass)
-    }
-    if err := rows.Err(); err != nil {
-        log.Fatal(err)
-}
-    fmt.Println(rows)
-    fmt.Println(passcheck)
+    sqlStatement2 := "SELECT * FROM rfgg.members WHERE email=$1;"
+    var email string
+    err := dbusers.QueryRow(sqlStatement2,emailcheck).Scan(&email)
+    switch{
+    case err == sql.ErrNoRows:
+      log.Printf("No user with that ID.")
+      http.Redirect(w, r, "/login", http.StatusSeeOther)
+    case err != nil:
+      log.Fatal(err)
+    default:
+      fmt.Printf("Email is %s\n", email)
+      fmt.Println(rows)
+      fmt.Println(passcheck)
     }
 }
 
