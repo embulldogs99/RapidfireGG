@@ -109,7 +109,7 @@ func profile(w http.ResponseWriter, r *http.Request){
       log.Fatalf("Unable to connect to the database")
     }
     var email string
-    err = dbusers.QueryRow("SELECT email FROM rfgg.members WHERE email=$1",emailcheck).Scan(&email)
+    err = dbusers.QueryRow("SELECT (email,pass) FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck).Scan(&pass)
     switch{
     case err == sql.ErrNoRows:
       log.Printf("No user with that ID.")
@@ -117,8 +117,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     case err != nil:
       log.Fatal(err)
     default:
-      fmt.Printf("Email is %s\n", email)
-      fmt.Println(passcheck)
+      fmt.Printf("pass is %s\n", pass)
     }
   }
 }
