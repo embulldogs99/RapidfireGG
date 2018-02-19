@@ -29,6 +29,8 @@ func main() {
   http.HandleFunc("/verify", verify)
   http.HandleFunc("/weeklyregister", weeklyregister)
   http.HandleFunc("/waitingregister", waitingregister)
+  http.HandleFunc("/login", login)
+  http.HandleFunc("/profile", profile)
   log.Fatal(s.ListenAndServe())
 
 
@@ -78,14 +80,45 @@ func verify(w http.ResponseWriter, r *http.Request){
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("verification.gohtml","css/main.css","css/mcleod-reset.css",))
   tpl.Execute(w, nil)
-
 }
-
 
 func weeklyregister(w http.ResponseWriter, r *http.Request){
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("tregistration.gohtml","css/main.css","css/mcleod-reset.css",))
   tpl.Execute(w, nil)
+}
+
+func login(w http.ResponseWriter, r *http.Request){
+  var tpl *template.Template
+  tpl = template.Must(template.ParseFiles("login.gohtml","css/main.css","css/mcleod-reset.css",))
+  tpl.Execute(w, nil)
+}
+
+func profile(w http.ResponseWriter, r *http.Request){
+  if r.Method == http.MethodPost {
+    email := r.FormValue("email")
+    pass := r.FormValue("pass")
+
+    dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+  	if err != nil {
+      log.Fatalf("Unable to connect to the database")
+  	}
+    sqlStatement := `SELECT memberflag FROM rfgg.members WHERE (email, pass) = ($1, $2);`
+    test, err = dbusers.Exec(sqlStatement, email, pass)
+    if err != nil {
+      panic(err)
+    }
+    dbusers.Close()
+
+    if test = true{
+      var tpl *template.Template
+      tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
+      tpl.Execute(w, nil)
+    }
+    http.Redirect(w, r, "/waitingregister", http.StatusSeeOther)
+  }
+
+
 }
 
 func waitingregister(w http.ResponseWriter, r *http.Request){

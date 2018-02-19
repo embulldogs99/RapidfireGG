@@ -22,11 +22,11 @@ setting up the maryzon Postgres
 
 \c postgres;
 create schema maryzon;
-create table maryzon.users (email CHAR(50), pass CHAR(50), o21 BOOLEAN, role CHAR(50));
+create table maryzon.users (email VARCHAR(500), pass VARCHAR(500), o21 BOOLEAN, role VARCHAR(500));
 insert into maryzon.users values('test@test.com','t',true,'admin');
 
 
-create table maryzon.inventory( strain char(30), thc char(10), company char(30), price char(10), email char(50), cbd char(10), pprice char(10), minpur char(10), turntime char(10), lab char(30), addinfo char(100), bulk boolean, eprice char(10), qprice char(10));
+create table maryzon.inventory( strain VARCHAR(500), thc char(10), company VARCHAR(500), price VARCHAR(500), email VARCHAR(500), cbd VARCHAR(500), pprice VARCHAR(500), minpur VARCHAR(500), turntime VARCHAR(500), lab VARCHAR(500), addinfo VARCHAR(500), bulk boolean, eprice VARCHAR(500)), qprice VARCHAR(500));
 
 insert into maryzon.inventory values('bluedream','20','happy dales','10','seller@seller.com','10','1000','gram','2 days','pharma','',true,'30','50');
 insert into maryzon.inventory values('greendragon','20','happy dales','10','seller@seller.com','20','2000','gram','5 days','pharma','',true,'35','60');
