@@ -111,9 +111,6 @@ func profile(w http.ResponseWriter, r *http.Request){
         var passcheck string
         var memberflag bool
         err = rows.Scan(&emailcheck, &passcheck, &memberflag)
-        if err != nil {
-          log.Fatalf("Unable to connect to the database")
-      	}
         if email+pass==emailcheck+passcheck{
           var tpl *template.Template
           tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
