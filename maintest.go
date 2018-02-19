@@ -119,7 +119,7 @@ func dbpull( w http.ResponseWriter, r *http.Request) []Data{
 	bks := make([]Data, 0)
 	//cycles through the rows to grab the data by row
 	for rows.Next() {
-		bk := data{}
+		bk := Data{}
 		err := rows.Scan(&bk.email, &bk.Wins, &bk.Heat, &bk.Refers, &bk.Grade)
 		if err != nil {
 			http.Error(w, http.StatusText(500), 500)
@@ -172,9 +172,9 @@ func profile(w http.ResponseWriter, r *http.Request){
     default:
       var tpl *template.Template
       tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
-      tpl.Execute(w, data)
+      tpl.Execute(w, dbpull())
       fmt.Println("success")
-      dbpull()
+
       }
   }
 }
