@@ -112,7 +112,7 @@ func profile(w http.ResponseWriter, r *http.Request){
 
 
     sqlStatement2 := "SELECT COUNT(*) as count FROM rfgg.members WHERE (email,pass) = VALUES ($1, $2);"
-    rowz, err :=dbusers.Query(sqlStatement2, e, p)
+    rowz, err :=dbusers.Query(sqlStatement2, email, pass)
     if checkCount(rowz)>0 {
       var tpl *template.Template
       tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
