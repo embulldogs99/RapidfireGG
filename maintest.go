@@ -106,7 +106,7 @@ func login(w http.ResponseWriter, r *http.Request){
 
 func dbpull( w http.ResponseWriter, r *http.Request) []Data{
 	//opens conncetion to db for use
-	db, err = sql.Open("postgres","postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+	db, err := sql.Open("postgres","postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
 	if err != nil {
 		log.Fatalf("Unable to connect to the database")
 	}
