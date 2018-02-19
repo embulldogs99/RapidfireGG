@@ -104,19 +104,17 @@ func profile(w http.ResponseWriter, r *http.Request){
       log.Fatalf("Unable to connect to the database")
   	}
     sqlStatement := `SELECT memberflag FROM rfgg.members WHERE (email, pass) = ($1, $2);`
-    var test bool
-    test, err = dbusers.Exec(sqlStatement, email, pass)
+    _, err = dbusers.Exec(sqlStatement, email, pass)
     if err != nil {
-      panic(err)
+      http.Redirect(w, r, "/login", http.StatusSeeOther)
     }
     dbusers.Close()
 
-    if test {
-      var tpl *template.Template
-      tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
-      tpl.Execute(w, nil)
+    var tpl *template.Template
+    tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
+    tpl.Execute(w, nil)
     }
-    http.Redirect(w, r, "/waitingregister", http.StatusSeeOther)
+
   }
 
 
