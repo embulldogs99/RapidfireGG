@@ -45,7 +45,7 @@ func dbusignup(e string,p string) {
 	if err != nil {
 		log.Fatalf("Unable to connect to the database")
 	}
-  sqlStatement := `INSERT INTO rfgg.members (email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade ) VALUES ($1, $2, true, 0, 0, 0, 0, 'Y', 0, 0);`
+  sqlStatement := `INSERT INTO rfgg.members (email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade ) VALUES ($1, $2, true, 0, 0, 0, 0, 'y', 0, 0);`
   _, err = dbusers.Exec(sqlStatement, e,p)
   if err != nil {
     panic(err)
