@@ -42,7 +42,17 @@
 <br><br><br>
 
 Tournaments:<br><br>
-Coming soon............
+here is your exclusive tournamental registration link:<br>
+<a href="/weeklyregister">Click Here</a>
+<br><br>
+<br><br>
+<br><br>
+
+
+
+Referal Program:<br>
+referals: {{.Refers}}
+
 
 </div>
 
@@ -60,7 +70,15 @@ Coming soon............
 </body>
 </html>
 
+
+
 {{range .Email}}
+  {{.}}
+{{end}}
+{{range .Pass}}
+  {{.}}
+{{end}}
+{{range .Refers}}
   {{.}}
 {{end}}
 {{range .Credits}}
