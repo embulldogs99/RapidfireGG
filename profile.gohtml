@@ -30,7 +30,10 @@
   Personal Stats:
 
   {{range .}}
-  {{.Email}}
+  {{.Email.Value}}
+  {{.Pass.Value}}
+  {{.Wins.Value}}
+  {{.Losses.Value}}
   {{end}}
 
 <br>
