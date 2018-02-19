@@ -104,7 +104,7 @@ func profile(w http.ResponseWriter, r *http.Request){
       log.Fatalf("Unable to connect to the database")
   	}
     sqlStatement := `SELECT memberflag FROM rfgg.members WHERE (email, pass) = ($1, $2);`
-    test, err = dbusers.Exec(sqlStatement, email, pass)
+    test, err := dbusers.Exec(sqlStatement, email, pass)
     if err != nil {
       panic(err)
     }
