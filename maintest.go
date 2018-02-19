@@ -73,7 +73,7 @@ func dbupost(e string,p string,pp bool,m bool) {
 
   sqlStatement := `
 INSERT INTO rfgg.members (email, pass, ppal, memberflag)
-VALUES ($1, $2, $3, $4)`
+VALUES ($1, $2, $3, $4);`
 _, err = dbusers.Exec(sqlStatement, e,p,pp,m)
 if err != nil {
   panic(err)
@@ -110,14 +110,12 @@ func waitingregister(w http.ResponseWriter, r *http.Request){
     membf := true
 
     fmt.Println(email + " signed up with pass:" + pass)
+    dbupost(email,pass,ppal,membf)
 
     err := ioutil.WriteFile("test.txt", []byte(email+":"+pass), 0666)
     if err != nil {
         log.Fatal(err)
     }
-
-    dbupost(email,pass,ppal,membf)
-
     http.Redirect(w, r, "/waitingregister", http.StatusSeeOther)
     }
 
