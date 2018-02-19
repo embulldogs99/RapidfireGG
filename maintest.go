@@ -109,13 +109,13 @@ func profile(w http.ResponseWriter, r *http.Request){
       log.Fatalf("Unable to connect to the database")
     }
     sqlStatement2 := "SELECT * FROM rfgg.members WHERE email=$1;"
-    rows, err := dbusers.Exec(sqlStatement2, emailcheck)
+    _, err := dbusers.Exec(sqlStatement2, emailcheck)
     if err != nil {
-      panic(err)
+      fmt.Println("not a match")
     }
     dbusers.Close()
     fmt.Println(passcheck)
-    fmt.Println(string(rows))
+
     }
 }
 
