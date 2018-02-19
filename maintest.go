@@ -124,7 +124,7 @@ func dbpull( w http.ResponseWriter, r *http.Request, e string, p string) []Data{
 
   return rows
 
-
+}
 
 
 
