@@ -12,10 +12,15 @@ _ "github.com/lib/pq"
 )
 
 type Data struct{
-  Email sql.NullString
+  Email string
+  Pass string
+  Ppal bool
   Wins int
+  Losses int
   Heat int
   Refers int
+  Memberflag string
+  Credits float64
   Grade int
 }
 
@@ -162,7 +167,6 @@ func profile(w http.ResponseWriter, r *http.Request){
     err = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck).Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag, &credits, &grade)
 
 
-
     switch{
     case err == sql.ErrNoRows:
       log.Printf("No user with that ID.")
@@ -179,13 +183,6 @@ func profile(w http.ResponseWriter, r *http.Request){
       }
   }
 }
-
-
-
-
-
-
-
 
 
 func waitingregister(w http.ResponseWriter, r *http.Request){
