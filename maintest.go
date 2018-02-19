@@ -94,39 +94,38 @@ func login(w http.ResponseWriter, r *http.Request){
   tpl.Execute(w, nil)
 }
 
-func checkCount(rows *sql.Rows) (count int) {
- 	for rows.Next() {
-    	rows.Scan(&count)
-    }
-    return count
-}
-
 func profile(w http.ResponseWriter, r *http.Request){
   if r.Method == http.MethodPost {
-    email := r.FormValue("email")
-    pass := r.FormValue("pass")
+    emailcheck := r.FormValue("email")
+    password := r.FormValue("pass")
     dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   	if err != nil {
       log.Fatalf("Unable to connect to the database")
   	}
-
-
-    sqlStatement2 := "SELECT COUNT(*) as count FROM rfgg.members WHERE (email,pass) = VALUES ($1, $2);"
-    rowz, err :=dbusers.Query(sqlStatement2, email, pass)
-    if err !=nil{
-      fmt.Println(err)
+    var (
+    	id int
+    	name string
+    )
+    rows, err := dbusers.Query("SELECT COUNT(*) as count FROM rfgg.members WHERE (email+pass) = VALUES (?);", 1)
+    if err != nil {
+    	log.Fatal(err)
     }
-    if checkCount(rowz)>0 {
-      var tpl *template.Template
-      tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
-      tpl.Execute(w, nil)
+    defer rows.Close()
+    for rows.Next() {
+    	err := rows.Scan(&email, &pass)
+    	if err != nil {
+    		log.Fatal(err)
+    	}
+    	if emailcheck+password==email+pass{
+        var tpl *template.Template
+        tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
+        tpl.Execute(w, nil)
       }else{
         http.Redirect(w, r, "/login", http.StatusSeeOther)
-        }
-    dbusers.Close()
+      }
     }
-
   }
+}
 
 
 
