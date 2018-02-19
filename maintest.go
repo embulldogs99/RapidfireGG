@@ -9,7 +9,7 @@ import(
     "database/sql"
 _ "github.com/lib/pq"
     "strconv"
-    "template"
+    "text/template"
 
 )
 
