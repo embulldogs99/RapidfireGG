@@ -111,14 +111,17 @@ func profile(w http.ResponseWriter, r *http.Request){
     }
 
     var email string
+    var pass string
+    var ppal bool
     var wins int
     var losses int
     var heat int
     var refers int
+    var memberflag string
     var credits float64
     var grade int
 
-    err = dbusers.QueryRow("SELECT (email, wins, losses, heat, refers, credits, grade) FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck).Scan(&email, &wins, &losses, &heat, &refers, &credits, &grade)
+    err = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",emailcheck,passcheck).Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, $memberflag, &credits, &grade)
 
     switch{
     case err == sql.ErrNoRows:
@@ -132,8 +135,11 @@ func profile(w http.ResponseWriter, r *http.Request){
       tpl.Execute(w, nil)
       fmt.Println(email)
       fmt.Println(wins)
+      fmt.Println(pass)
+      fmt.Println(ppal)
       fmt.Println(losses)
       fmt.Println(heat)
+      fmt.Println(memberflag)
       fmt.Println(refers)
       fmt.Println(credits)
       fmt.Println(grade)
