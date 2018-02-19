@@ -96,34 +96,19 @@ func login(w http.ResponseWriter, r *http.Request){
 
 func profile(w http.ResponseWriter, r *http.Request){
   if r.Method == http.MethodPost {
-    emailcheck := r.FormValue("email")
-    password := r.FormValue("pass")
+    var emailcheck string
+    var password string
+    emailcheck = r.FormValue("email")
+    password = r.FormValue("pass")
     dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-  	if err != nil {
-      log.Fatalf("Unable to connect to the database")
-  	}
-    rows, err := dbusers.Query("SELECT COUNT(*) as count FROM rfgg.members WHERE (email+pass) = VALUES (?);", 1)
-    if err != nil {
-    	log.Fatal(err)
-    }
-    defer rows.Close()
-    for rows.Next() {
-      var email string
-      var pass string
-    	err := rows.Scan(&email, &pass)
-    	if err != nil {
-    		log.Fatal(err)
-    	}
-    	if emailcheck+password==email+pass{
-        var tpl *template.Template
-        tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css",))
-        tpl.Execute(w, nil)
-      }else{
-        http.Redirect(w, r, "/login", http.StatusSeeOther)
-      }
+  	if err != nil {log.Fatalf("Unable to connect to the database")}
+    rows, err := dbusers.Query("SELECT COUNT(*) as count FROM rfgg.members WHERE (email+pass) = VALUES (?);", emailcheck+password)
+    if err != nil {log.Fatal(err)}
+    Println(rows)
+    http.Redirect(w, r, "/login", http.StatusSeeOther)
     }
   }
-}
+
 
 
 
