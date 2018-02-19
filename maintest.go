@@ -93,6 +93,35 @@ func login(w http.ResponseWriter, r *http.Request){
   tpl.Execute(w, nil)
 }
 
+func dbpull( w http.ResponseWriter, r *http.Request) []Data{
+	//opens conncetion to db for use
+	db, err = sql.Open("postgres","postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+	if err != nil {
+		log.Fatalf("Unable to connect to the database")
+	}
+	//queries the rows to view all the data
+	rows, err := db.Query("SELECT * FROM rfgg.members")
+	if err != nil {
+		http.Error(w, http.StatusText(500), 500)
+		log.Fatal("this is where it breaks")
+	}
+	bks := make([]Data, 0)
+	//cycles through the rows to grab the data by row
+	for rows.Next() {
+		bk := data{}
+		err := rows.Scan(&bk.email, &bk.Wins, &bk.Heat, &bk.Refers, &bk.Grade)
+		if err != nil {
+			http.Error(w, http.StatusText(500), 500)
+			log.Fatal(err)
+		}
+		// appends the rows
+		bks = append(bks, bk)
+
+	}
+	db.Close()
+	//returns the databse values for use in another function
+	return bks
+}
 
 
 func profile(w http.ResponseWriter, r *http.Request){
@@ -146,35 +175,7 @@ func profile(w http.ResponseWriter, r *http.Request){
 }
 
 
-func dbpull( w http.ResponseWriter, r *http.Request) []Data{
-	//opens conncetion to db for use
-	db, err = sql.Open("postgres","postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-	if err != nil {
-		log.Fatalf("Unable to connect to the database")
-	}
-	//queries the rows to view all the data
-	rows, err := db.Query("SELECT * FROM rfgg.members")
-	if err != nil {
-		http.Error(w, http.StatusText(500), 500)
-		log.Fatal("this is where it breaks")
-	}
-	bks := make([]Data, 0)
-	//cycles through the rows to grab the data by row
-	for rows.Next() {
-		bk := data{}
-		err := rows.Scan(&bk.email, &bk.Wins, &bk.Heat, &bk.Refers, &bk.Grade)
-		if err != nil {
-			http.Error(w, http.StatusText(500), 500)
-			log.Fatal(err)
-		}
-		// appends the rows
-		bks = append(bks, bk)
 
-	}
-	db.Close()
-	//returns the databse values for use in another function
-	return bks
-}
 
 
 
