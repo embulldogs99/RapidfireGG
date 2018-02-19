@@ -29,20 +29,19 @@
 
 
 
-  hello {{.Email}}!
-    Personal Stats:
-              {{range .Email}}
-                  an email {{.}}
-              {{end}}
-
-              {{range .}}
-                  my heat is {{.Heat}}
-              {{end}}
+  hello {{.Email}}!<br><br>
+  you have: {{.Credits}} firecredits<br><br>
+    personal stats:<br>
+                  wins:{{.Wins}}<br><br>
+                  losses:{{.Losses}}<br><br>
+                  heat:{{.Heat}}<br><br>
+                  grade:{{.Grade}}<br><br>
 
 <br><br><br>
 
 Tournaments:<br><br>
-Coming soon............
+here is your exclusive tournament registration link: <br>
+<a href="/weeklyregister"
 
 </div>
 
