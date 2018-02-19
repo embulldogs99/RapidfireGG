@@ -103,7 +103,9 @@ func profile(w http.ResponseWriter, r *http.Request){
     fmt.Println(emailcheck)
     dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
     fmt.Println("Connected")
-  	if err != nil {log.Fatalf("Unable to connect to the database")}
+  	if err != nil {
+      log.Fatalf("Unable to connect to the database")
+    }
     rows, err := dbusers.Query("SELECT COUNT(*) as count FROM rfgg.members WHERE (email+pass) = VALUES ($1);", emailcheck+password)
     if err != nil {log.Fatal(err)}
     fmt.Println(rows)
