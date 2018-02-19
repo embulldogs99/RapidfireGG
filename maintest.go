@@ -109,14 +109,14 @@ func login(w http.ResponseWriter, r *http.Request){
 
 
 
-func dbpull( w http.ResponseWriter, r *http.Request) []Data{
+func dbpull( w http.ResponseWriter, r *http.Request, e string, p string) []Data{
 	//opens conncetion to db for use
 	db, err := sql.Open("postgres","postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
 	if err != nil {
 		log.Fatalf("Unable to connect to the database")
 	}
 	//queries the rows to view all the data
-	rows, err := db.Query("SELECT * FROM rfgg.members")
+	rows, err := db.Exec("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",e,p)
 	if err != nil {
 		http.Error(w, http.StatusText(500), 500)
 		log.Fatal("this is where it breaks")
