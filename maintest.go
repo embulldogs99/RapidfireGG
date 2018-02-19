@@ -110,7 +110,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     }
     sqlStatement2 := "SELECT * FROM rfgg.members WHERE email=$1;"
     var email string
-    err := dbusers.QueryRow(sqlStatement2,emailcheck).Scan(&email)
+    err = dbusers.QueryRow(sqlStatement2,emailcheck).Scan(&email)
     switch{
     case err == sql.ErrNoRows:
       log.Printf("No user with that ID.")
