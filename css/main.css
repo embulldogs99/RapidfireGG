@@ -55,6 +55,7 @@ img{
   /*width: 100%;*/
   /*border: solid 2px orange;*/
   color:white;
+  font-size: 18px;
     /*border: 1px solid blue;*/
 }
 
@@ -202,7 +203,7 @@ a{
   border-radius: 20rem;
   font-size: 13px;
   height: 80%;
-  color:white;
+  color:rgba(255,255,255,.4);
 
 }
 .buttons:hover{
