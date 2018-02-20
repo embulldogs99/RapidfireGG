@@ -154,7 +154,7 @@ func profile(w http.ResponseWriter, r *http.Request){
       tpl.Execute(w,data)
 
       }
-  }
+  }else{http.Redirect(w, r, "/login", http.StatusSeeOther)
 }
 
 
