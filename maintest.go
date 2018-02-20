@@ -107,7 +107,6 @@ func profile(w http.ResponseWriter, r *http.Request){
     var passcheck string
     emailcheck = r.FormValue("email")
     passcheck = r.FormValue("pass")
-    fmt.Println(emailcheck)
     dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   	if err != nil {
       log.Fatalf("Unable to connect to the database")
