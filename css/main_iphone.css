@@ -11,7 +11,11 @@ body{
 iframe{
   padding:0px 0px 0px 10px;
   width: 200px;
-
+}
+.bigiframe{
+  padding:1px 1px 1px 1px;
+  height: 800px;
+  width:800px;
 }
 form{
   padding: 30px 30px 30px 30px;
