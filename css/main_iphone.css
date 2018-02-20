@@ -172,6 +172,7 @@ input[type="submit"]:hover {
 
 a:hover{
   background-color: rgba(50,50,50,.5);
+    color:orange;
 }
 
 a{
