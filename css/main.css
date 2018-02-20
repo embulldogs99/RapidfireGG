@@ -18,8 +18,8 @@ form{
   font size: 16px;
 }
 .layer {
-    opacity: 0.2;
-    background-color: white;
+
+    background-color: rgba(0,0,0,.1);
     position: absolute;
     top: 0;
     left: 0;
