@@ -87,6 +87,7 @@ header{
 
 .banner{
   opacity: .6;
+  color:white;
   font-weight: 900;
   background-size: 100%;
   font-family: 'MyWebFont', Fallback, sans-serif;
