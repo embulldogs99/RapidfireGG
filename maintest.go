@@ -42,6 +42,7 @@ func main() {
 func dbusignup(e string,p string) {
 
 	dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+  fmt.Println(e + " signed up with pass:" + p)
 	if err != nil {
 		log.Fatalf("Unable to connect to the database")
 	}
@@ -108,7 +109,6 @@ func profile(w http.ResponseWriter, r *http.Request){
     passcheck = r.FormValue("pass")
     fmt.Println(emailcheck)
     dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-    fmt.Println("Connected")
   	if err != nil {
       log.Fatalf("Unable to connect to the database")
     }
@@ -148,11 +148,11 @@ func profile(w http.ResponseWriter, r *http.Request){
     case err != nil:
       log.Fatal(err)
     default:
+      fmt.Println(email + " logged on")
       var tpl *template.Template
       tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css"))
 
       tpl.Execute(w,data)
-      fmt.Println("success")
 
       }
   }
@@ -165,7 +165,6 @@ func waitingregister(w http.ResponseWriter, r *http.Request){
     email := r.FormValue("email")
     pass := r.FormValue("pass")
 
-    fmt.Println(email + " signed up with pass:" + pass)
     dbusignup(email,pass)
 
     err := ioutil.WriteFile("test.txt", []byte(email+":"+pass), 0666)
