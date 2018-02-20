@@ -204,11 +204,11 @@ a{
   border-radius: 20rem;
   font-size: 13px;
   height: 80%;
-  color:rgba(200,200,200,1);
+  color:rgba(255,255,255,1);
 
 }
 .buttons:hover{
-  background-color: rgba(255,255,255,1);
+  background-color: rgba(255,255,255,.4);
 }
 
 
