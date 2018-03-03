@@ -86,6 +86,7 @@ header{
 }
 
 .banner{
+  opacity: .6;
   font-weight: 900;
   background-size: 100%;
   font-family: 'MyWebFont', Fallback, sans-serif;
@@ -95,13 +96,14 @@ header{
   align-items: center;
   width: 100%;
   height: 40px;
-  background-color: rgba(255,255,255,.6);
+  background-color: rgba(255,255,255,1);
 
   position: fixed;
    top: 0;
    left: 0;
    bottom: 0;
-     background-image: url("/pics/banner-flames.png");
+  background-image: url("/pics/banner-flames.png");
+
 
 
   /*border: 1px solid blue;*
