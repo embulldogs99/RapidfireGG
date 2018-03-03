@@ -76,7 +76,7 @@ header{
   /*border-bottom: 2px solid rgba(60,60,255,1);*/
   /*background-color: rgba(60,150,255,.6);*/
   background: url('header.jpg');
-  background-color: rgba(0,0,0,.2);
+  background-color: rgba(0,0,0,.5);
   background-position: 50%;
   height:1080px;
   width: 100%;
@@ -208,7 +208,7 @@ a{
   border-radius: 20rem;
   font-size: 13px;
   height: 80%;
-  color:rgba(255,255,255,1);
+  color:white;
 
 }
 .buttons:hover{
