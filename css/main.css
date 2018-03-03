@@ -245,7 +245,7 @@ svg:hover{
 .wrapper{
   display:flex;
   flex-direction: row;
-  font-size: 60px;
+  font-size: 40px;
   align-items: center;
   justify-content: center;
 }
