@@ -56,7 +56,7 @@ func dbusignup(e string,p string) {
 }
 
 
-func tournamentsignup(w http.ResponseWriter, r *http.Request, email,pass){
+func tournamentsignup(w http.ResponseWriter, r *http.Request){
   if r.Method == http.MethodPost {
   tournament := "freeweekly1"
   roundnum:=1
