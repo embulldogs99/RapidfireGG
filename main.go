@@ -58,7 +58,6 @@ func main() {
   http.Handle("/svg/", http.StripPrefix("/svg/", http.FileServer(http.Dir("./svg"))))
   http.HandleFunc("/", serve)
   http.HandleFunc("/signup", signup)
-  http.HandleFunc("/weeklyregister", weeklyregister)
   http.HandleFunc("/waitingregister", waitingregister)
   http.HandleFunc("/login", login)
   http.HandleFunc("/profile", profile)
@@ -74,6 +73,28 @@ func serve(w http.ResponseWriter, r *http.Request){
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("main.gohtml","css/main.css","css/mcleod-reset.css"))
   tpl.Execute(w, nil)
+}
+
+func signup(w http.ResponseWriter, r *http.Request){
+  if r.Method == http.MethodPost {
+    email := r.FormValue("email")
+    pass := r.FormValue("pass")
+    epicusername := r.FormValue("epicusername")
+    gamertag:= r.FormValue("gamertag")
+
+    dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+    fmt.Println(email + " signed up with pass:" + pass)
+    if err != nil {log.Fatalf("Unable to connect to the database")}
+    sqlStatement := `INSERT INTO rfgg.members (email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertag ) VALUES ($1, $2, true, 0, 0, 0, 0, 'y', 0, 0, $3, $4);`
+    _, err = dbusers.Exec(sqlStatement, email,pass,epicusername,gamertag)
+    if err != nil {print(err)}
+    dbusers.Close()
+
+    http.Redirect(w, r, "/waitingregister", http.StatusSeeOther)
+    }
+    var tpl *template.Template
+    tpl = template.Must(template.ParseFiles("verification.gohtml","css/main.css","css/mcleod-reset.css",))
+    tpl.Execute(w, nil)
 }
 
 
@@ -167,12 +188,6 @@ func getUser(w http.ResponseWriter, r *http.Request) user {
 }
 
 
-func weeklyregister(w http.ResponseWriter, r *http.Request){
-  var tpl *template.Template
-  tpl = template.Must(template.ParseFiles("tsignup.gohtml","css/main.css","css/mcleod-reset.css",))
-  tpl.Execute(w, nil)
-}
-
 func tsignup(w http.ResponseWriter, r *http.Request){
   if !alreadyLoggedIn(r) {http.Redirect(w, r, "/signup", http.StatusSeeOther)}
   //provides user a cookie for some time and tracks login
@@ -184,7 +199,9 @@ func tsignup(w http.ResponseWriter, r *http.Request){
   gametype:=r.FormValue("gametype")
   gamertag := r.FormValue("gamertag")
   epicusername := u.Epicusername
+  fmt.Printf(epicusername)
   email := u.Email
+  fmt.PrintF(email)
   wins := 0
   kills := 0
   matches:=0
@@ -214,27 +231,7 @@ func tsignup(w http.ResponseWriter, r *http.Request){
 
 
 
-func signup(w http.ResponseWriter, r *http.Request){
-  if r.Method == http.MethodPost {
-    email := r.FormValue("email")
-    pass := r.FormValue("pass")
-    epicusername := r.FormValue("epicusername")
-    gamertag:= r.FormValue("gamertag")
 
-    dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-    fmt.Println(email + " signed up with pass:" + pass)
-    if err != nil {log.Fatalf("Unable to connect to the database")}
-    sqlStatement := `INSERT INTO rfgg.members (email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertag ) VALUES ($1, $2, true, 0, 0, 0, 0, 'y', 0, 0, $3, $4);`
-    _, err = dbusers.Exec(sqlStatement, email,pass,epicusername,gamertag)
-    if err != nil {print(err)}
-    dbusers.Close()
-
-    http.Redirect(w, r, "/waitingregister", http.StatusSeeOther)
-    }
-    var tpl *template.Template
-    tpl = template.Must(template.ParseFiles("verification.gohtml","css/main.css","css/mcleod-reset.css",))
-    tpl.Execute(w, nil)
-}
 
 
 func profile(w http.ResponseWriter, r *http.Request){
