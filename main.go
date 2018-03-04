@@ -16,6 +16,24 @@ _ "github.com/lib/pq"
 
 func main() {
 
+  type user struct {
+  	email string
+  	pass  string
+  }
+  //creates user database map variable
+  var dbu = map[string]user{} //user id, stores users
+  var dbs = map[string]string{} //session id, stores userids
+  flag.Parse()
+  //pulls users from database
+  dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+  if err != nil {log.Fatalf("Unable to connect to the database")}
+  sqlStatement := `SELECT * FROM rfgg.members;`
+  _, _ := dbusers.Exec(sqlStatement).Scan(&email,&pass)
+  dbu[strings.Trim(email, " ")] = user{strings.Trim(email, " "), strings.Trim(pass, " ")}
+  fmt.Printf(dbu)
+
+
+
   s := &http.Server{
 
     Addr:    ":80",
@@ -37,16 +55,14 @@ func main() {
 
 
 
-var dbs = map[string]string{} //session id, stores userids
-
-
+}
 
 func alreadyLoggedIn(req *http.Request) bool {
 	c, err := req.Cookie("session")
 	if err != nil {
 		return false
 	}
-	email := dbs[c.Value]
+  email := dbs[c.Value]
 	_, ok := dbu[email]
 	return ok
 }
@@ -81,7 +97,6 @@ func getUser(w http.ResponseWriter, r *http.Request) user {
 			Value: sID.String(),
 		}
 	}
-
 	//sets max age of cookie (time available to be logged in) and creates a cookie
 	const cookieLength int = 14400
 	c.MaxAge = cookieLength
@@ -154,6 +169,15 @@ func login(w http.ResponseWriter, r *http.Request){
 
 
 func profile(w http.ResponseWriter, r *http.Request){
+  //are you already logged in?
+	if !alreadyLoggedIn(r) {http.Redirect(w, r, "/signup", http.StatusSeeOther)}
+  //provides user a cookie for some time and tracks login
+  u := getUser(w, r)
+  if u.email == "" {
+    http.Error(w, "Please Unblock Cookies - They Help Our Website Run - and Login Again", http.StatusForbidden)
+    return
+  }
+
   if r.Method == http.MethodPost {
     var emailcheck string
     var passcheck string
