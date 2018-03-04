@@ -77,13 +77,6 @@ func serve(w http.ResponseWriter, r *http.Request){
 }
 
 
-func weeklyregister(w http.ResponseWriter, r *http.Request){
-  var tpl *template.Template
-  tpl = template.Must(template.ParseFiles("tregistration.gohtml","css/main.css","css/mcleod-reset.css",))
-  tpl.Execute(w, nil)
-}
-
-
 func alreadyLoggedIn(req *http.Request) bool {
 	c, err := req.Cookie("session")
 	if err != nil {
@@ -173,6 +166,13 @@ func getUser(w http.ResponseWriter, r *http.Request) user {
 
 }
 
+
+func weeklyregister(w http.ResponseWriter, r *http.Request){
+  var tpl *template.Template
+  tpl = template.Must(template.ParseFiles("tsignup.gohtml","css/main.css","css/mcleod-reset.css",))
+  tpl.Execute(w, nil)
+}
+
 func tsignup(w http.ResponseWriter, r *http.Request){
   if !alreadyLoggedIn(r) {http.Redirect(w, r, "/signup", http.StatusSeeOther)}
   //provides user a cookie for some time and tracks login
@@ -208,7 +208,7 @@ func tsignup(w http.ResponseWriter, r *http.Request){
   }
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("tsignup.gohtml","css/main.css","css/mcleod-reset.css"))
-  tpl.Execute(w, u)
+  tpl.Execute(w, nil)
 }
 
 
