@@ -38,7 +38,7 @@ func main() {
   dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   if err != nil {log.Fatalf("Unable to connect to the database")}
   sqlStatement := `SELECT * FROM rfgg.members;`
-  _ = dbusers.Exec(sqlStatement).Scan(&email,&pass)
+  _, _ = dbusers.Exec(sqlStatement).Scan(&email,&pass)
   dbu[email] = user{email,pass}
 
   http.Handle("/favicon/", http.StripPrefix("/favicon/", http.FileServer(http.Dir("./favicon"))))
@@ -92,7 +92,7 @@ func getUser(w http.ResponseWriter, r *http.Request) user {
 	//gets cookie
 	c, err := r.Cookie("session")
 	if err != nil {
-		sID := uuid.NewV4()
+		sID, _ := uuid.NewV4()
 		c = &http.Cookie{
 			Name:  "session",
 			Value: sID.String(),
@@ -182,14 +182,8 @@ func login(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Username and/or password not found", http.StatusForbidden)
 			return
 		}
-		//checks if user is over21
-		if o21 == false {
-			http.Error(w, "Not 21 Eh?? Must be Over 21 to Enter", http.StatusForbidden)
-			return
-		}
-
 		//create new session (cookie) to identify user
-		sID := uuid.NewV4()
+		sID, _ := uuid.NewV4()
 		c := &http.Cookie{
 			Name:  "session",
 			Value: sID.String(),
@@ -293,7 +287,7 @@ func profile(w http.ResponseWriter, r *http.Request){
 
 func waitingregister(w http.ResponseWriter, r *http.Request){
   //create new session (cookie) to identify user
-  sID := uuid.NewV4()
+  sID, _ := uuid.NewV4()
   c := &http.Cookie{
     Name:  "session",
     Value: sID.String(),
@@ -311,7 +305,7 @@ func waitingregister(w http.ResponseWriter, r *http.Request){
   	dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
     fmt.Println(e + " signed up with pass:" + p)
   	if err != nil {log.Fatalf("Unable to connect to the database")}
-    sqlStatement = `INSERT INTO rfgg.members (email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertag ) VALUES ($1, $2, true, 0, 0, 0, 0, 'y', 0, 0, $3, $4);`
+    sqlStatement := `INSERT INTO rfgg.members (email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertag ) VALUES ($1, $2, true, 0, 0, 0, 0, 'y', 0, 0, $3, $4);`
     _, err = dbusers.Exec(sqlStatement, e,p)
     if err != nil {http.Redirect(w, r, "/verify", http.StatusSeeOther)}
     dbusers.Close()
