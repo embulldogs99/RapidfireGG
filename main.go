@@ -38,16 +38,8 @@ func main() {
 
 
 var dbs = map[string]string{} //session id, stores userids
-//create new session (cookie) to identify user
-sID := uuid.NewV4()
-c := &http.Cookie{
-  Name:  "session",
-  Value: sID.String(),
 
-http.SetCookie(w, c)
-dbs[c.Value] = email
-}
-}
+
 
 func alreadyLoggedIn(req *http.Request) bool {
 	c, err := req.Cookie("session")
@@ -151,6 +143,8 @@ func weeklyregister(w http.ResponseWriter, r *http.Request){
 }
 
 func login(w http.ResponseWriter, r *http.Request){
+  http.SetCookie(w, c)
+
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("login.gohtml","css/main.css","css/mcleod-reset.css",))
   tpl.Execute(w, nil)
@@ -232,15 +226,26 @@ func profile(w http.ResponseWriter, r *http.Request){
 
 
 func waitingregister(w http.ResponseWriter, r *http.Request){
+  //create new session (cookie) to identify user
+  sID := uuid.NewV4()
+  c := &http.Cookie{
+    Name:  "session",
+    Value: sID.String(),
+  }
+
+
 
   if r.Method == http.MethodPost {
     email := r.FormValue("email")
     pass := r.FormValue("pass")
 
+    http.SetCookie(w, c)
+    dbs[c.Value] = email
+
   	dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
     fmt.Println(e + " signed up with pass:" + p)
   	if err != nil {log.Fatalf("Unable to connect to the database")}
-    sqlStatement := `INSERT INTO rfgg.members (email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertag ) VALUES ($1, $2, true, 0, 0, 0, 0, 'y', 0, 0, $3, $4);`
+    sqlStatement = `INSERT INTO rfgg.members (email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertag ) VALUES ($1, $2, true, 0, 0, 0, 0, 'y', 0, 0, $3, $4);`
     _, err = dbusers.Exec(sqlStatement, e,p)
     if err != nil {http.Redirect(w, r, "/verify", http.StatusSeeOther)}
     dbusers.Close()
