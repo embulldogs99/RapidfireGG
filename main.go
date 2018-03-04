@@ -200,7 +200,7 @@ func tournamentsignup(w http.ResponseWriter, r *http.Request){
   if err != nil {panic(err)}
   fmt.Printf(gamertag+"Signed up for a tournament")
   dbusers.Close()
-  
+
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("tregistration.gohtml","css/main.css","css/mcleod-reset.css"))
   tpl.Execute(w, u)
@@ -297,9 +297,8 @@ func profile(w http.ResponseWriter, r *http.Request){
     tpl.Execute(w,data)
     }
 
-    var tpl *template.Template
-    tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css"))
-    tpl.Execute(w,nil)
+
+    http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
 
