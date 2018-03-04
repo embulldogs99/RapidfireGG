@@ -45,10 +45,6 @@ func main() {
   var credits int
   var grade int
   var gamertag string
-  var tournament string
-  var roundnum int
-  var gametype string
-  var kills int
   //pulls users from database
   dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   if err != nil {log.Fatalf("Unable to connect to the database")}
