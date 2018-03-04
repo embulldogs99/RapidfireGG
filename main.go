@@ -15,8 +15,6 @@ _ "github.com/lib/pq"
 
   type user struct {
     email string
-    epicusername string
-    pass  string
   }
   //creates user database map variable
 var dbu = map[string]user{} //user id, stores users
@@ -49,10 +47,9 @@ func main() {
   dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   if err != nil {log.Fatalf("Unable to connect to the database")}
   err = dbusers.QueryRow("SELECT * FROM rfgg.members ").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
-
   if err != nil {log.Fatalf("Could not Scan User Data")}
 
-  dbu[email] = user{email,epicusername,pass}
+  dbu[email] = email
 
   http.Handle("/favicon/", http.StripPrefix("/favicon/", http.FileServer(http.Dir("./favicon"))))
   http.Handle("/pics/", http.StripPrefix("/pics/", http.FileServer(http.Dir("./pics"))))
@@ -80,6 +77,49 @@ func alreadyLoggedIn(req *http.Request) bool {
 	_, ok := dbu[email]
 	return ok
 }
+
+func login(w http.ResponseWriter, r *http.Request) {
+	//if already logged in send to home page
+	if alreadyLoggedIn(r) {
+		http.Redirect(w, r, "/profile", http.StatusSeeOther)
+		return
+	}
+
+	//grab posted form information
+	if r.Method == http.MethodPost {
+		email := r.FormValue("email")
+		pass := r.FormValue("pass")
+
+		//defines u as dbu user info (email,pass) then matches form email with stored email
+		u, ok := dbu[email]
+		if !ok {
+			http.Error(w, "Username and/or password not found", http.StatusForbidden)
+			return
+		}
+		//pulls password from u and checks it with stored password
+		if pass != u.pass {
+			http.Error(w, "Username and/or password not found", http.StatusForbidden)
+			return
+		}
+		//create new session (cookie) to identify user
+		sID, _ := uuid.NewV4()
+		c := &http.Cookie{
+			Name:  "session",
+			Value: sID.String(),
+		}
+		http.SetCookie(w, c)
+		dbs[c.Value] = email
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+
+	}
+
+	//html template
+  var tpl *template.Template
+  tpl = template.Must(template.ParseFiles("login.gohtml","css/main.css","css/mcleod-reset.css",))
+  tpl.Execute(w, nil)
+
+}
+
 
 func logout(w http.ResponseWriter, r *http.Request) {
 	if !alreadyLoggedIn(r) {
@@ -172,47 +212,6 @@ func weeklyregister(w http.ResponseWriter, r *http.Request){
 }
 
 
-func login(w http.ResponseWriter, r *http.Request) {
-	//if already logged in send to home page
-	if alreadyLoggedIn(r) {
-		http.Redirect(w, r, "/profile", http.StatusSeeOther)
-		return
-	}
-
-	//grab posted form information
-	if r.Method == http.MethodPost {
-		email := r.FormValue("email")
-		pass := r.FormValue("pass")
-
-		//defines u as dbu user info (email,pass) then matches form email with stored email
-		u, ok := dbu[email]
-		if !ok {
-			http.Error(w, "Username and/or password not found", http.StatusForbidden)
-			return
-		}
-		//pulls password from u and checks it with stored password
-		if pass != u.pass {
-			http.Error(w, "Username and/or password not found", http.StatusForbidden)
-			return
-		}
-		//create new session (cookie) to identify user
-		sID, _ := uuid.NewV4()
-		c := &http.Cookie{
-			Name:  "session",
-			Value: sID.String(),
-		}
-		http.SetCookie(w, c)
-		dbs[c.Value] = email
-		http.Redirect(w, r, "/login", http.StatusSeeOther)
-
-	}
-
-	//html template
-  var tpl *template.Template
-  tpl = template.Must(template.ParseFiles("login.gohtml","css/main.css","css/mcleod-reset.css",))
-  tpl.Execute(w, nil)
-
-}
 
 
 
