@@ -201,7 +201,7 @@ func tsignup(w http.ResponseWriter, r *http.Request){
   epicusername := u.Epicusername
   fmt.Printf(epicusername)
   email := u.Email
-  fmt.PrintF(email)
+  fmt.Printf(email)
   wins := 0
   kills := 0
   matches:=0
