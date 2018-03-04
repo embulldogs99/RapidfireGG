@@ -116,6 +116,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 		}
 		http.SetCookie(w, c)
 		dbs[c.Value] = email
+    http.Redirect(w, r, "/profile", http.StatusSeeOther)
 
 	}
 
