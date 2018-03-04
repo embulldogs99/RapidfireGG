@@ -13,11 +13,11 @@ _ "github.com/lib/pq"
 
 )
 
-  type user struct {
-    Email string
-    Pass string
-    Epicusername string
-  }
+type user struct {
+  Email string
+  Pass string
+  Epicusername string
+}
   //creates user database map variable
 var dbu = map[string]user{} //user id, stores users
 var dbs = map[string]string{} //session id, stores userids
@@ -58,7 +58,7 @@ func main() {
   http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("./css"))))
   http.Handle("/svg/", http.StripPrefix("/svg/", http.FileServer(http.Dir("./svg"))))
   http.HandleFunc("/", serve)
-  http.HandleFunc("/verify", verify)
+  http.HandleFunc("/signup", signup)
   http.HandleFunc("/weeklyregister", weeklyregister)
   http.HandleFunc("/waitingregister", waitingregister)
   http.HandleFunc("/login", login)
@@ -69,6 +69,21 @@ func main() {
 
 
 }
+
+
+func serve(w http.ResponseWriter, r *http.Request){
+  var tpl *template.Template
+  tpl = template.Must(template.ParseFiles("main.gohtml","css/main.css","css/mcleod-reset.css"))
+  tpl.Execute(w, nil)
+}
+
+
+func weeklyregister(w http.ResponseWriter, r *http.Request){
+  var tpl *template.Template
+  tpl = template.Must(template.ParseFiles("tregistration.gohtml","css/main.css","css/mcleod-reset.css",))
+  tpl.Execute(w, nil)
+}
+
 
 func alreadyLoggedIn(req *http.Request) bool {
 	c, err := req.Cookie("session")
@@ -83,9 +98,7 @@ func alreadyLoggedIn(req *http.Request) bool {
 func login(w http.ResponseWriter, r *http.Request) {
 	//if already logged in send to home page
 	if alreadyLoggedIn(r) {
-		http.Redirect(w, r, "/profile", http.StatusSeeOther)
-		return
-	}
+		http.Redirect(w, r, "/profile", http.StatusSeeOther)}
 
 	//grab posted form information
 	if r.Method == http.MethodPost {
@@ -111,7 +124,6 @@ func login(w http.ResponseWriter, r *http.Request) {
 		}
 		http.SetCookie(w, c)
 		dbs[c.Value] = email
-    resp, err := http.PostForm("/profile",url.Values{"email":{u.Email}, "pass":{u.Pass}})
     http.Redirect(w, r, "/profile", http.StatusSeeOther)
 
 	}else{	//html template
@@ -123,10 +135,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 
 
 func logout(w http.ResponseWriter, r *http.Request) {
-	if !alreadyLoggedIn(r) {
-		http.Redirect(w, r, "/login", http.StatusSeeOther)
-	}
-
+	if !alreadyLoggedIn(r) {http.Redirect(w, r, "/login", http.StatusSeeOther)}
 	c, _ := r.Cookie("session")
 	//delete the session
 	delete(dbs, c.Value)
@@ -139,7 +148,6 @@ func logout(w http.ResponseWriter, r *http.Request) {
 	}
 	http.SetCookie(w, c)
 	http.Redirect(w, r, "/login", http.StatusSeeOther)
-
 }
 
 func getUser(w http.ResponseWriter, r *http.Request) user {
@@ -203,139 +211,97 @@ func tournamentsignup(w http.ResponseWriter, r *http.Request){
 }
 
 
-func serve(w http.ResponseWriter, r *http.Request){
-  var tpl *template.Template
-  tpl = template.Must(template.ParseFiles("main.gohtml","css/main.css","css/mcleod-reset.css"))
-  tpl.Execute(w, nil)
-}
-
-func verify(w http.ResponseWriter, r *http.Request){
-  var tpl *template.Template
-  tpl = template.Must(template.ParseFiles("verification.gohtml","css/main.css","css/mcleod-reset.css",))
-  tpl.Execute(w, nil)
-}
-
-func weeklyregister(w http.ResponseWriter, r *http.Request){
-  var tpl *template.Template
-  tpl = template.Must(template.ParseFiles("tregistration.gohtml","css/main.css","css/mcleod-reset.css",))
-  tpl.Execute(w, nil)
-}
 
 
-
-
-
-
-func profile(w http.ResponseWriter, r *http.Request){
-  //are you already logged in?
-	if !alreadyLoggedIn(r) {http.Redirect(w, r, "/signup", http.StatusSeeOther)}
-  //provides user a cookie for some time and tracks login
-  u := getUser(w, r)
-  if u.Email == "" {
-    http.Error(w, "Please Unblock Cookies - They Help Our Website Run - and Login Again", http.StatusForbidden)
-    return
-  }
-
-  if r.Method == http.MethodPost {
-    var emailcheck string
-    var passcheck string
-    emailcheck = r.FormValue("email")
-    passcheck = r.FormValue("pass")
-    dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-  	if err != nil {
-      log.Fatalf("Unable to connect to the database")
-    }
-    if u.Pass==passcheck{
-      var email string
-      var pass string
-      var ppal bool
-      var wins int
-      var losses int
-      var heat int
-      var refers int
-      var memberflag string
-      var credits int
-      var grade int
-      var epicusername string
-      var gamertag string
-      var tournament string
-      var roundnum int
-      var gametype string
-      var kills int
-
-      type Data struct{
-        Email string
-        Pass string
-        Ppal bool
-        Wins int
-        Losses int
-        Heat int
-        Refers int
-        Memberflag string
-        Credits int
-        Grade int
-        Epicusername string
-        Gamertag string
-        Tournament string
-        Roundnum int
-        Gametype string
-        Kills int
-
-      }
-
-      err = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2 AND memberflag=$3",emailcheck,passcheck,"y").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
-      _ = dbusers.QueryRow("SELECT * FROM rfgg.tournaments WHERE epicusername=$1",epicusername).Scan(&tournament,&roundnum,&gametype,&gamertag,&epicusername,&kills)
-
-      data:=Data{email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertag, tournament, roundnum, gametype, kills}
-
-      fmt.Println(emailcheck + " logged on")
-
-      var tpl *template.Template
-      tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css"))
-
-      tpl.Execute(w,data)
-    }
-
-    }
-    var tpl *template.Template
-    tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css"))
-
-    tpl.Execute(w,nil)
-}
-
-
-func waitingregister(w http.ResponseWriter, r *http.Request){
-  //create new session (cookie) to identify user
-  sID, _ := uuid.NewV4()
-  c := &http.Cookie{
-    Name:  "session",
-    Value: sID.String(),
-  }
-
+func signup(w http.ResponseWriter, r *http.Request){
   if r.Method == http.MethodPost {
     email := r.FormValue("email")
     pass := r.FormValue("pass")
     epicusername := r.FormValue("epicusername")
     gamertag:= r.FormValue("gamertag")
 
-    http.SetCookie(w, c)
-    dbs[c.Value] = email
-
-  	dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+    dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
     fmt.Println(email + " signed up with pass:" + pass)
-  	if err != nil {log.Fatalf("Unable to connect to the database")}
+    if err != nil {log.Fatalf("Unable to connect to the database")}
     sqlStatement := `INSERT INTO rfgg.members (email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertag ) VALUES ($1, $2, true, 0, 0, 0, 0, 'y', 0, 0, $3, $4);`
     _, err = dbusers.Exec(sqlStatement, email,pass,epicusername,gamertag)
-    if err != nil {http.Redirect(w, r, "/verify", http.StatusSeeOther)}
+    if err != nil {print(err)}
     dbusers.Close()
 
-
-    err = ioutil.WriteFile("test.txt", []byte(email+":"+pass), 0666)
-    if err != nil {
-        log.Fatal(err)
-    }
     http.Redirect(w, r, "/waitingregister", http.StatusSeeOther)
     }
+    var tpl *template.Template
+    tpl = template.Must(template.ParseFiles("verification.gohtml","css/main.css","css/mcleod-reset.css",))
+    tpl.Execute(w, nil)
+}
+
+
+func profile(w http.ResponseWriter, r *http.Request){
+  //are you already logged in?
+	if !alreadyLoggedIn(r) {http.Redirect(w, r, "/login", http.StatusSeeOther)}
+  //provides user a cookie for some time and tracks login
+  u := getUser(w, r)
+  if u.Email == "" {
+    http.Error(w, "Please Unblock Cookies - They Help Our Website Run - and Login Again", http.StatusForbidden)
+    return
+  }
+  if u.Pass==passcheck{
+    var email string
+    var pass string
+    var ppal bool
+    var wins int
+    var losses int
+    var heat int
+    var refers int
+    var memberflag string
+    var credits int
+    var grade int
+    var epicusername string
+    var gamertag string
+    var tournament string
+    var roundnum int
+    var gametype string
+    var kills int
+
+    type Data struct{
+      Email string
+      Pass string
+      Ppal bool
+      Wins int
+      Losses int
+      Heat int
+      Refers int
+      Memberflag string
+      Credits int
+      Grade int
+      Epicusername string
+      Gamertag string
+      Tournament string
+      Roundnum int
+      Gametype string
+      Kills int
+
+    }
+
+    err = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2 AND memberflag=$3",emailcheck,passcheck,"y").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
+    _ = dbusers.QueryRow("SELECT * FROM rfgg.tournaments WHERE epicusername=$1",epicusername).Scan(&tournament,&roundnum,&gametype,&gamertag,&epicusername,&kills)
+
+    data:=Data{email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertag, tournament, roundnum, gametype, kills}
+
+    fmt.Println(emailcheck + " logged on")
+
+    var tpl *template.Template
+    tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css"))
+    tpl.Execute(w,data)
+    }
+
+    var tpl *template.Template
+    tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css"))
+    tpl.Execute(w,nil)
+}
+
+
+func waitingregister(w http.ResponseWriter, r *http.Request){
 
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("waitingverification.gohtml","css/main.css","css/mcleod-reset.css",))
