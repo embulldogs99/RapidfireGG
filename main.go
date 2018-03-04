@@ -111,7 +111,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 		}
 		http.SetCookie(w, c)
 		dbs[c.Value] = email
-    resp, err := http.PostForm("/profile",{"email":{u.Email}, "pass":{u.Pass}} )
+    resp, err := http.PostForm("/profile",url.Values{"email":{u.Email}, "pass":{u.Pass}})
     profile(resp,r)
 
 	}else{	//html template
