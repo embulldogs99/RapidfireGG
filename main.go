@@ -81,7 +81,7 @@ func tournamentsignup(w http.ResponseWriter, r *http.Request){
   }
   http.Redirect(w, r, "/profile", http.StatusSeeOther)
 }
-}
+
 
 func serve(w http.ResponseWriter, r *http.Request){
   var tpl *template.Template
