@@ -177,10 +177,7 @@ func tournamentsignup(w http.ResponseWriter, r *http.Request){
   if !alreadyLoggedIn(r) {http.Redirect(w, r, "/signup", http.StatusSeeOther)}
   //provides user a cookie for some time and tracks login
   u := getUser(w, r)
-  if u.Email == "" {
-    http.Error(w, "Please Unblock Cookies - They Help Our Website Run - and Login Again", http.StatusForbidden)
-    return
-  }
+
   if r.Method == http.MethodPost {
   tournament := "freeweekly1"
   roundnum:=1
@@ -203,8 +200,11 @@ func tournamentsignup(w http.ResponseWriter, r *http.Request){
   if err != nil {panic(err)}
   fmt.Printf(gamertag+"Signed up for a tournament")
   dbusers.Close()
+  
+  var tpl *template.Template
+  tpl = template.Must(template.ParseFiles("tregistration.gohtml","css/main.css","css/mcleod-reset.css"))
+  tpl.Execute(w, u)
 
-  http.Redirect(w, r, "/profile", http.StatusSeeOther)
   }
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("tregistration.gohtml","css/main.css","css/mcleod-reset.css"))
