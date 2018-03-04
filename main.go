@@ -33,6 +33,7 @@ func main() {
   http.HandleFunc("/waitingregister", waitingregister)
   http.HandleFunc("/login", login)
   http.HandleFunc("/profile", profile)
+  http.HandleFunc("/tournamentsignup", tournamentsignup)
   log.Fatal(s.ListenAndServe())
 
 
@@ -54,6 +55,33 @@ func dbusignup(e string,p string) {
   dbusers.Close()
 }
 
+
+func tournamentsignup(w http.ResponseWriter, r *http.Request, email,pass){
+  if r.Method == http.MethodPost {
+  tournament := "freeweekly1"
+  roundnum:=1
+  gametype:=r.FormValue("gametype")
+  gamertag := r.FormValue("gamertag")
+  epicusername := r.FormValue("epicusername")
+  email := r.FormValue("email")
+  wins := 0
+  kills := 0
+
+  dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+  if err != nil {log.Fatalf("Unable to connect to the database")}
+  sqlStatement := `INSERT INTO rfgg.tournaments (tournament,roundnum,gametype,gamertag,epicusername,wins,kills,matches,teamname) VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9);`
+  _, err = dbusers.Exec(sqlStatement, tournament,roundnum,gametype,gamertag,epicusername,wins,kills,matches,teamname)
+  if err != nil {panic(err)}
+  sqlStatement := `UPDATE rfgg.members SET epicusername=%s AND gamertag=%s WHERE email=%s VALUES ($1, $2, $3);`
+  _, err = dbusers.Exec(sqlStatement, epicusername,gamertag,email)
+  if err != nil {panic(err)}
+  fmt.Printf(gamertag+"Signed up for a tournament")
+  dbusers.Close()
+  http.Redirect(w, r, "/profile", http.StatusSeeOther)
+  }
+  http.Redirect(w, r, "/profile", http.StatusSeeOther)
+}
+}
 
 func serve(w http.ResponseWriter, r *http.Request){
   var tpl *template.Template
@@ -122,6 +150,12 @@ func profile(w http.ResponseWriter, r *http.Request){
     var memberflag string
     var credits int
     var grade int
+    var epicusername string
+    var gamertag string
+    var tournament string
+    var roundnum int
+    var gametype string
+    var kills int
 
     type Data struct{
       Email string
@@ -134,12 +168,19 @@ func profile(w http.ResponseWriter, r *http.Request){
       Memberflag string
       Credits int
       Grade int
+      Epicusername string
+      Gamertag string
+      Tournament string
+      Roundnum int
+      Gametype string
+      Kills int
 
     }
 
-    err = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2 AND memberflag=$3",emailcheck,passcheck,"y").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag, &credits, &grade)
-    data:=Data{email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade}
-    booze:="Hello"
+    err = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2 AND memberflag=$3",emailcheck,passcheck,"y").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
+    _ = dbusers.QueryRow("SELECT * FROM rfgg.tournaments WHERE epicusername=$1",epicusername).Scan(&tournament,&roundnum,&gametype,&gamertag,&epicusername,&kills)
+
+    data:=Data{email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertag, tournament, roundnum, gametype, gamertag, kills}
     switch{
     case err == sql.ErrNoRows:
       log.Printf("No user with that ID.")
@@ -151,7 +192,7 @@ func profile(w http.ResponseWriter, r *http.Request){
       var tpl *template.Template
       tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css"))
 
-      tpl.Execute(w,data,booze)
+      tpl.Execute(w,data)
 
       }
   }
