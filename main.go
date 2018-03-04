@@ -99,7 +99,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		//pulls password from u and checks it with stored password
-		if pass != u.pass {
+		if pass != u.Pass {
 			http.Error(w, "Username and/or password not found", http.StatusForbidden)
 			return
 		}
@@ -171,7 +171,7 @@ func tournamentsignup(w http.ResponseWriter, r *http.Request){
   if !alreadyLoggedIn(r) {http.Redirect(w, r, "/signup", http.StatusSeeOther)}
   //provides user a cookie for some time and tracks login
   u := getUser(w, r)
-  if u.email == "" {
+  if u.Email == "" {
     http.Error(w, "Please Unblock Cookies - They Help Our Website Run - and Login Again", http.StatusForbidden)
     return
   }
@@ -180,8 +180,8 @@ func tournamentsignup(w http.ResponseWriter, r *http.Request){
   roundnum:=1
   gametype:=r.FormValue("gametype")
   gamertag := r.FormValue("gamertag")
-  epicusername := u.epicusername
-  email := u.email
+  epicusername := u.Epicusername
+  email := u.Email
   wins := 0
   kills := 0
   matches:=0
@@ -230,7 +230,7 @@ func profile(w http.ResponseWriter, r *http.Request){
 	if !alreadyLoggedIn(r) {http.Redirect(w, r, "/signup", http.StatusSeeOther)}
   //provides user a cookie for some time and tracks login
   u := getUser(w, r)
-  if u.email == "" {
+  if u.Email == "" {
     http.Error(w, "Please Unblock Cookies - They Help Our Website Run - and Login Again", http.StatusForbidden)
     return
   }
