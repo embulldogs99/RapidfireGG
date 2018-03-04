@@ -87,6 +87,11 @@ func login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	//html template
+  var tpl *template.Template
+  tpl = template.Must(template.ParseFiles("login.gohtml","css/main.css","css/mcleod-reset.css",))
+  tpl.Execute(w, nil)
+
 	//grab posted form information
 	if r.Method == http.MethodPost {
 		email := r.FormValue("email")
@@ -114,10 +119,6 @@ func login(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	//html template
-  var tpl *template.Template
-  tpl = template.Must(template.ParseFiles("login.gohtml","css/main.css","css/mcleod-reset.css",))
-  tpl.Execute(w, nil)
 
 }
 
