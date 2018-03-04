@@ -244,7 +244,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     http.Error(w, "Please Unblock Cookies - They Help Our Website Run - and Login Again", http.StatusForbidden)
     return
   }
-  if u.Pass!=nil{
+  if u.Pass!=""{
     var email string
     var pass string
     var ppal bool
@@ -283,7 +283,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     }
 
     dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-    err = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2 AND memberflag=$3",emailcheck,passcheck,"y").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
+    err = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2 AND memberflag=$3",u.Email,u.Pass,"y").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
     _ = dbusers.QueryRow("SELECT * FROM rfgg.tournaments WHERE epicusername=$1",epicusername).Scan(&tournament,&roundnum,&gametype,&gamertag,&epicusername,&kills)
 
     data:=Data{email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertag, tournament, roundnum, gametype, kills}
