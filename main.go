@@ -14,8 +14,9 @@ _ "github.com/lib/pq"
 )
 
   type user struct {
-    email string
-    pass string
+    Email string
+    Pass string
+    Epicusername string
   }
   //creates user database map variable
 var dbu = map[string]user{} //user id, stores users
@@ -50,7 +51,7 @@ func main() {
   err = dbusers.QueryRow("SELECT * FROM rfgg.members ").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
   if err != nil {log.Fatalf("Could not Scan User Data")}
 
-  dbu[email] = user{email,pass}
+  dbu[email] = user{email,pass,epicusername}
 
   http.Handle("/favicon/", http.StripPrefix("/favicon/", http.FileServer(http.Dir("./favicon"))))
   http.Handle("/pics/", http.StripPrefix("/pics/", http.FileServer(http.Dir("./pics"))))
@@ -167,13 +168,20 @@ func getUser(w http.ResponseWriter, r *http.Request) user {
 }
 
 func tournamentsignup(w http.ResponseWriter, r *http.Request){
+  if !alreadyLoggedIn(r) {http.Redirect(w, r, "/signup", http.StatusSeeOther)}
+  //provides user a cookie for some time and tracks login
+  u := getUser(w, r)
+  if u.email == "" {
+    http.Error(w, "Please Unblock Cookies - They Help Our Website Run - and Login Again", http.StatusForbidden)
+    return
+  }
   if r.Method == http.MethodPost {
   tournament := "freeweekly1"
   roundnum:=1
   gametype:=r.FormValue("gametype")
   gamertag := r.FormValue("gamertag")
-  epicusername := r.FormValue("epicusername")
-  email := r.FormValue("email")
+  epicusername := u.epicusername
+  email := u.email
   wins := 0
   kills := 0
   matches:=0
@@ -197,7 +205,7 @@ func tournamentsignup(w http.ResponseWriter, r *http.Request){
 func serve(w http.ResponseWriter, r *http.Request){
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("main.gohtml","css/main.css","css/mcleod-reset.css"))
-  tpl.Execute(w, nil)
+  tpl.Execute(w, u)
 }
 
 func verify(w http.ResponseWriter, r *http.Request){
