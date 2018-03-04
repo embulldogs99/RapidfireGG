@@ -39,9 +39,10 @@ func main() {
   //pulls users from database
   dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   if err != nil {log.Fatalf("Unable to connect to the database")}
-  err = dbusers.QueryRow("SELECT * FROM rfgg.members").Scan(&email,&pass,&epicusername)
+  err = dbusers.QueryRow("SELECT * FROM rfgg.members ").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
 
   if err != nil {log.Fatalf("Could not Scan User Data")}
+
   dbu[email] = user{email,epicusername,pass}
 
   http.Handle("/favicon/", http.StripPrefix("/favicon/", http.FileServer(http.Dir("./favicon"))))
