@@ -209,7 +209,10 @@ func tsignup(w http.ResponseWriter, r *http.Request){
   if err != nil {log.Fatalf("Unable to connect to the database")}
   sqlStatement := `INSERT INTO rfgg.tournaments (tournament,roundnum,gametype,gamertag,epicusername,wins,kills,matches,teamname,status) VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9,'open');`
   _, err = dbusers.Exec(sqlStatement, tournament,roundnum,gametype,gamertag,epicusername,wins,kills,matches,teamname)
-  if err != nil {panic(err)}
+  if err != nil {
+    fmt.Printf("failed at user post")
+    fmt.Printf(err)
+  }
   sqlStatementer := `UPDATE rfgg.members SET epicusername=%s AND gamertag=%s WHERE email=%s VALUES ($1, $2, $3);`
   _, err = dbusers.Exec(sqlStatementer, epicusername,gamertag,email)
   if err != nil {panic(err)}
