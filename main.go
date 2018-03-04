@@ -66,6 +66,8 @@ func tournamentsignup(w http.ResponseWriter, r *http.Request){
   email := r.FormValue("email")
   wins := 0
   kills := 0
+  matches:=0
+  teamname:=r.FormValue("teamname")
 
   dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   if err != nil {log.Fatalf("Unable to connect to the database")}
