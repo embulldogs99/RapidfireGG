@@ -12,6 +12,11 @@ _ "github.com/lib/pq"
     	"github.com/satori/go.uuid"
 
 )
+
+  type user struct {
+    email string
+    pass  string
+  }
   //creates user database map variable
 var dbu = map[string]user{} //user id, stores users
 var dbs = map[string]string{} //session id, stores userids
@@ -27,10 +32,6 @@ func main() {
   }
 
 
-  type user struct {
-    email string
-    pass  string
-  }
   var email string
   var pass string
   //pulls users from database
