@@ -12,23 +12,10 @@ _ "github.com/lib/pq"
     	"github.com/satori/go.uuid"
 
 )
-
-
-type user struct {
-  email string
-  pass  string
-}
-var email string
-var pass string
-//creates user database map variable
+  //creates user database map variable
 var dbu = map[string]user{} //user id, stores users
 var dbs = map[string]string{} //session id, stores userids
-//pulls users from database
-dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-if err != nil {log.Fatalf("Unable to connect to the database")}
-sqlStatement := `SELECT * FROM rfgg.members;`
-_ = dbusers.Exec(sqlStatement).Scan(&email,&pass)
-dbu[email] = user{email,pass}
+
 
 
 func main() {
@@ -38,6 +25,20 @@ func main() {
     Addr:    ":80",
     Handler: nil,
   }
+
+
+  type user struct {
+    email string
+    pass  string
+  }
+  var email string
+  var pass string
+  //pulls users from database
+  dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+  if err != nil {log.Fatalf("Unable to connect to the database")}
+  sqlStatement := `SELECT * FROM rfgg.members;`
+  _ = dbusers.Exec(sqlStatement).Scan(&email,&pass)
+  dbu[email] = user{email,pass}
 
   http.Handle("/favicon/", http.StripPrefix("/favicon/", http.FileServer(http.Dir("./favicon"))))
   http.Handle("/pics/", http.StripPrefix("/pics/", http.FileServer(http.Dir("./pics"))))
