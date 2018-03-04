@@ -199,9 +199,7 @@ func tsignup(w http.ResponseWriter, r *http.Request){
   gametype:=r.FormValue("gametype")
   gamertag := r.FormValue("gamertag")
   epicusername := u.Epicusername
-  fmt.Printf(epicusername)
   email := u.Email
-  fmt.Printf(email)
   wins := 0
   kills := 0
   matches:=0
@@ -209,8 +207,8 @@ func tsignup(w http.ResponseWriter, r *http.Request){
 
   dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   if err != nil {log.Fatalf("Unable to connect to the database")}
-  sqlStatement := `INSERT INTO rfgg.tournaments (tournament,roundnum,gametype,gamertag,epicusername,wins,kills,matches,teamname,status) VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9,$10);`
-  _, err = dbusers.Exec(sqlStatement, tournament,roundnum,gametype,gamertag,epicusername,wins,kills,matches,teamname,"open")
+  sqlStatement := `INSERT INTO rfgg.tournaments (tournament,roundnum,gametype,gamertag,epicusername,wins,kills,matches,teamname,status) VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9,'open');`
+  _, err = dbusers.Exec(sqlStatement, tournament,roundnum,gametype,gamertag,epicusername,wins,kills,matches,teamname)
   if err != nil {panic(err)}
   sqlStatementer := `UPDATE rfgg.members SET epicusername=%s AND gamertag=%s WHERE email=%s VALUES ($1, $2, $3);`
   _, err = dbusers.Exec(sqlStatementer, epicusername,gamertag,email)
