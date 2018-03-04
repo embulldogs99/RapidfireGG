@@ -9,13 +9,12 @@ import(
     "database/sql"
 _ "github.com/lib/pq"
     _ "strconv"
+    	"github.com/satori/go.uuid"
 
 )
 
 
 func main() {
-
-
 
   s := &http.Server{
 
@@ -37,24 +36,73 @@ func main() {
   log.Fatal(s.ListenAndServe())
 
 
+
+var dbs = map[string]string{} //session id, stores userids
+//create new session (cookie) to identify user
+sID := uuid.NewV4()
+c := &http.Cookie{
+  Name:  "session",
+  Value: sID.String(),
+
+http.SetCookie(w, c)
+dbs[c.Value] = email
+}
 }
 
-
-func dbusignup(e string,p string) {
-
-	dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-  fmt.Println(e + " signed up with pass:" + p)
+func alreadyLoggedIn(req *http.Request) bool {
+	c, err := req.Cookie("session")
 	if err != nil {
-		log.Fatalf("Unable to connect to the database")
+		return false
 	}
-  sqlStatement := `INSERT INTO rfgg.members (email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade ) VALUES ($1, $2, true, 0, 0, 0, 0, 'y', 0, 0);`
-  _, err = dbusers.Exec(sqlStatement, e,p)
-  if err != nil {
-    panic(err)
-  }
-  dbusers.Close()
+	email := dbs[c.Value]
+	_, ok := dbu[email]
+	return ok
 }
 
+func logout(w http.ResponseWriter, r *http.Request) {
+	if !alreadyLoggedIn(r) {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+	}
+
+	c, _ := r.Cookie("session")
+	//delete the session
+	delete(dbs, c.Value)
+	//remove the cookie
+	c = &http.Cookie{
+		Name:  "session",
+		Value: "",
+		//max avge value of less than 0 means delete the cookie now
+		MaxAge: -1,
+	}
+	http.SetCookie(w, c)
+	http.Redirect(w, r, "/login", http.StatusSeeOther)
+
+}
+
+func getUser(w http.ResponseWriter, r *http.Request) user {
+	//gets cookie
+	c, err := r.Cookie("session")
+	if err != nil {
+		sID := uuid.NewV4()
+		c = &http.Cookie{
+			Name:  "session",
+			Value: sID.String(),
+		}
+	}
+
+	//sets max age of cookie (time available to be logged in) and creates a cookie
+	const cookieLength int = 14400
+	c.MaxAge = cookieLength
+	http.SetCookie(w, c)
+
+	//if user already exists, get user
+	var u user
+	if email, ok := dbs[c.Value]; ok {
+		u = dbu[email]
+	}
+	return u
+
+}
 
 func tournamentsignup(w http.ResponseWriter, r *http.Request){
   if r.Method == http.MethodPost {
@@ -79,7 +127,6 @@ func tournamentsignup(w http.ResponseWriter, r *http.Request){
   if err != nil {panic(err)}
   fmt.Printf(gamertag+"Signed up for a tournament")
   dbusers.Close()
-  http.Redirect(w, r, "/profile", http.StatusSeeOther)
   }
   http.Redirect(w, r, "/profile", http.StatusSeeOther)
 }
@@ -111,25 +158,6 @@ func login(w http.ResponseWriter, r *http.Request){
 
 
 
-	/*bks := make([]Data, 0)
-	//cycles through the rows to grab the data by row
-	for rows.Next() {
-		bk := Data{}
-		err := rows.Scan(&bk.Email, &bk.Pass, &bk.Ppal, &bk.Wins,&bk.Heat, &bk.Losses, &bk.Refers, &bk.Memberflag, &bk.Credits, &bk.Grade)
-
-		if err != nil {
-			http.Error(w, http.StatusText(500), 500)
-			log.Fatal(err)
-		}
-		// appends the rows
-		bks = append(bks, bk)
-
-	}
-	db.Close()
-	//returns the databse values for use in another function
-	return bks
-}
-*/
 
 func profile(w http.ResponseWriter, r *http.Request){
   if r.Method == http.MethodPost {
@@ -209,7 +237,14 @@ func waitingregister(w http.ResponseWriter, r *http.Request){
     email := r.FormValue("email")
     pass := r.FormValue("pass")
 
-    dbusignup(email,pass)
+  	dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+    fmt.Println(e + " signed up with pass:" + p)
+  	if err != nil {log.Fatalf("Unable to connect to the database")}
+    sqlStatement := `INSERT INTO rfgg.members (email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertag ) VALUES ($1, $2, true, 0, 0, 0, 0, 'y', 0, 0, $3, $4);`
+    _, err = dbusers.Exec(sqlStatement, e,p)
+    if err != nil {http.Redirect(w, r, "/verify", http.StatusSeeOther)}
+    dbusers.Close()
+
 
     err := ioutil.WriteFile("test.txt", []byte(email+":"+pass), 0666)
     if err != nil {
