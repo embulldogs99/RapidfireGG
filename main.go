@@ -39,7 +39,6 @@ func main() {
   //pulls users from database
   dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   if err != nil {log.Fatalf("Unable to connect to the database")}
-  sqlStatement :=
   err = dbusers.QueryRow("SELECT * FROM rfgg.members").Scan(&email,&pass,&epicusername)
 
   if err != nil {log.Fatalf("Could not Scan User Data")}
