@@ -39,7 +39,8 @@ func main() {
   dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   if err != nil {log.Fatalf("Unable to connect to the database")}
   sqlStatement := `SELECT * FROM rfgg.members;`
-  _, _ = dbusers.Exec(sqlStatement).Scan(&email,&pass)
+  _, err = dbusers.Exec(sqlStatement).Scan(&email,&pass)
+  if err != nil {log.Fatalf("Could not Scan User Data")}
   dbu[email] = user{email,pass}
 
   http.Handle("/favicon/", http.StripPrefix("/favicon/", http.FileServer(http.Dir("./favicon"))))
