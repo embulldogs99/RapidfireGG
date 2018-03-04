@@ -62,7 +62,7 @@ func main() {
   http.HandleFunc("/waitingregister", waitingregister)
   http.HandleFunc("/login", login)
   http.HandleFunc("/profile", profile)
-  http.HandleFunc("/tournamentsignup", tournamentsignup)
+  http.HandleFunc("/tsignup", tsignup)
   log.Fatal(s.ListenAndServe())
 
 
@@ -173,7 +173,7 @@ func getUser(w http.ResponseWriter, r *http.Request) user {
 
 }
 
-func tournamentsignup(w http.ResponseWriter, r *http.Request){
+func tsignup(w http.ResponseWriter, r *http.Request){
   if !alreadyLoggedIn(r) {http.Redirect(w, r, "/signup", http.StatusSeeOther)}
   //provides user a cookie for some time and tracks login
   u := getUser(w, r)
@@ -207,7 +207,7 @@ func tournamentsignup(w http.ResponseWriter, r *http.Request){
 
   }
   var tpl *template.Template
-  tpl = template.Must(template.ParseFiles("tregistration.gohtml","css/main.css","css/mcleod-reset.css"))
+  tpl = template.Must(template.ParseFiles("tsignup.gohtml","css/main.css","css/mcleod-reset.css"))
   tpl.Execute(w, u)
 }
 
