@@ -17,7 +17,6 @@ api = {'TRN-Api-Key':'703cb7b0-4c42-444b-a485-379ed15319b8'}
 r=t.get('http://api.fortnitetracker.com/v1/profile/xbl/'+epicusername, headers = api)
 store=json.loads(r.text)
 
-print()
 
 squadkillstart=store['stats']['curr_p9']['kills']['valueInt']
 squadmatchstart=store['stats']['curr_p9']['matches']['valueInt']
@@ -27,6 +26,7 @@ solokillstart=store['stats']['p2']['kills']['valueInt']
 solomatchstart=store['stats']['p2']['matches']['valueInt']
 
 
+print(' ')
 print('--------------------------------------------------')
 print(epicusername+"'s Initial Stats")
 print(' Squad Kills: '+str(squadkillstart))
@@ -36,10 +36,7 @@ print(' Duo Matches: '+str(duomatchstart))
 print(' Solo Kills: '+str(solokillstart))
 print(' Solo Matches: '+str(solomatchstart))
 print('--------------------------------------------------')
-print()
-
-
-
+print(' ')
 
 
 timestart=time.time()
@@ -62,10 +59,7 @@ for x in range(1,60):
     print('Solo Kills: '+str(round(newstore['stats']['p2']['kills']['valueInt']-solokillstart)))
     print('Solo Matches: '+str(round(newstore['stats']['p2']['matches']['valueInt']-solomatchstart)))
     print('--------------------------------------------------')
-    print()
-    print()
-
-
+    print(' ')
 
     kills=round(newstore['stats']['curr_p9']['kills']['valueInt']-squadkillstart)+round(newstore['stats']['curr_p10']['kills']['valueInt']-duokillstart)+round(newstore['stats']['p2']['kills']['valueInt']-solokillstart)
     wins=0
@@ -84,7 +78,7 @@ for x in range(1,60):
         conn = psycopg2.connect("dbname='postgres' user='postgres' password='postgres' host='localhost' port='5432'")
         cur = conn.cursor()
         # execute a statement
-        cur.execute("INSERT INTO rfg.tournaments (tournament,roundnum,gametype,gamertag,epicusername,wins,kills,matches) VALUES (%s, %s, %s, %s, %s,%s,%s,%s)", (tournament,roundnum,gametype,gamertag,epicusername,wins,kills,matchcount))
+        cur.execute("INSERT INTO rfg.tournaments WHERE tournament=%s AND roundnum=%s AND gametype=%s AND epicusername=%s (tournament,roundnum,gametype,epicusername,wins,kills,matches,teamname) VALUES (%s, %s, %s, %s, %s,%s,%s,%s)", (tournament,roundnum,gametype,tournament,roundnum,gametype,gamertag,epicusername,wins,kills,matchcount))
         print(epicusername+" Finished Round "+roundnum)
         conn.commit()
         # close the communication with the PostgreSQL

@@ -139,7 +139,7 @@ func profile(w http.ResponseWriter, r *http.Request){
 
     err = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2 AND memberflag=$3",emailcheck,passcheck,"y").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag, &credits, &grade)
     data:=Data{email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade}
-
+    booze:="Hello"
     switch{
     case err == sql.ErrNoRows:
       log.Printf("No user with that ID.")
@@ -151,11 +151,11 @@ func profile(w http.ResponseWriter, r *http.Request){
       var tpl *template.Template
       tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css"))
 
-      tpl.Execute(w,data)
+      tpl.Execute(w,data,booze)
 
       }
   }
-  
+
     http.Redirect(w, r, "/login", http.StatusSeeOther)
 }
 
