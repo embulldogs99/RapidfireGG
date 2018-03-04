@@ -15,6 +15,7 @@ _ "github.com/lib/pq"
 
   type user struct {
     email string
+    epicusername string
     pass  string
   }
   //creates user database map variable
@@ -293,11 +294,11 @@ func waitingregister(w http.ResponseWriter, r *http.Request){
     Value: sID.String(),
   }
 
-
-
   if r.Method == http.MethodPost {
     email := r.FormValue("email")
     pass := r.FormValue("pass")
+    epicusername := r.FormValue("epicusername")
+    gamertag:= r.FormValue("gamertag")
 
     http.SetCookie(w, c)
     dbs[c.Value] = email
@@ -306,7 +307,7 @@ func waitingregister(w http.ResponseWriter, r *http.Request){
     fmt.Println(email + " signed up with pass:" + pass)
   	if err != nil {log.Fatalf("Unable to connect to the database")}
     sqlStatement := `INSERT INTO rfgg.members (email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertag ) VALUES ($1, $2, true, 0, 0, 0, 0, 'y', 0, 0, $3, $4);`
-    _, err = dbusers.Exec(sqlStatement, email,pass)
+    _, err = dbusers.Exec(sqlStatement, email,pass,epicusername,gamertag)
     if err != nil {http.Redirect(w, r, "/verify", http.StatusSeeOther)}
     dbusers.Close()
 
