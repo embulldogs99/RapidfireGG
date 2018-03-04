@@ -249,3 +249,15 @@ svg:hover{
   align-items: center;
   justify-content: center;
 }
+.gametypedropdown{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 0.01px;
+  color: black;
+  background-color:white;
+  font-family: 'MyWebFont', Fallback, sans-serif;
+  font-size:20px;
+  height:40px;
+  width:200px;
+
+}
