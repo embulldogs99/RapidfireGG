@@ -246,7 +246,7 @@ func profile(w http.ResponseWriter, r *http.Request){
   	if err != nil {
       log.Fatalf("Unable to connect to the database")
     }
-    if u.Email==emailcheck; u.Pass==passcheck{
+    if u.Pass==passcheck{
       var email string
       var pass string
       var ppal bool
