@@ -14,26 +14,24 @@ _ "github.com/lib/pq"
 )
 
 
+type user struct {
+  email string
+  pass  string
+}
+var email string
+var pass string
+//creates user database map variable
+var dbu = map[string]user{} //user id, stores users
+var dbs = map[string]string{} //session id, stores userids
+//pulls users from database
+dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+if err != nil {log.Fatalf("Unable to connect to the database")}
+sqlStatement := `SELECT * FROM rfgg.members;`
+_ = dbusers.Exec(sqlStatement).Scan(&email,&pass)
+dbu[email] = user{email,pass}
+
+
 func main() {
-
-  type user struct {
-  	email string
-  	pass  string
-  }
-  var email string
-  var pass string
-  //creates user database map variable
-  var dbu = map[string]user{} //user id, stores users
-  var dbs = map[string]string{} //session id, stores userids
-  //pulls users from database
-  dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-  if err != nil {log.Fatalf("Unable to connect to the database")}
-  sqlStatement := `SELECT * FROM rfgg.members;`
-  _, _ = dbusers.Exec(sqlStatement).Scan(&email,&pass)
-  dbu[email] = user{email,pass}
-  fmt.Printf(dbu)
-
-
 
   s := &http.Server{
 
@@ -158,12 +156,53 @@ func weeklyregister(w http.ResponseWriter, r *http.Request){
   tpl.Execute(w, nil)
 }
 
-func login(w http.ResponseWriter, r *http.Request){
-  http.SetCookie(w, c)
 
+func login(w http.ResponseWriter, r *http.Request) {
+	//if already logged in send to home page
+	if alreadyLoggedIn(r) {
+		http.Redirect(w, r, "/profile", http.StatusSeeOther)
+		return
+	}
+
+	//grab posted form information
+	if r.Method == http.MethodPost {
+		email := r.FormValue("email")
+		pass := r.FormValue("pass")
+
+		//defines u as dbu user info (email,pass) then matches form email with stored email
+		u, ok := dbu[email]
+		if !ok {
+			http.Error(w, "Username and/or password not found", http.StatusForbidden)
+			return
+		}
+		//pulls password from u and checks it with stored password
+		if pass != u.pass {
+			http.Error(w, "Username and/or password not found", http.StatusForbidden)
+			return
+		}
+		//checks if user is over21
+		if o21 == false {
+			http.Error(w, "Not 21 Eh?? Must be Over 21 to Enter", http.StatusForbidden)
+			return
+		}
+
+		//create new session (cookie) to identify user
+		sID := uuid.NewV4()
+		c := &http.Cookie{
+			Name:  "session",
+			Value: sID.String(),
+		}
+		http.SetCookie(w, c)
+		dbs[c.Value] = email
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+
+	}
+
+	//html template
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("login.gohtml","css/main.css","css/mcleod-reset.css",))
   tpl.Execute(w, nil)
+
 }
 
 
