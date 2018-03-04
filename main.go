@@ -212,8 +212,8 @@ func tsignup(w http.ResponseWriter, r *http.Request){
   if err != nil {
     fmt.Printf("failed at user post")
   }
-  sqlStatementer := `UPDATE rfgg.members SET epicusername=%s AND gamertag=%s WHERE email=%s VALUES ($1, $2, $3);`
-  _, err = dbusers.Exec(sqlStatementer, epicusername,gamertag,email)
+  sqlStatementer := `UPDATE rfgg.members SET email=%s AND epicusername=%s AND gamertag=%s WHERE  VALUES ($1, $2, $3);`
+  _, err = dbusers.Exec(sqlStatementer,email,epicusername,gamertag)
   if err != nil {panic(err)}
   fmt.Printf(gamertag+"Signed up for a tournament")
   dbusers.Close()
