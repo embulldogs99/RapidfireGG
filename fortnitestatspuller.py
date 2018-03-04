@@ -80,7 +80,7 @@ for x in range(1,60):
     solomatchcount=round(newstore['stats']['p2']['matches']['valueInt']-solomatchstart)
     matchcount=squadmatchcount+duomatchcount+solomatchcount
 
-    if matchcount=1:
+    if matchcount is 1:
 
         #########################################################
         ##############  Database Connection   ###################
