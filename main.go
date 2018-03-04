@@ -203,6 +203,8 @@ func tournamentsignup(w http.ResponseWriter, r *http.Request){
   if err != nil {panic(err)}
   fmt.Printf(gamertag+"Signed up for a tournament")
   dbusers.Close()
+
+  http.Redirect(w, r, "/profile", http.StatusSeeOther)
   }
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("tregistration.gohtml","css/main.css","css/mcleod-reset.css"))
