@@ -20,16 +20,17 @@ func main() {
   	email string
   	pass  string
   }
+  var email string
+  var pass string
   //creates user database map variable
   var dbu = map[string]user{} //user id, stores users
   var dbs = map[string]string{} //session id, stores userids
-  flag.Parse()
   //pulls users from database
   dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   if err != nil {log.Fatalf("Unable to connect to the database")}
   sqlStatement := `SELECT * FROM rfgg.members;`
-  _, _ := dbusers.Exec(sqlStatement).Scan(&email,&pass)
-  dbu[strings.Trim(email, " ")] = user{strings.Trim(email, " "), strings.Trim(pass, " ")}
+  _, _ = dbusers.Exec(sqlStatement).Scan(&email,&pass)
+  dbu[email] = user{email,pass}
   fmt.Printf(dbu)
 
 
@@ -275,7 +276,7 @@ func waitingregister(w http.ResponseWriter, r *http.Request){
     dbusers.Close()
 
 
-    err := ioutil.WriteFile("test.txt", []byte(email+":"+pass), 0666)
+    err = ioutil.WriteFile("test.txt", []byte(email+":"+pass), 0666)
     if err != nil {
         log.Fatal(err)
     }
