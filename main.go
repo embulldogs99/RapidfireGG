@@ -15,6 +15,7 @@ _ "github.com/lib/pq"
 
   type user struct {
     email string
+    pass string
   }
   //creates user database map variable
 var dbu = map[string]user{} //user id, stores users
@@ -49,7 +50,7 @@ func main() {
   err = dbusers.QueryRow("SELECT * FROM rfgg.members ").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
   if err != nil {log.Fatalf("Could not Scan User Data")}
 
-  dbu[email] = user{email}
+  dbu[email] = user{email,pass}
 
   http.Handle("/favicon/", http.StripPrefix("/favicon/", http.FileServer(http.Dir("./favicon"))))
   http.Handle("/pics/", http.StripPrefix("/pics/", http.FileServer(http.Dir("./pics"))))
@@ -91,16 +92,16 @@ func login(w http.ResponseWriter, r *http.Request) {
 		pass := r.FormValue("pass")
 
 		//defines u as dbu user info (email,pass) then matches form email with stored email
-		_, ok := dbu[email]
+		u, ok := dbu[email]
 		if !ok {
 			http.Error(w, "Username and/or password not found", http.StatusForbidden)
 			return
 		}
 		//pulls password from u and checks it with stored password
-		// if pass != u.pass {
-		// 	http.Error(w, "Username and/or password not found", http.StatusForbidden)
-		// 	return
-		// }
+		if pass != u.pass {
+			http.Error(w, "Username and/or password not found", http.StatusForbidden)
+			return
+		}
 		//create new session (cookie) to identify user
 		sID, _ := uuid.NewV4()
 		c := &http.Cookie{
