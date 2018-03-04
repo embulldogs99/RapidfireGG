@@ -246,65 +246,62 @@ func profile(w http.ResponseWriter, r *http.Request){
   	if err != nil {
       log.Fatalf("Unable to connect to the database")
     }
+    if u.Email==emailcheck; u.Pass==passcheck{
+      var email string
+      var pass string
+      var ppal bool
+      var wins int
+      var losses int
+      var heat int
+      var refers int
+      var memberflag string
+      var credits int
+      var grade int
+      var epicusername string
+      var gamertag string
+      var tournament string
+      var roundnum int
+      var gametype string
+      var kills int
 
-    var email string
-    var pass string
-    var ppal bool
-    var wins int
-    var losses int
-    var heat int
-    var refers int
-    var memberflag string
-    var credits int
-    var grade int
-    var epicusername string
-    var gamertag string
-    var tournament string
-    var roundnum int
-    var gametype string
-    var kills int
+      type Data struct{
+        Email string
+        Pass string
+        Ppal bool
+        Wins int
+        Losses int
+        Heat int
+        Refers int
+        Memberflag string
+        Credits int
+        Grade int
+        Epicusername string
+        Gamertag string
+        Tournament string
+        Roundnum int
+        Gametype string
+        Kills int
 
-    type Data struct{
-      Email string
-      Pass string
-      Ppal bool
-      Wins int
-      Losses int
-      Heat int
-      Refers int
-      Memberflag string
-      Credits int
-      Grade int
-      Epicusername string
-      Gamertag string
-      Tournament string
-      Roundnum int
-      Gametype string
-      Kills int
+      }
 
-    }
+      err = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2 AND memberflag=$3",emailcheck,passcheck,"y").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
+      _ = dbusers.QueryRow("SELECT * FROM rfgg.tournaments WHERE epicusername=$1",epicusername).Scan(&tournament,&roundnum,&gametype,&gamertag,&epicusername,&kills)
 
-    err = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2 AND memberflag=$3",emailcheck,passcheck,"y").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
-    _ = dbusers.QueryRow("SELECT * FROM rfgg.tournaments WHERE epicusername=$1",epicusername).Scan(&tournament,&roundnum,&gametype,&gamertag,&epicusername,&kills)
+      data:=Data{email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertag, tournament, roundnum, gametype, kills}
 
-    data:=Data{email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertag, tournament, roundnum, gametype, kills}
-    switch{
-    case err == sql.ErrNoRows:
-      log.Printf("No user with that ID.")
-      http.Redirect(w, r, "/login", http.StatusSeeOther)
-    case err != nil:
-      log.Fatal(err)
-    default:
       fmt.Println(email + " logged on")
+
       var tpl *template.Template
       tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css"))
 
       tpl.Execute(w,data)
+    }
 
-      }
-  }
+    }
+    var tpl *template.Template
+    tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css"))
 
-    http.Redirect(w, r, "/login", http.StatusSeeOther)
+    tpl.Execute(w,nil)
 }
 
 
