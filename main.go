@@ -198,14 +198,16 @@ func tournamentsignup(w http.ResponseWriter, r *http.Request){
   fmt.Printf(gamertag+"Signed up for a tournament")
   dbusers.Close()
   }
-  http.Redirect(w, r, "/profile", http.StatusSeeOther)
+  var tpl *template.Template
+  tpl = template.Must(template.ParseFiles("tregistration.gohtml","css/main.css","css/mcleod-reset.css"))
+  tpl.Execute(w, u)
 }
 
 
 func serve(w http.ResponseWriter, r *http.Request){
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("main.gohtml","css/main.css","css/mcleod-reset.css"))
-  tpl.Execute(w, u)
+  tpl.Execute(w, nil)
 }
 
 func verify(w http.ResponseWriter, r *http.Request){
