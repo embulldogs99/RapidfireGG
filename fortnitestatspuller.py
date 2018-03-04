@@ -28,7 +28,7 @@ solomatchstart=store['stats']['p2']['matches']['valueInt']
 
 
 print('--------------------------------------------------')
-print(player+"'s Initial Stats")
+print(epicusername+"'s Initial Stats")
 print(' Squad Kills: '+str(squadkillstart))
 print(' Squad Matches: '+str(squadmatchstart))
 print(' Duo Kills: '+str(duokillstart))
@@ -50,7 +50,7 @@ for x in range(1,60):
     s=requests.Session()
 
     # pass api key as header
-    r=s.get('http://api.fortnitetracker.com/v1/profile/xbl/'+player, headers = api)
+    r=s.get('http://api.fortnitetracker.com/v1/profile/xbl/'+epicusername, headers = api)
     newstore=json.loads(r.text)
 
     print('--------------------------------------------------')
