@@ -39,15 +39,13 @@
   <br><br><br>
   xbox one fortnite free weekly - tournament entry<br><br>
   <form action="/profile" method="POST">
-    epic username (required):<br>
-    <input type="epicusername" name="epicusername" value="{{.}}" required>{{.}}<br><br>
+    epic username confirmation (required):<br>
+    <input type="text" name="epicusername" value="{{.Epicusername}}" required><br><br>
     <a href="https://www.epicgames.com/account/personal">don't have an epic account? you must to play tourneys. click here to get one.</a><br><br><br>
-    confirm email:<br>
-    <input type="email" name="email" value="{{.}}" required> {{.}}<br><br>
     team name:<br>
-    <input type="teamname" name="teamname" value=""><br><br>
+    <input type="text" name="teamname" value=""><br><br>
     gamertag:<br>
-    <input type="gamertag" name="gamertag" value="" required><br><br>
+    <input type="text" name="gamertag" value="" required><br><br>
     gametype:<br>
     <select class="gametypedropdown" name="gametype">
       <option value="squad">squad</option>
@@ -58,7 +56,7 @@
     <input type="submit" style="color: black; background-color:white; font-family: 'MyWebFont', Fallback, sans-serif;" value="register">
   </form>
 
-  <!-- <a href=""<iframe class="bigiframe" width="1280" height="1280" src="https://widget.toornament.com/tournaments/1184146350756929536/navigator?_locale=en_US&theme=light" frameborder="0" allowfullscreen="true"></iframe> --> -->
+  <!-- <a href=""<iframe class="bigiframe" width="1280" height="1280" src="https://widget.toornament.com/tournaments/1184146350756929536/navigator?_locale=en_US&theme=light" frameborder="0" allowfullscreen="true"></iframe> -->
 
 
 
@@ -71,3 +69,7 @@
 
 </div>
 </html>
+
+{{range .Epicusername}}
+{{.}}
+{{end}}
