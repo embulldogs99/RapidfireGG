@@ -111,7 +111,8 @@ func login(w http.ResponseWriter, r *http.Request) {
 		}
 		http.SetCookie(w, c)
 		dbs[c.Value] = email
-    http.Redirect(w, r, "/profile", http.StatusSeeOther)
+    req, err := http.NewRequest("POST", "/profile", strings.NewReader(form.Encode()))
+    profile(w,req)
 
 	}else{	//html template
     var tpl *template.Template
