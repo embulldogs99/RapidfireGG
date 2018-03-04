@@ -218,9 +218,7 @@ func tsignup(w http.ResponseWriter, r *http.Request){
   fmt.Printf(gamertag+"Signed up for a tournament")
   dbusers.Close()
 
-  var tpl *template.Template
-  tpl = template.Must(template.ParseFiles("tregistration.gohtml","css/main.css","css/mcleod-reset.css"))
-  tpl.Execute(w, u)
+  http.Redirect(w, r, "/profile", http.StatusSeeOther)
 
   }
   var tpl *template.Template
