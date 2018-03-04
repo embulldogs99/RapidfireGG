@@ -195,7 +195,7 @@ func tournamentsignup(w http.ResponseWriter, r *http.Request){
 
   dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   if err != nil {log.Fatalf("Unable to connect to the database")}
-  sqlStatement := `INSERT INTO rfgg.tournaments (tournament,roundnum,gametype,gamertag,epicusername,wins,kills,matches,teamname) VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9);`
+  sqlStatement := `INSERT INTO rfgg.tournaments (tournament,roundnum,gametype,gamertag,epicusername,wins,kills,matches,teamname,status) VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9,"open");`
   _, err = dbusers.Exec(sqlStatement, tournament,roundnum,gametype,gamertag,epicusername,wins,kills,matches,teamname)
   if err != nil {panic(err)}
   sqlStatementer := `UPDATE rfgg.members SET epicusername=%s AND gamertag=%s WHERE email=%s VALUES ($1, $2, $3);`
@@ -286,7 +286,7 @@ func profile(w http.ResponseWriter, r *http.Request){
 
     dbusers, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
     _ = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2 AND memberflag=$3",u.Email,u.Pass,"y").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
-    _ = dbusers.QueryRow("SELECT * FROM rfgg.tournaments WHERE epicusername=$1",epicusername).Scan(&tournament,&roundnum,&gametype,&gamertag,&epicusername,&kills)
+    _ = dbusers.QueryRow("SELECT * FROM rfgg.tournaments WHERE epicusername=$1 AND status='open'",epicusername).Scan(&tournament,&roundnum,&gametype,&gamertag,&epicusername,&kills)
 
     data:=Data{email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertag, tournament, roundnum, gametype, kills}
 

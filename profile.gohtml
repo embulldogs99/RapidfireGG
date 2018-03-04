@@ -44,6 +44,25 @@ here is your exclusive tournamental registration link:<br><br>
 <a  href="/weeklyregister"><font style="border:4 px solid white;" size="30">Toornaments</font></a>
 <br><br>
 Upcoming Tournaments:<br><br>
+  <table>
+    <tr>
+      <thead>
+        <th>tournament</th>
+        <th>type</th>
+        <th>gamertag</th>
+        <th>round number</th>
+      </thead>
+    </tr>
+    <tr>
+      <tbody>
+        <td>{{.Tournament}}</td>
+        <td>{{.Gametype}}</td>
+        <td>{{.Gamertag}}</td>
+        <td>{{.Roundnum}}</td>
+
+      </tbody>
+    </tr>
+  </table>
 <br><br>
 <br><br>
 
@@ -88,6 +107,15 @@ referals: {{.Refers}}
 {{range .Heat}}
     {{.}}
 {{end}}
-{{range .Grade}}
+{{range .Tournament}}
+    {{.}}
+{{end}}
+{{range .Gametype}}
+    {{.}}
+{{end}}
+{{range .Gamertag}}
+    {{.}}
+{{end}}
+{{range .Roundnum}}
     {{.}}
 {{end}}
