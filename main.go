@@ -96,11 +96,11 @@ func login(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Username and/or password not found", http.StatusForbidden)
 			return
 		}
-		//pulls password from u and checks it with stored password
-		if pass != u.pass {
-			http.Error(w, "Username and/or password not found", http.StatusForbidden)
-			return
-		}
+		// //pulls password from u and checks it with stored password
+		// if pass != u.pass {
+		// 	http.Error(w, "Username and/or password not found", http.StatusForbidden)
+		// 	return
+		// }
 		//create new session (cookie) to identify user
 		sID, _ := uuid.NewV4()
 		c := &http.Cookie{
