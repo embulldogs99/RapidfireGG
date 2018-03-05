@@ -44,10 +44,10 @@ img{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 90%;
+  width: 100%;
   /*border: solid 2px orange;*/
-  margin: 2px;
-  padding: 2px;
+
+  padding: 15px;
   color:white;
     /*border: 1px solid blue;*/
 }
