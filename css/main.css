@@ -71,7 +71,7 @@ header{
   background-position: 50%;
   height:1080px;
   /* width: 100%; */
-  padding: 20px 0px 20px 0px;
+  padding: 90% 0% 90% 0%;
   font-family: 'MyWebFont', Fallback, sans-serif;
   max-height: 500px;
   background-repeat: no-repeat;
