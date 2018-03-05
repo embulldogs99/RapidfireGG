@@ -66,6 +66,7 @@ Upcoming Tournaments:<br><br>
         <th>type</th>
         <th>gamertag</th>
         <th>round number</th>
+        <th>start time</th>
       </tr>
     </thead>
     <tbody>
@@ -75,6 +76,7 @@ Upcoming Tournaments:<br><br>
         <td>{{.Gametype}}</td>
         <td>{{.Gamertag}}</td>
         <td>{{.Roundnum}}</td>
+        <td>{{.Starttime}}</td>
       </tr>
 
     </tbody>
@@ -134,5 +136,8 @@ referals: {{.Refers}}
     {{.}}
 {{end}}
 {{range .Roundnum}}
+    {{.}}
+{{end}}
+{{range .Starttime}}
     {{.}}
 {{end}}
