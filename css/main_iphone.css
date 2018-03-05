@@ -184,8 +184,8 @@ a:hover{
     background-color: rgba(255,255,255,1);
 }
 .tourney{
-  width: 300px;
-  height:300px;
+  width: 150px;
+  height:150px;
 }
 
 
@@ -222,7 +222,7 @@ svg:hover{
 .wrapper{
   display:flex;
   flex-direction: row;
-  font-size: 40px;
+  font-size: 16px;
   align-items: center;
   justify-content: center;
 }
