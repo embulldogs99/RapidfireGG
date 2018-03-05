@@ -266,6 +266,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     var teamname string
     var status string
     var kills int
+    var starttime string
 
     type Data struct{
       Email string
@@ -287,6 +288,7 @@ func profile(w http.ResponseWriter, r *http.Request){
       Teamname string
       Status string
       Kills int
+      Starttime string
 
     }
 
