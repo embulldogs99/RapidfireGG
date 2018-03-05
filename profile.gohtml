@@ -69,11 +69,11 @@ Upcoming Tournaments:<br><br>
     </tr>
     <tr>
       <tbody>
-        {{range .}}
-        <td>{{.Tournament}}</td>
-        <td>{{.Gametype}}</td>
+        {{range .Tournament}}<td>{{.}}</td>
+        {{range .Gametype}}<td>{{.}}</td>
         <td>{{.Gamertag}}</td>
         <td>{{.Roundnum}}</td>
+        {{end}}
         {{end}}
       </tbody>
     </tr>
