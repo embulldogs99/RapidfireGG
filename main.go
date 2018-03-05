@@ -199,7 +199,7 @@ func tsignup(w http.ResponseWriter, r *http.Request){
   roundnum:=1
   gametype:=r.FormValue("gametype")
   gamertag := r.FormValue("gamertag")
-  epicusername := u.Epicusername
+
   email := u.Email
   wins := 0
   kills := 0
@@ -228,7 +228,7 @@ func tsignup(w http.ResponseWriter, r *http.Request){
   }
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("tsignup.gohtml","css/main.css","css/mcleod-reset.css"))
-  tpl.Execute(w, nil)
+  tpl.Execute(w, u)
 }
 
 
