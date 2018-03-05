@@ -194,8 +194,8 @@ func tsignup(w http.ResponseWriter, r *http.Request){
   u := getUser(w, r)
 
   if r.Method == http.MethodPost {
-  tournament := "freeweekly1"
-  starttime:= "March 25th 8pm EST"
+  tournament := r.FormValue("tournament")
+  starttime:= r.FormValue("starttime")
   roundnum:=1
   gametype:=r.FormValue("gametype")
   gamertag := r.FormValue("gamertag")
