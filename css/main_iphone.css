@@ -44,7 +44,7 @@ img{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 90%;
   /*border: solid 2px orange;*/
   margin: 2px;
   padding: 2px;
@@ -222,7 +222,7 @@ svg:hover{
 .wrapper{
   display:flex;
   flex-direction: row;
-  font-size: 16px;
+  font-size: 10px;
   align-items: center;
   justify-content: center;
 }
