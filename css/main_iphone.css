@@ -2,14 +2,13 @@
 
 body{
   background-color: rgba(0,0,0,.7);
-  opacity: 0.7;
     flex-direction: row;
     justify-content: center;
     align-items: center;
       font-family: 'MyWebFont', Fallback, sans-serif;
 }
 iframe{
-  padding:0px 0px 0px 10px;
+  padding:0px 0px 0px 0px;
   width: 200px;
 }
 .bigiframe{
@@ -38,14 +37,10 @@ img{
   flex: center;
     padding: 0px 0px;
 }
-
-
 .tester{
   height:300px;
   width:100px;
-
 }
-
 .posts{
   display: flex;
   flex-direction: column;
@@ -58,8 +53,6 @@ img{
   color:white;
     /*border: 1px solid blue;*/
 }
-
-
 @font-face {
   font-family: 'MyWebFont';
   src: /*url('webfont.eot')  IE9 Compat Modes
@@ -69,7 +62,6 @@ img{
        url('ElementalEnd.ttf')  format('truetype'); /*,  Safari, Android, iOS
        url('webfont.svg#svgFontName') format('svg');  Legacy iOS */
 }
-
 header{
   /*border-bottom: 2px solid rgba(60,60,255,1);*/
   /*background-color: rgba(60,150,255,.6);*/
@@ -79,9 +71,7 @@ header{
   background-position: 50%;
   background-size: 100% 100%;
   background-repeat: no-repeat;
-
 }
-
 .banner{
   font-weight: 900;
   font-family: 'MyWebFont', Fallback, sans-serif;
@@ -100,7 +90,6 @@ header{
    right:0;
    color:white;
 }
-
 .buttons{
   padding: 0px 10px 0px 10px;
   margin: 1% 1%;
@@ -108,10 +97,22 @@ header{
   border-radius: 20rem;
   font-size: 5px;
   height: 80%;
-
 }
 .buttons:hover{
   background-color: rgba(255,255,255,.4);
+}
+.borderbuttons{
+  padding: 10px 10px 10px 10px;
+  margin: 1% 1%;
+  border: solid 5px orange;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  border-radius: 20rem;
+  font-size: 13px;
+  height: 80%;
+  color:white;
+
 }
 
 .slogan{
@@ -209,4 +210,35 @@ svg:hover{
   cursor: crosshair;
   height:200px;
   width: 200px;
+}
+.wrapper{
+  display:flex;
+  flex-direction: row;
+  font-size: 40px;
+  align-items: center;
+  justify-content: center;
+}
+.gametypedropdown{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 0.01px;
+  color: black;
+  background-color:white;
+  font-family: 'MyWebFont', Fallback, sans-serif;
+  font-size:16px;
+  height:20px;
+  width:70%;
+
+}
+.treglink{
+  border: 4px solid white;
+  font-size:30px;
+  margin: 15px;
+  padding: 15px;
+}
+tbody{
+  color:black;
+}
+td{
+  text-align: center;
 }
