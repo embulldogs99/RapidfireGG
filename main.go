@@ -250,6 +250,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     var email string
     var pass string
     var ppal bool
+    var cwins int
     var wins int
     var losses int
     var heat int
@@ -259,6 +260,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     var grade int
     var epicusername string
     var gamertag string
+    var gamertagt string
     var tournament string
     var roundnum int
     var gametype string
@@ -272,6 +274,7 @@ func profile(w http.ResponseWriter, r *http.Request){
       Email string
       Pass string
       Ppal bool
+      Cwins int
       Wins int
       Losses int
       Heat int
@@ -293,13 +296,13 @@ func profile(w http.ResponseWriter, r *http.Request){
     }
 
     dbusers, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-    _ = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2 AND memberflag=$3",u.Email,u.Pass,"y").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
+    _ = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2 AND memberflag=$3",u.Email,u.Pass,"y").Scan(&email, &pass, &ppal, &cwins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
     dbtourneys, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-    err := dbtourneys.QueryRow("SELECT * FROM rfgg.tournaments WHERE epicusername=$1 AND status='open'",u.Epicusername).Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertag,&starttime)
+    err := dbtourneys.QueryRow("SELECT * FROM rfgg.tournaments WHERE epicusername=$1 AND status='open'",u.Epicusername).Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertagt,&starttime)
     if err != nil{fmt.Println("failed to select from table")}
 
 
-    data:=Data{email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertag, tournament, roundnum, gametype, matches,teamname,status, kills,starttime}
+    data:=Data{email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertagt, tournament, roundnum, gametype, matches,teamname,status, kills,starttime}
 
     fmt.Println(email + " logged on")
 
