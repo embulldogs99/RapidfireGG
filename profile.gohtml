@@ -41,24 +41,24 @@
 <body>
 
 <div class="posts">
-<br><br><br><br><br><br><br><br>
+<br><br><br>
 
   hello &emsp;{{.Email}}!<br><br><br><br>
   firecredits: <font size="20">{{.Credits}}</font><br><br><br><br>
-    personal Stats:<br><br>
+    <u>personal Stats</u><br><br>
     wins:&emsp;{{.Cwins}}<br><br>
     losses:&emsp;{{.Losses}}<br><br>
     heat:&emsp;{{.Heat}}<br><br>
     grade:&emsp;{{.Grade}}<br><br>
+    referrals:&emsp;{{.Refers}}<br><br>
 
 
 <br><br><br>
 
-Tournaments:<br><br>
-here is your exclusive tournamental registration link:<br><br>
+here is your exclusive tournamental registration link<br><br>
 <div class="treglink"><a href="/tsignup">tournament registration</a></div>
 <br><br>
-<font size=20>Upcoming Tournaments:</font><br><br><br><br>
+<font size=20><u>Upcoming Tournaments</u></font><br><br><br><br>
   <table id="sortable">
     <thead>
       <tr>
@@ -84,9 +84,6 @@ here is your exclusive tournamental registration link:<br><br>
   </table>
 <br><br>
 <br><br>
-
-referal program:<br>
-referals: {{.Refers}}
 
 </div>
 
