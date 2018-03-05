@@ -195,6 +195,7 @@ func tsignup(w http.ResponseWriter, r *http.Request){
 
   if r.Method == http.MethodPost {
   tournament := "freeweekly1"
+  starttime:= "March 25th 8pm EST"
   roundnum:=1
   gametype:=r.FormValue("gametype")
   gamertag := r.FormValue("gamertag")
@@ -205,19 +206,23 @@ func tsignup(w http.ResponseWriter, r *http.Request){
   matches:=0
   teamname:=r.FormValue("teamname")
 
+
   dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   if err != nil {log.Fatalf("Unable to connect to the database")}
-  sqlStatement := `INSERT INTO rfgg.tournaments (tournament,roundnum,gametype,gamertag,epicusername,wins,kills,matches,teamname,status) VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9,'open');`
-  _, err = dbusers.Exec(sqlStatement, tournament,roundnum,gametype,gamertag,epicusername,wins,kills,matches,teamname)
+  sqlStatement := `INSERT INTO rfgg.tournaments (tournament,roundnum,gametype,gamertag,epicusername,wins,kills,matches,teamname,status,starttime) VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9,'open',$10);`
+  _, err = dbusers.Exec(sqlStatement, tournament,roundnum,gametype,gamertag,epicusername,wins,kills,matches,teamname,starttime)
   if err != nil {
     fmt.Printf("failed at user post")
   }
+  if epicusername != ""{
   sqlStatementer := `UPDATE rfgg.members SET epicusername=%s AND gamertag=%s WHERE email=%s VALUES ($1, $2, $3);`
   _, err = dbusers.Exec(sqlStatementer,epicusername,gamertag,email)
   if err != nil {fmt.Printf("failed to update the members database")}
   fmt.Printf(gamertag+"Signed up for a tournament")
   dbusers.Close()
-
+  }else{
+      http.Redirect(w, r, "/profile", http.StatusSeeOther)
+  }
   http.Redirect(w, r, "/profile", http.StatusSeeOther)
 
   }
@@ -288,11 +293,11 @@ func profile(w http.ResponseWriter, r *http.Request){
     dbusers, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
     _ = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2 AND memberflag=$3",u.Email,u.Pass,"y").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
     dbtourneys, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-    err := dbtourneys.QueryRow("SELECT * FROM rfgg.tournaments WHERE epicusername=$1 AND status='open'",u.Epicusername).Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertag)
+    err := dbtourneys.QueryRow("SELECT * FROM rfgg.tournaments WHERE epicusername=$1 AND status='open'",u.Epicusername).Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertag,&starttime)
     if err != nil{fmt.Println("failed to select from table")}
 
 
-    data:=Data{email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertag, tournament, roundnum, gametype, matches,teamname,status, kills}
+    data:=Data{email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertag, tournament, roundnum, gametype, matches,teamname,status, kills,starttime}
 
     fmt.Println(email + " logged on")
 
