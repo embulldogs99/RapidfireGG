@@ -311,8 +311,6 @@ func profile(w http.ResponseWriter, r *http.Request){
     tpl.Execute(w,data)
     }
 
-
-    http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
 
