@@ -9,7 +9,7 @@ body{
       font-family: 'MyWebFont', Fallback, sans-serif;
 }
 iframe{
-  padding:1px 1px 1px 80px;
+  padding:1px 5px 1px 5px;
   height: 200px;
   width:300px;
 }
