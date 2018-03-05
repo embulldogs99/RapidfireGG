@@ -301,7 +301,6 @@ func profile(w http.ResponseWriter, r *http.Request){
     err := dbtourneys.QueryRow("SELECT * FROM rfgg.tournaments WHERE epicusername=$1 AND status='open'",u.Epicusername).Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertagt,&starttime)
     if err != nil{fmt.Println("failed to select from table")}
 
-
     data:=Data{email, pass, ppal, cwins, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertagt, tournament, roundnum, gametype, matches,teamname,status, kills,starttime}
 
     fmt.Println(email + " logged on")

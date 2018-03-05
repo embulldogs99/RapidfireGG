@@ -41,18 +41,19 @@
   {{ $epicusername }}<br>
   xbox one fortnite free weekly - tournament entry<br><br>
   <form action="/tsignup" method="POST">
-    epic username confirmation (required):<br>
-    <input type="text" name="epicusername" value=""><br><br>
+    epic username confirmation<br>
+    <input type="text" name="epicusername" value="" required><br><br>
     <a href="https://www.epicgames.com/account/personal">don't have an epic account? you must to play tourneys. click here to get one.</a><br><br><br>
-    team name:<br>
-    <input type="text" name="teamname" value=""><br><br>
-    gamertag:<br>
+    team name [must be exact]<br>
+    <input type="text" name="teamname" value="" required><br><br>
+    gamertag<br>
     <input type="text" name="gamertag" value="" required><br><br>
     gametype:<br>
     <select class="gametypedropdown" name="gametype">
       <option value="squad">squad</option>
       <option value="duo">duo</option>
       <option value="solo">solo</option>
+      <option value="any">any</option>
     </select>
     <br><br>
     <input type="submit" style="color: black; background-color:white; font-family: 'MyWebFont', Fallback, sans-serif;" value="register">
