@@ -295,7 +295,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     fmt.Printf(gametype)
 
 
-    data:=Data{email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertag, tournament, roundnum, gametype, kills}
+    data:=Data{email, pass, ppal, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertag, tournament, roundnum, gametype, matches,teamname,status, kills}
 
     fmt.Println(email + " logged on")
 
