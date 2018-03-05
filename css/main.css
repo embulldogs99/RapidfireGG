@@ -270,3 +270,6 @@ svg:hover{
 tbody{
   color:black;
 }
+td{
+  text-align: center;
+}
