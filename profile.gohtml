@@ -68,14 +68,14 @@ Upcoming Tournaments:<br><br>
       </tr>
     </thead>
     <tbody>
-      {{range .}}
+
       <tr>
         <td>{{.Tournament}}</td>
         <td>{{.Gametype}}</td>
         <td>{{.Gamertag}}</td>
         <td>{{.Roundnum}}</td>
       </tr>
-      {{end}}
+
     </tbody>
 
   </table>
@@ -121,5 +121,17 @@ referals: {{.Refers}}
     {{.}}
 {{end}}
 {{range .Heat}}
+    {{.}}
+{{end}}
+{{range .Tournament}}
+    {{.}}
+{{end}}
+{{range .Gametype}}
+    {{.}}
+{{end}}
+{{range .Gamertag}}
+    {{.}}
+{{end}}
+{{range .Roundnum}}
     {{.}}
 {{end}}
