@@ -34,12 +34,12 @@
 
 </div>
 
-{{ $epicusername := .Epicusername.Value }}
+{{ $epicusername := .Epicusername }}
 
 <div class="posts">
   <br><br>
   {{ $epicusername }}<br>
-  xbox one fortnite free weekly - tournament entry<br><br>
+  <font size=20>xbox one fortnite free weekly - tournament entry</font><br><br>
   <form action="/tsignup" method="POST">
     epic username confirmation<br>
     <input type="text" name="epicusername" value="" required><br><br>
@@ -72,3 +72,7 @@
 
 </div>
 </html>
+<!-- 
+{{range .Epicusername}}
+    {{.}}
+{{end}} -->
