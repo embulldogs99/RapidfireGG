@@ -147,7 +147,7 @@ input[type=checkbox]
   -webkit-appearance:checkbox;
 }
 input[type="submit"]:hover {
-    border: 1px solid #999;
+    border: 20px solid #999;
     color: #E0FFFF;
 }
 
