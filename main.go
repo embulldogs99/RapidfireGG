@@ -212,13 +212,13 @@ func tsignup(w http.ResponseWriter, r *http.Request){
   sqlStatement := `INSERT INTO rfgg.tournaments (tournament,roundnum,gametype,gamertag,epicusername,wins,kills,matches,teamname,status,starttime) VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9,'open',$10);`
   _, err = dbusers.Exec(sqlStatement, tournament,roundnum,gametype,gamertag,epicusername,wins,kills,matches,teamname,starttime)
   if err != nil {
-    fmt.Printf("failed at user post")
+    fmt.Println("failed at user tournament entry step")
   }
   if epicusername != ""{
   sqlStatementer := `UPDATE rfgg.members SET epicusername=%s AND gamertag=%s WHERE email=%s VALUES ($1, $2, $3);`
   _, err = dbusers.Exec(sqlStatementer,epicusername,gamertag,email)
-  if err != nil {fmt.Printf("failed to update the members database")}
-  fmt.Printf(gamertag+"Signed up for a tournament")
+  if err != nil {fmt.Println("failed to update the members database or no update was needed")}
+  fmt.Println(gamertag+"Signed up for a tournament")
   dbusers.Close()
   }else{
       http.Redirect(w, r, "/profile", http.StatusSeeOther)
