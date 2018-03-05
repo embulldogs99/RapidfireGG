@@ -265,4 +265,8 @@ svg:hover{
   border: 4px solid white;
   font-size:30px;
   margin: 15px;
+  padding: 15px;
+}
+tbody{
+  color:black;
 }
