@@ -58,13 +58,11 @@ func main() {
   http.Handle("/svg/", http.StripPrefix("/svg/", http.FileServer(http.Dir("./svg"))))
   http.HandleFunc("/", serve)
   http.HandleFunc("/signup", signup)
-  http.HandleFunc("/waitingregister", waitingregister)
+  http.HandleFunc("/waitingverification", waitingverification)
   http.HandleFunc("/login", login)
   http.HandleFunc("/profile", profile)
   http.HandleFunc("/tsignup", tsignup)
   log.Fatal(s.ListenAndServe())
-
-
 
 }
 
@@ -90,10 +88,10 @@ func signup(w http.ResponseWriter, r *http.Request){
     if err != nil {print(err)}
     dbusers.Close()
 
-    http.Redirect(w, r, "/waitingregister", http.StatusSeeOther)
+    http.Redirect(w, r, "/waitingverification", http.StatusSeeOther)
     }
     var tpl *template.Template
-    tpl = template.Must(template.ParseFiles("verification.gohtml","css/main.css","css/mcleod-reset.css",))
+    tpl = template.Must(template.ParseFiles("signup.gohtml","css/main.css","css/mcleod-reset.css",))
     tpl.Execute(w, nil)
 }
 
@@ -313,7 +311,7 @@ func profile(w http.ResponseWriter, r *http.Request){
 }
 
 
-func waitingregister(w http.ResponseWriter, r *http.Request){
+func waitingverification(w http.ResponseWriter, r *http.Request){
 
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("waitingverification.gohtml","css/main.css","css/mcleod-reset.css",))
