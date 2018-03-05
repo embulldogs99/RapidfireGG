@@ -59,23 +59,25 @@ here is your exclusive tournamental registration link:<br><br>
 <br><br>
 Upcoming Tournaments:<br><br>
   <table id="sortable">
-    <tr>
-      <thead>
+    <thead>
+      <tr>
         <th>tournament</th>
         <th>type</th>
         <th>gamertag</th>
         <th>round number</th>
-      </thead>
-    </tr>
-    <tr>
-      <tbody>
-        <td>test</td>
-        <td>tye</td>
-        <td>dfg</td>
-        <td>sdf</td>
+      </tr>
+    </thead>
+    <tbody>
+      {{range .}}
+      <tr>
+        <td>{{.Tournament}}</td>
+        <td>{{.Gametype}}</td>
+        <td>{{.Gamertag}}</td>
+        <td>{{.Roundnum}}</td>
+      <tr>
+      {{end}}
+    </tbody>
 
-      </tbody>
-    </tr>
   </table>
 <br><br>
 <br><br>
@@ -119,17 +121,5 @@ referals: {{.Refers}}
     {{.}}
 {{end}}
 {{range .Heat}}
-    {{.}}
-{{end}}
-{{range .Tournament}}
-    {{.}}
-{{end}}
-{{range .Gametype}}
-    {{.}}
-{{end}}
-{{range .Gamertag}}
-    {{.}}
-{{end}}
-{{range .Roundnum}}
     {{.}}
 {{end}}
