@@ -16,7 +16,9 @@ iframe{
 }
 form{
   padding: 30px 30px 30px 30px;
-  font size: 16px;
+  font-size: 10px;
+  width:80%;
+
 }
 .layer {
     background-color: rgba(248, 247, 216, .06);
