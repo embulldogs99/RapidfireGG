@@ -199,7 +199,7 @@ func tsignup(w http.ResponseWriter, r *http.Request){
   roundnum:=1
   gametype:=r.FormValue("gametype")
   gamertag := r.FormValue("gamertag")
-
+  epicusername := u.Epicusername
   email := u.Email
   wins := 0
   kills := 0
