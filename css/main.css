@@ -209,10 +209,22 @@ a{
   font-size: 13px;
   height: 80%;
   color:white;
-
 }
 .buttons:hover{
   background-color: rgba(255,255,255,.4);
+}
+.borderbuttons{
+  padding: 0px 10px 0px 10px;
+  margin: 1% 1%;
+  border: solid 5px black;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  border-radius: 20rem;
+  font-size: 13px;
+  height: 80%;
+  color:white;
+
 }
 
 
