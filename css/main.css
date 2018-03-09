@@ -205,7 +205,7 @@ input[type="submit"]:hover {
 
 a:hover{
   background-color: orange;
-
+  opacity:1;
 }
 
 .tourney:hover{
