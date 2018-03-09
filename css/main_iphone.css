@@ -65,12 +65,15 @@ img{
 header{
   /*border-bottom: 2px solid rgba(60,60,255,1);*/
   /*background-color: rgba(60,150,255,.6);*/
-  background: url('header.jpg');
-  height:200px;
-  width: 100%;
   background-position: 50%;
   background-size: 100% 100%;
   background-repeat: no-repeat;
+}
+.mainpic{
+  width:100%;
+  height:500px;
+  padding:0px;
+  margin:0px;
 }
 .banner{
   font-weight: 900;
