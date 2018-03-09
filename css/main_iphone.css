@@ -84,7 +84,6 @@ header{
 .banner{
   font-weight: 900;
   font-family: 'MyWebFont', Fallback, sans-serif;
-  background-image: url("/pics/banner-flames.png");
   display: flex;
   flex-direction: row;
   justify-content: center;
