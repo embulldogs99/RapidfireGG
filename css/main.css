@@ -73,8 +73,8 @@ header{
   background-repeat: no-repeat;
 }
 .mainpic{
-  width:1080px;
-  height:720px;
+  /* width:1080px;
+  height:720px; */
 }
 .banner{
   font-weight: 900;
