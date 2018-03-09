@@ -95,6 +95,7 @@ header{
    bottom: 0;
   background-image: url("/pics/banner-flames.png");
   opacity: .7;
+  padding:0px 5px 0px 5px;
   /*border: 1px solid blue;*
 }
 
