@@ -66,13 +66,15 @@ header{
   opacity: 1;
   /*border-bottom: 2px solid rgba(60,60,255,1);*/
   /*background-color: rgba(60,150,255,.6);*/
-  background: url('header.jpg');
-  background-size: 90%;
   background-color: rgba(0,0,0,.5);
   background-position: 50%;
   font-family: 'MyWebFont', Fallback, sans-serif;
   max-height: 500px;
   background-repeat: no-repeat;
+}
+.mainpic{
+  width:1080px;
+  height:720px;
 }
 .banner{
   font-weight: 900;
