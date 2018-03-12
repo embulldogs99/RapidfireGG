@@ -78,10 +78,10 @@ def statspull(t,r,g,ga,ep):
         if matchcount is 1:
             #########################################################
             ##############  Database Connection   ###################
-            conn = psycopg2.connect("dbname='postgres' user='postgres' password='postgres' host='localhost' port='5432'")
+            conn = psycopg2.connect("dbname='postgres' user='postgres' password='rk' host='localhost' port='5432'")
             cur = conn.cursor()
             # execute a statement
-            cur.execute("INSERT INTO rfg.tournaments WHERE tournament=%s AND roundnum=%s AND gametype=%s AND epicusername=%s (tournament,roundnum,gametype,epicusername,wins,kills,matches,teamname) VALUES (%s, %s, %s, %s, %s,%s,%s,%s)", (tournament,roundnum,gametype,tournament,roundnum,gametype,gamertag,epicusername,wins,kills,matchcount))
+            cur.execute("INSERT INTO rfgg.tournaments WHERE tournament=%s AND roundnum=%s AND gametype=%s AND epicusername=%s (tournament,roundnum,gametype,epicusername,wins,kills,matches,teamname) VALUES (%s, %s, %s, %s, %s,%s,%s,%s)", (tournament,roundnum,gametype,tournament,roundnum,gametype,gamertag,epicusername,wins,kills,matchcount))
             print(epicusername+" Finished Round "+roundnum)
             conn.commit()
             # close the communication with the PostgreSQL
@@ -94,10 +94,10 @@ def statspull(t,r,g,ga,ep):
 def tourneyrun(tournament):
     #########################################################
     ##############  Database Connection   ###################
-    conn = psycopg2.connect("dbname='postgres' user='postgres' password='postgres' host='localhost' port='5432'")
+    conn = psycopg2.connect("dbname='postgres' user='postgres' password='rk' host='localhost' port='5432'")
     cur = conn.cursor()
     # execute a statement
-    cur.execute("SELECT tournaments.epicusername, tournaments.gamertag FROM rfg.tournaments WHERE tournament=%s ", (tournament))
+    cur.execute("SELECT tournaments.epicusername, tournaments.gamertag FROM rfgg.tournaments WHERE tournament=%s ", (tournament))
     conn.commit()
     for x,y in cur.fetchone():
         statspull(tournament,1,'squad',y,x)
