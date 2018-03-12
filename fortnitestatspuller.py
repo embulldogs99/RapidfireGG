@@ -97,7 +97,7 @@ def tourneyrun(tournament):
     conn = psycopg2.connect("dbname='postgres' user='postgres' password='rk' host='localhost' port='5432'")
     cur = conn.cursor()
     # execute a statement
-    cur.execute("SELECT tournaments.epicusername, tournaments.gamertag FROM rfgg.tournaments WHERE tournament=%s ", (tournament))
+    cur.execute("SELECT tournaments.epicusername, tournaments.gamertag FROM rfgg.tournaments WHERE tournament=%s ", tournament)
     conn.commit()
     for x,y in cur.fetchone():
         statspull(tournament,1,'squad',y,x)
