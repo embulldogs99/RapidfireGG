@@ -99,7 +99,9 @@ def tourneyrun(tournament):
     # execute a statement
     cur.execute("SELECT tournaments.epicusername, tournaments.gamertag FROM rfgg.tournaments WHERE tournament='{0}';".format(tournament))
     conn.commit()
-    for x,y in cur.fetchone():
+
+    rows = cur.fetchall()
+    for x,y in rows:
         statspull(tournament,1,'squad',y,x)
     # close the communication with the PostgreSQL
     cur.close()
