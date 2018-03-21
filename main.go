@@ -120,7 +120,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 		email := r.FormValue("email")
 		pass := r.FormValue("pass")
 		//defines u as dbu user info (email,pass) then matches form email with stored email
-		u:= dbu[email]
+		u,ok:= dbu[email]
     fmt.Println(u)
 		//pulls password from u and checks it with stored password
 		if pass != u.Pass {
