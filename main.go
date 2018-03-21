@@ -15,7 +15,7 @@ _ "github.com/lib/pq"
 type user struct {
   Email string
   Pass string
-  Memberflag string
+  Epicusername string
 }
   //creates user database map variable
 var dbu = map[string]user{} //user id, stores users
@@ -50,7 +50,7 @@ func main() {
   err = dbusers.QueryRow("SELECT * FROM rfgg.members ").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
   if err != nil {log.Fatalf("Could not Scan User Data")}
 
-  dbu[email] = user{email,pass,memberflag}
+  dbu[email] = user{email,pass,epicusername}
   dbusers.Close()
 
   http.Handle("/favicon/", http.StripPrefix("/favicon/", http.FileServer(http.Dir("./favicon"))))
@@ -232,7 +232,7 @@ func tsignup(w http.ResponseWriter, r *http.Request){
   roundnum:=1
   gametype:=r.FormValue("gametype")
   gamertag := r.FormValue("gamertag")
-  epicusername := r.FormValue("epicusername")
+  epicusername := u.Epicusername
   email := u.Email
   wins := 0
   kills := 0
