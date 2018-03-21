@@ -16,6 +16,7 @@ type user struct {
   Email string
   Pass string
   Epicusername string
+  Memberflag string
 }
   //creates user database map variable
 var dbu = map[string]user{} //user id, stores users
@@ -50,7 +51,7 @@ func main() {
   err = dbusers.QueryRow("SELECT * FROM rfgg.members ").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
   if err != nil {log.Fatalf("Could not Scan User Data")}
 
-  dbu[email] = user{email,pass,epicusername}
+  dbu[email] = user{email,pass,epicusername,memberflag}
 
   http.Handle("/favicon/", http.StripPrefix("/favicon/", http.FileServer(http.Dir("./favicon"))))
   http.Handle("/pics/", http.StripPrefix("/pics/", http.FileServer(http.Dir("./pics"))))
@@ -62,6 +63,7 @@ func main() {
   http.HandleFunc("/login", login)
   http.HandleFunc("/profile", profile)
   http.HandleFunc("/tsignup", tsignup)
+  http.HandleFunc("/tournaments", tournaments)
   log.Fatal(s.ListenAndServe())
 
 }
@@ -72,6 +74,8 @@ func serve(w http.ResponseWriter, r *http.Request){
   tpl = template.Must(template.ParseFiles("main.gohtml","css/main.css","css/mcleod-reset.css"))
   tpl.Execute(w, nil)
 }
+
+
 
 func signup(w http.ResponseWriter, r *http.Request){
   if r.Method == http.MethodPost {
@@ -231,7 +235,30 @@ func tsignup(w http.ResponseWriter, r *http.Request){
 
 
 
+type Data struct{
+  Email string
+  Pass string
+  Ppal bool
+  Cwins int
+  Wins int
+  Losses int
+  Heat int
+  Refers int
+  Memberflag string
+  Credits int
+  Grade int
+  Epicusername string
+  Gamertag string
+  Tournament string
+  Roundnum int
+  Gametype string
+  Matches int
+  Teamname string
+  Status string
+  Kills int
+  Starttime string
 
+}
 
 
 
@@ -268,31 +295,6 @@ func profile(w http.ResponseWriter, r *http.Request){
     var kills int
     var starttime string
 
-    type Data struct{
-      Email string
-      Pass string
-      Ppal bool
-      Cwins int
-      Wins int
-      Losses int
-      Heat int
-      Refers int
-      Memberflag string
-      Credits int
-      Grade int
-      Epicusername string
-      Gamertag string
-      Tournament string
-      Roundnum int
-      Gametype string
-      Matches int
-      Teamname string
-      Status string
-      Kills int
-      Starttime string
-
-    }
-
     dbusers, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
     _ = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2 AND memberflag=$3",u.Email,u.Pass,"y").Scan(&email, &pass, &ppal, &cwins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
     dbtourneys, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
@@ -307,6 +309,56 @@ func profile(w http.ResponseWriter, r *http.Request){
     tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css"))
     tpl.Execute(w,data)
     }
+
+}
+
+func tournaments(w http.ResponseWriter, r *http.Request){
+  //are you already logged in?
+	if !alreadyLoggedIn(r) {http.Redirect(w, r, "/login", http.StatusSeeOther)}
+  //provides user a cookie for some time and tracks login
+  u := getUser(w, r)
+  if u.Email == "" {
+    http.Error(w, "Please Unblock Cookies - They Help Our Website Run - and Login Again", http.StatusForbidden)
+    return
+  }
+  if u.Memberflag="a"{
+    var email string
+    var pass string
+    var ppal bool
+    var cwins int
+    var wins int
+    var losses int
+    var heat int
+    var refers int
+    var memberflag string
+    var credits int
+    var grade int
+    var epicusername string
+    var gamertag string
+    var gamertagt string
+    var tournament string
+    var roundnum int
+    var gametype string
+    var matches int
+    var teamname string
+    var status string
+    var kills int
+    var starttime string
+
+    dbtourneys, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+    err := dbtourneys.QueryRow("SELECT * FROM rfgg.tournaments WHERE status='open'").Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertagt,&starttime)
+    if err != nil{fmt.Println("failed to select from table")}
+
+    data:=Data{email, pass, ppal, cwins, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertagt, tournament, roundnum, gametype, matches,teamname,status, kills,starttime}
+
+    var tpl *template.Template
+    tpl = template.Must(template.ParseFiles("tournaments.gohtml","css/main.css","css/mcleod-reset.css"))
+    tpl.Execute(w,data)
+    }
+
+    var tpl *template.Template
+    tpl = template.Must(template.ParseFiles("tournaments.gohtml","css/main.css","css/mcleod-reset.css"))
+    tpl.Execute(w,data)
 
 }
 

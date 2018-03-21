@@ -39,26 +39,7 @@
 
 
 <body>
-
-<div class="posts">
-<br><br><br>
-
-  hello &emsp;{{.Email}}!<br><br><br><br>
-  firecredits: <font size="20">{{.Credits}}</font><br><br><br><br>
-    <u>personal Stats</u><br><br>
-    wins:&emsp;{{.Cwins}}<br><br>
-    losses:&emsp;{{.Losses}}<br><br>
-    heat:&emsp;{{.Heat}}<br><br>
-    grade:&emsp;{{.Grade}}<br><br>
-    referrals:&emsp;{{.Refers}}<br><br>
-
-
-<br><br><br>
-
-here is your exclusive tournamental registration link<br><br>
-<a href="/tsignup"><div class="treglink">tournament registration</div></a>
-<br><br>
-<font size=20><u>Upcoming Tournaments</u></font><br><br><br><br>
+  <font size=20><u>Upcoming Tournaments</u></font><br><br><br><br>
   <table id="sortable">
     <thead>
       <tr>
@@ -72,7 +53,7 @@ here is your exclusive tournamental registration link<br><br>
     <tbody>
 
       <tr>
-        <a href="/tournaments/{{.Tournament}}"<td>{{.Tournament}}</td>
+        <td>{{.Tournament}}</td>
         <td>{{.Gametype}}</td>
         <td>{{.Gamertag}}</td>
         <td>{{.Roundnum}}</td>
