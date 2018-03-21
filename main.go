@@ -26,14 +26,6 @@ var dbs = map[string]string{} //session id, stores userids
 
 
 func main() {
-
-  s := &http.Server{
-
-    Addr:    ":80",
-    Handler: nil,
-  }
-
-
   var email string
   var pass string
   var epicusername string
@@ -46,13 +38,32 @@ func main() {
   var credits int
   var grade int
   var gamertag string
-  //pulls users from database
-  dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-  if err != nil {log.Fatalf("Unable to connect to the database")}
-  err = dbusers.QueryRow("SELECT * FROM rfgg.members ").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
-  if err != nil {log.Fatalf("Could not Scan User Data")}
 
-  dbu[email] = user{email,pass,memberflag,epicusername}
+  flag.Parse()
+  //pulls users from database
+  for _, k := range dbuconnect() {
+    dbu[strings.Trim(k.email, " ")] = user{strings.Trim(k.email, " "), strings.Trim(k.pass, " "), k.memberflag, k.epicusername}
+  }
+
+
+
+
+  s := &http.Server{
+
+    Addr:    ":80",
+    Handler: nil,
+  }
+
+
+
+  // //pulls users from database
+  // dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+  // if err != nil {log.Fatalf("Unable to connect to the database")}
+  // err = dbusers.QueryRow("SELECT * FROM rfgg.members ").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
+  // if err != nil {log.Fatalf("Could not Scan User Data")}
+  //
+  // dbu[email] = user{email,pass,memberflag,epicusername}
+  // dbusers.Close()
 
   http.Handle("/favicon/", http.StripPrefix("/favicon/", http.FileServer(http.Dir("./favicon"))))
   http.Handle("/pics/", http.StripPrefix("/pics/", http.FileServer(http.Dir("./pics"))))
@@ -74,6 +85,28 @@ func serve(w http.ResponseWriter, r *http.Request){
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("main.gohtml","css/main.css","css/mcleod-reset.css"))
   tpl.Execute(w, nil)
+}
+
+func dbuconnect() []user {
+	//opens conncetion to db for use
+
+	dbusers, err = sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+	if err != nil {log.Fatalf("Unable to connect to the database")}
+	rows, err := dbusers.Query("SELECT * FROM rfgg.members")
+	if err != nil {log.Fatal(err)}
+	userslols := []user{}
+	//cycles through the rows to grab the data by row
+	for rows.Next() {
+		userslol := user{}
+		err := rows.Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
+		if err != nil {
+			log.Fatal(err)
+		}
+		// appends the rows
+		userslols = append(userslols, userslol)
+	}
+	dbusers.Close()
+	return userslols
 }
 
 
