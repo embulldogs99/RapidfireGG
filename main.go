@@ -17,6 +17,7 @@ type user struct {
   Pass string
   Memberflag string
   Epicusername string
+
 }
   //creates user database map variable
 var dbu = map[string]user{} //user id, stores users
@@ -264,11 +265,11 @@ func profile(w http.ResponseWriter, r *http.Request){
 	if !alreadyLoggedIn(r) {http.Redirect(w, r, "/login", http.StatusSeeOther)}
   //provides user a cookie for some time and tracks login
   u := getUser(w, r)
-  if u.email == "" {
+  if u.Email == "" {
     http.Error(w, "Please Unblock Cookies - They Help Our Website Run - and Login Again", http.StatusForbidden)
     return
   }
-  if u.pass!=""{
+  if u.Pass!=""{
     var email string
     var pass string
     var ppal bool
