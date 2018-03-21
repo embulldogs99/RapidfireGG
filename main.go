@@ -119,13 +119,8 @@ func login(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		email := r.FormValue("email")
 		pass := r.FormValue("pass")
-
 		//defines u as dbu user info (email,pass) then matches form email with stored email
-		u,_, ok := dbu[email]
-		if !ok {
-			http.Error(w, "Username and/or password not found", http.StatusForbidden)
-			return
-		}
+		u:= dbu[email]
 		//pulls password from u and checks it with stored password
 		if pass != u.Pass {
 			http.Error(w, "Username and/or password not found", http.StatusForbidden)
