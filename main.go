@@ -39,10 +39,10 @@ func main() {
   var grade int
   var gamertag string
 
-  flag.Parse()
+
   //pulls users from database
   for _, k := range dbuconnect() {
-    dbu[strings.Trim(k.email, " ")] = user{strings.Trim(k.email, " "), strings.Trim(k.pass, " "), k.memberflag, k.epicusername}
+    dbu[k.email] = user{k.email, k.pass, k.memberflag, k.epicusername}
   }
 
 
@@ -90,7 +90,7 @@ func serve(w http.ResponseWriter, r *http.Request){
 func dbuconnect() []user {
 	//opens conncetion to db for use
 
-	dbusers, err = sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+	dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
 	if err != nil {log.Fatalf("Unable to connect to the database")}
 	rows, err := dbusers.Query("SELECT * FROM rfgg.members")
 	if err != nil {log.Fatal(err)}
