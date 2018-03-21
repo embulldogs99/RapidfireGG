@@ -98,6 +98,18 @@ func dbuconnect() []user {
 	//cycles through the rows to grab the data by row
 	for rows.Next() {
 		userslol := user{}
+    var email string
+    var pass string
+    var epicusername string
+    var ppal bool
+    var wins int
+    var losses int
+    var heat int
+    var refers int
+    var memberflag string
+    var credits int
+    var grade int
+    var gamertag string
 		err := rows.Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
 		if err != nil {
 			log.Fatal(err)
