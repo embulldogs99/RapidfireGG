@@ -15,8 +15,8 @@ _ "github.com/lib/pq"
 type user struct {
   Email string
   Pass string
-  Epicusername string
   Memberflag string
+  Epicusername string
 }
   //creates user database map variable
 var dbu = map[string]user{} //user id, stores users
@@ -51,7 +51,7 @@ func main() {
   err = dbusers.QueryRow("SELECT * FROM rfgg.members ").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
   if err != nil {log.Fatalf("Could not Scan User Data")}
 
-  dbu[email] = user{email,pass,epicusername,memberflag}
+  dbu[email] = user{email,pass,memberflag,epicusername}
 
   http.Handle("/favicon/", http.StripPrefix("/favicon/", http.FileServer(http.Dir("./favicon"))))
   http.Handle("/pics/", http.StripPrefix("/pics/", http.FileServer(http.Dir("./pics"))))
@@ -119,8 +119,9 @@ func login(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		email := r.FormValue("email")
 		pass := r.FormValue("pass")
-		//defines u as dbu user info (email,pass) then matches form email with stored email
-		u,ok:= dbu[email]
+		//defines u as dbu user
+
+		u:= dbu[email]
     fmt.Println(u)
 		//pulls password from u and checks it with stored password
 		if pass != u.Pass {
