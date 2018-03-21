@@ -16,8 +16,6 @@ type user struct {
   Email string
   Pass string
   Memberflag string
-  Epicusername string
-
 }
   //creates user database map variable
 var dbu = map[string]user{} //user id, stores users
@@ -26,26 +24,18 @@ var dbs = map[string]string{} //session id, stores userids
 
 
 func main() {
-  // var email string
-  // var pass string
-  // var epicusername string
-  // var ppal bool
-  // var wins int
-  // var losses int
-  // var heat int
-  // var refers int
-  // var memberflag string
-  // var credits int
-  // var grade int
-  // var gamertag string
-
-
-  //pulls users from database
-  for _, k := range dbuconnect() {
-    dbu[k.Email] = user{k.Email, k.Pass, k.Memberflag, k.Epicusername}
-  }
-
-
+  var email string
+  var pass string
+  var epicusername string
+  var ppal bool
+  var wins int
+  var losses int
+  var heat int
+  var refers int
+  var memberflag string
+  var credits int
+  var grade int
+  var gamertag string
 
 
   s := &http.Server{
@@ -54,16 +44,14 @@ func main() {
     Handler: nil,
   }
 
+  //pulls users from database
+  dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+  if err != nil {log.Fatalf("Unable to connect to the database")}
+  err = dbusers.QueryRow("SELECT * FROM rfgg.members ").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
+  if err != nil {log.Fatalf("Could not Scan User Data")}
 
-
-  // //pulls users from database
-  // dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-  // if err != nil {log.Fatalf("Unable to connect to the database")}
-  // err = dbusers.QueryRow("SELECT * FROM rfgg.members ").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
-  // if err != nil {log.Fatalf("Could not Scan User Data")}
-  //
-  // dbu[email] = user{email,pass,memberflag,epicusername}
-  // dbusers.Close()
+  dbu[email] = user{email,pass,memberflag}
+  dbusers.Close()
 
   http.Handle("/favicon/", http.StripPrefix("/favicon/", http.FileServer(http.Dir("./favicon"))))
   http.Handle("/pics/", http.StripPrefix("/pics/", http.FileServer(http.Dir("./pics"))))
