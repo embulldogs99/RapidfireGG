@@ -26,18 +26,18 @@ var dbs = map[string]string{} //session id, stores userids
 
 
 func main() {
-  var email string
-  var pass string
-  var epicusername string
-  var ppal bool
-  var wins int
-  var losses int
-  var heat int
-  var refers int
-  var memberflag string
-  var credits int
-  var grade int
-  var gamertag string
+  // var email string
+  // var pass string
+  // var epicusername string
+  // var ppal bool
+  // var wins int
+  // var losses int
+  // var heat int
+  // var refers int
+  // var memberflag string
+  // var credits int
+  // var grade int
+  // var gamertag string
 
 
   //pulls users from database
