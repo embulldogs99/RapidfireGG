@@ -42,7 +42,7 @@ func main() {
 
   //pulls users from database
   for _, k := range dbuconnect() {
-    dbu[k.email] = user{k.email, k.pass, k.memberflag, k.epicusername}
+    dbu[k.email] = user{k.Email, k.Pass, k.Memberflag, k.Epicusername}
   }
 
 
