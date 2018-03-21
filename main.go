@@ -264,11 +264,11 @@ func profile(w http.ResponseWriter, r *http.Request){
 	if !alreadyLoggedIn(r) {http.Redirect(w, r, "/login", http.StatusSeeOther)}
   //provides user a cookie for some time and tracks login
   u := getUser(w, r)
-  if u.Email == "" {
+  if u.email == "" {
     http.Error(w, "Please Unblock Cookies - They Help Our Website Run - and Login Again", http.StatusForbidden)
     return
   }
-  if u.Pass!=""{
+  if u.pass!=""{
     var email string
     var pass string
     var ppal bool
