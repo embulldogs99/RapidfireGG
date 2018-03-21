@@ -334,7 +334,6 @@ func tournaments(w http.ResponseWriter, r *http.Request){
     var credits int
     var grade int
     var epicusername string
-    var gamertag string
     var gamertagt string
     var tournament string
     var roundnum int
