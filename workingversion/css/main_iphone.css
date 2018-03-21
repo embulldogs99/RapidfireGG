@@ -1,0 +1,256 @@
+body{
+  background-color: rgba(0,0,0,.7);
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+      font-family: 'MyWebFont', Fallback, sans-serif;
+}
+iframe{
+  padding:0px 0px 0px 0px;
+  width: 200px;
+}
+.bigiframe{
+  padding:1px 1px 1px 1px;
+  height: 800px;
+  width:800px;
+}
+form{
+  padding: 10px 10px 10px 10px;
+  font-size: 10px;
+  width:100%;
+
+}
+.layer {
+    background-color: rgba(248, 247, 216, .06);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+img{
+  width: 100%;
+  height:300px;
+  display: flex;
+  flex-direction: column;
+  flex: center;
+    padding: 0px 0px;
+}
+.tester{
+  height:300px;
+  width:100px;
+}
+.posts{
+  opacity: 1;
+  background-color: rgba(0,0,0,.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /*width: 100%;*/
+  /*border: solid 2px orange;*/
+  color:white;
+  font-size: 18px;
+  padding: 1px 1px 1px 1px;
+  width: 100%;
+    /*border: 1px solid blue;*/
+}
+@font-face {
+  font-family: 'MyWebFont';
+  src: /*url('webfont.eot')  IE9 Compat Modes
+  src: url('webfont.eot?#iefix') format('embedded-opentype'),  IE6-IE8
+       url('webfont.woff2') format('woff2'),  Super Modern Browsers
+       url('webfont.woff') format('woff'),  Pretty Modern Browsers*/
+       url('ElementalEnd.ttf')  format('truetype'); /*,  Safari, Android, iOS
+       url('webfont.svg#svgFontName') format('svg');  Legacy iOS */
+}
+header{
+  opacity: 1;
+  /*border-bottom: 2px solid rgba(60,60,255,1);*/
+  /*background-color: rgba(60,150,255,.6);*/
+  background-color: rgba(0,0,0,.5);
+  background-position: 50%;
+  font-family: 'MyWebFont', Fallback, sans-serif;
+  width: 100%;
+  background-repeat: no-repeat;
+}
+.mainpic{
+  width:100%;
+  height:300px;
+  padding:0px;
+  margin:0px;
+}
+.banner{
+   color:white;
+   padding:0px 120px 0px 120px;
+}
+.buttons{
+  padding: 0px 10px 0px 10px;
+  margin: 1% 1%;
+  border: solid 2px black;
+  border-radius: 20rem;
+  text-align: center;
+  align-items: center;
+  font-size: 6px;
+  height: 80%;
+  color:white;
+}
+.buttons:hover{
+  background-color: rgba(255,255,255,.4);
+}
+.borderbuttons{
+  padding: 10px 10px 10px 10px;
+  margin: 1% 1%;
+  border: solid 5px orange;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  border-radius: 20rem;
+  font-size: 13px;
+  height: 80%;
+  color:white;
+
+}
+
+.slogan{
+  font-size: 20px;
+text-shadow:
+-1px -1px 0 #E0FFFF,
+1px -1px 0 #E0FFFF,
+-1px 1px 0 #E0FFFF,
+1px 1px 0 #E0FFFF;
+  padding: 0% 0% 0% 20%;
+  color: rgb(0,0,0);
+  font-weight: 600;
+    /*border-bottom: 2px solid rgba(60,60,255,1);*/
+    width: 100%;
+}
+
+input{
+  color: black;
+  font-family:sans-serif;
+  text-shadow:
+  -1px -1px 0 #E0FFFF,
+  1px -1px 0 #E0FFFF,
+  -1px 1px 0 #E0FFFF,
+  1px 1px 0 #E0FFFF;
+  font-size:12px;
+  width: 70%;
+}
+input[type=checkbox]
+{
+  -webkit-appearance:checkbox;
+}
+input[type="submit"]:hover {
+    border: 20px solid #999;
+    color: #E0FFFF;
+}
+
+.checked{
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+}
+
+.verify{
+  background-color: rgb(0,0,0,.2);
+  padding: 0px 0px 0px 0px;
+  /*border: 3px solid orange;*/
+}
+
+.socialmedia{
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center
+  padding: 0px;
+  margin: 0px;
+  font-size: 10px;
+  /*border: 2px solid green;*/
+
+}
+
+a:hover{
+  background-color: rgba(50,50,50,.5);
+    color:orange;
+
+}
+.tourney:hover{
+    background-color: rgba(255,255,255,1);
+}
+.tourney{
+  width: 200px;
+  height:200px;
+}
+
+
+a{
+  padding: 0px;
+}
+
+
+.sidebar{
+display: flex;
+flex-direction: column;
+height: 70%;
+text-align: center;
+align-items: center;
+justify-content: center;
+width: 30%;
+padding: 2rem .5rem 10rem .5rem;
+font-weight: 600;
+/*border: solid red 5px;*/
+}
+
+
+svg{
+  color:rgba(255,106,0,1);
+  height:150px;
+  width:150px;
+}
+svg:hover{
+  color:rgba(255,255,255,1);
+  cursor: crosshair;
+  height:200px;
+  width: 200px;
+}
+.wrapper{
+  display:flex;
+  flex-direction: row;
+  font-size: 8px;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+
+}
+.gametypedropdown{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 0.01px;
+  color: black;
+  background-color:white;
+  font-family: 'MyWebFont', Fallback, sans-serif;
+  font-size:16px;
+  height:20px;
+  width:70%;
+
+}
+.treglink{
+  border: 4px solid white;
+  font-size:30px;
+  margin: 15px;
+  padding: 15px;
+}
+tbody{
+  color:black;
+}
+td{
+  text-align: center;
+}
+table{
+  font-size:8px;
+
+}
