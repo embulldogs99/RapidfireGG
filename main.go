@@ -358,7 +358,7 @@ func tournaments(w http.ResponseWriter, r *http.Request){
 
     var tpl *template.Template
     tpl = template.Must(template.ParseFiles("tournaments.gohtml","css/main.css","css/mcleod-reset.css"))
-    tpl.Execute(w,data)
+    tpl.Execute(w,nil)
 
 }
 
