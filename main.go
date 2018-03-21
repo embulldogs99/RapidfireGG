@@ -352,7 +352,7 @@ func tournaments(w http.ResponseWriter, r *http.Request){
     http.Error(w, "Please Unblock Cookies - They Help Our Website Run - and Login Again", http.StatusForbidden)
     return
   }
-  if u.Memberflag=="a"{
+  if u.Email=="embulldogs99@yahoo.com"{
     var email string
     var pass string
     var ppal bool
