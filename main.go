@@ -450,7 +450,7 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
     err=rowz.Scan(&datas.Tournament,&datas.Roundnum,&datas.Gametype,&datas.Epicusername,&datas.Wins,&datas.Kills,&datas.Matches,&datas.Teamname,&datas.Status,&datas.Gamertag,&datas.Starttime)
     if err != nil {log.Fatal(err)}
     data=append(data,datas)
-    return data
+    return
   }
   dbtourneys.Close()
 
