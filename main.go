@@ -45,13 +45,27 @@ func main() {
   }
 
   //pulls users from database
+
+
+  //pulls users from database
+	// for _, k := range dbuconnect() {
+	// 	dbu[strings.Trim(k.email, " ")] = user{strings.Trim(k.email, " "), strings.Trim(k.pass, " "), k.o21, strings.Trim(k.role, " ")}
+	// }
+
   dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   if err != nil {log.Fatalf("Unable to connect to the database")}
-  err = dbusers.QueryRow("SELECT * FROM rfgg.members ").Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
+  rowz, err := dbusers.Query("SELECT * FROM fmi.members")
   if err != nil {log.Fatalf("Could not Scan User Data")}
-
-  dbu[email] = user{email,pass,epicusername}
+  for rowz.Next(){
+    err = rowz.Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
+    if err != nil {log.Fatalf("Could not Scan User Data")}
+    dbu[email] = user{email,pass,epicusername}
+  }
   dbusers.Close()
+
+
+
+
 
   http.Handle("/favicon/", http.StripPrefix("/favicon/", http.FileServer(http.Dir("./favicon"))))
   http.Handle("/pics/", http.StripPrefix("/pics/", http.FileServer(http.Dir("./pics"))))
