@@ -449,7 +449,6 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
     datas:=Tourn{}
     err=rowz.Scan(&datas.tournament,&datas.roundnum,&datas.gametype,&datas.epicusername,&datas.wins,&datas.kills,&datas.matches,&datas.teamname,&datas.status,&datas.gamertag,&datas.starttime)
     if err != nil {log.Fatal(err)}
-    fmt.Println(datas)
     data=append(data,datas)
   }
   dbtourneys.Close()

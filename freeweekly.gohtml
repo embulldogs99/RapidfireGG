@@ -28,9 +28,29 @@
 <body>
 
   <div class="posts">
-
-    {{.}}
-
+  <table>
+    <tr>
+      <th>Tournamnet</th>
+      <th>Current ROund</th>
+      <th>Gametype</th>
+      <th>Wins</th>
+      <th>Kills</th>
+      <th>Teamname<th>
+      <th>Status<th>
+      <th>Gamertag<th>
+      <th> Start Time<th>
+    </tr>
+    <tr>
+      <td>{{.Tournament}}</td>
+      <td>{{.Roundnum}}</td>
+      <td>{{.Gametype}}</td>
+      <td>{{.Wins}}</td>
+      <td>{{.Kills}}</td>
+      <td>{{.Teamname}}</td>
+      <td>{{.Status}}</td>
+      <td>{{.Starttime}}</td>
+    </tr>
+  </table>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
