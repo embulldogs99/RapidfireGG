@@ -78,6 +78,7 @@ func main() {
   http.HandleFunc("/profile", profile)
   http.HandleFunc("/tsignup", tsignup)
   http.HandleFunc("/tournaments", tournaments)
+  http.HandleFunc("/tournaments/freeweekly1", freeweekly)
   log.Fatal(s.ListenAndServe())
 
 }
@@ -404,6 +405,53 @@ func tournaments(w http.ResponseWriter, r *http.Request){
     var tpl *template.Template
     tpl = template.Must(template.ParseFiles("tournaments.gohtml","css/main.css","css/mcleod-reset.css"))
     tpl.Execute(w,nil)
+
+}
+func freeweekly(w http.ResponseWriter, r *http.Request){
+  //are you already logged in?
+	if !alreadyLoggedIn(r) {http.Redirect(w, r, "/login", http.StatusSeeOther)}
+  //provides user a cookie for some time and tracks login
+  u := getUser(w, r)
+  if u.Email == "" {
+    http.Error(w, "Please Unblock Cookies - They Help Our Website Run - and Login Again", http.StatusForbidden)
+    return
+  }
+  var email string
+  var pass string
+  var ppal bool
+  var cwins int
+  var wins int
+  var losses int
+  var heat int
+  var refers int
+  var memberflag string
+  var credits int
+  var grade int
+  var epicusername string
+  var gamertagt string
+  var tournament string
+  var roundnum int
+  var gametype string
+  var matches int
+  var teamname string
+  var status string
+  var kills int
+  var starttime string
+
+  tname:='freeweekly1'
+
+  dbtourneys, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+  rowz, err := dbtourneys.Query("SELECT * FROM rfgg.tournaments WHERE tournament=?",tname)
+  if err != nil{fmt.Println("failed to select from table")}
+  for rowz.Next(){
+    err=rowz.Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertagt,&starttime)
+    data:=Data{email, pass, ppal, cwins, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertagt, tournament, roundnum, gametype, matches,teamname,status, kills,starttime}
+  }
+
+  var tpl *template.Template
+  tpl = template.Must(template.ParseFiles("freeweekly.gohtml","css/main.css","css/mcleod-reset.css"))
+  tpl.Execute(w,data)
+  }
 
 }
 
