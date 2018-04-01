@@ -451,7 +451,7 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
   data:=Tourn{}
   for rowz.Next(){
     err=rowz.Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertag,&starttime)
-    data:=append(Tourn{tournament, roundnum, gametype, matches,teamname,status, kills,starttime},data)
+    data:=append(Tourn{tournament, roundnum, gametype, wins, matches,teamname,status, kills, gamertag, starttime},data)
   }
 
   var tpl *template.Template
