@@ -450,9 +450,13 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
   if err != nil{fmt.Println("failed to select from table")}
   data:=Tourn{}
   for rowz.Next(){
-    err=rowz.Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertag,&starttime)
+    datas:=Tourn{}
+    err=rowz.Scan(&datas.tournament,&datas.roundnum,&datas.gametype,&datas.epicusername,&datas.wins,&datas.kills,&datas.matches,&datas.teamname,&datas.status,&datas.gamertag,&datas.starttime)
     data:=append(Tourn{tournament, roundnum, gametype, wins, matches,teamname,status, kills, gamertag, starttime},data)
+    if err != nil {log.Fatal(err)}
+    data=append(data,datas)
   }
+  dbtourneys.Close()
 
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("freeweekly.gohtml","css/main.css","css/mcleod-reset.css"))
