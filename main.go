@@ -407,12 +407,8 @@ func tournaments(w http.ResponseWriter, r *http.Request){
     tpl.Execute(w,nil)
 
 }
-func freeweekly(w http.ResponseWriter, r *http.Request){
-  //are you already logged in?
-  //provides user a cookie for some time and tracks login
-  // u := getUser(w, r)
 
-  type Tourn struct {
+type Tourn struct {
     Tournament string
     Roundnum string
     Gametype string
@@ -426,21 +422,10 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
     Starttime string
 
   }
-  //
-  // var tournament string
-  // var roundnum string
-  // var gametype string
-  // var epicusername string
-  // var wins string
-  // var kills string
-  // var matches string
-  // var teamname string
-  // var status string
-  // var gamertag string
-  // var starttime string
 
-  // tname:="'freeweekly1'"
-
+func freeweekly(w http.ResponseWriter, r *http.Request){
+  u:=getUser(w,r)
+  if u.Email==""{http.Redirect(w, r, "/login", http.StatusSeeOther)}
   dbtourneys, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   rowz, err := dbtourneys.Query("SELECT * FROM rfgg.tournaments WHERE tournament='freeweekly1'")
   if err != nil{fmt.Println("failed to select from table")}
@@ -450,14 +435,11 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
     err=rowz.Scan(&datas.Tournament,&datas.Roundnum,&datas.Gametype,&datas.Epicusername,&datas.Wins,&datas.Kills,&datas.Matches,&datas.Teamname,&datas.Status,&datas.Gamertag,&datas.Starttime)
     if err != nil {log.Fatal(err)}
     data=append(data,datas)
-    return
   }
   dbtourneys.Close()
-
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("freeweekly.gohtml","css/main.css","css/mcleod-reset.css"))
   tpl.Execute(w,data)
-
 
 }
 
