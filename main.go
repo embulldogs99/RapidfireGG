@@ -443,7 +443,7 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
   var gamertag string
   var starttime string
 
-  tname:="freeweekly1"
+  tname:="'freeweekly1'"
 
   dbtourneys, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   rowz, err := dbtourneys.Query("SELECT * FROM rfgg.tournaments WHERE tournament=$1",tname)
