@@ -430,26 +430,25 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
     starttime string
 
   }
-  
-  var tournament string
-  var roundnum string
-  var gametype string
-  var epicusername string
-  var wins string
-  var kills string
-  var matches string
-  var teamname string
-  var status string
-  var gamertag string
-  var starttime string
+  //
+  // var tournament string
+  // var roundnum string
+  // var gametype string
+  // var epicusername string
+  // var wins string
+  // var kills string
+  // var matches string
+  // var teamname string
+  // var status string
+  // var gamertag string
+  // var starttime string
 
   tname:="'freeweekly1'"
 
   dbtourneys, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   rowz, err := dbtourneys.Query("SELECT * FROM rfgg.tournaments WHERE tournament=$1",tname)
-  fmt.Println(rowz)
   if err != nil{fmt.Println("failed to select from table")}
-  data := []
+  data := []Tourn{}
   for rowz.Next(){
     datas:=Tourn{}
     err=rowz.Scan(&datas.tournament,&datas.roundnum,&datas.gametype,&datas.epicusername,&datas.wins,&datas.kills,&datas.matches,&datas.teamname,&datas.status,&datas.gamertag,&datas.starttime)
