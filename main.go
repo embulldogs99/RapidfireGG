@@ -410,7 +410,7 @@ func tournaments(w http.ResponseWriter, r *http.Request){
 func freeweekly(w http.ResponseWriter, r *http.Request){
   //are you already logged in?
   //provides user a cookie for some time and tracks login
-  u := getUser(w, r)
+  // u := getUser(w, r)
 
   type Tourn struct {
     tournament string
