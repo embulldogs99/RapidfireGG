@@ -54,7 +54,7 @@ func main() {
 
   dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   if err != nil {log.Fatalf("Unable to connect to the database")}
-  rowz, err := dbusers.Query("SELECT * FROM fmi.members")
+  rowz, err := dbusers.Query("SELECT * FROM rfgg.members")
   if err != nil {log.Fatalf("Could not Scan User Data-select*")}
   for rowz.Next(){
     err := rowz.Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
