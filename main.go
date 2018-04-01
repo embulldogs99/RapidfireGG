@@ -411,10 +411,7 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
   //are you already logged in?
   //provides user a cookie for some time and tracks login
   u := getUser(w, r)
-  if u.Email == "" {
-    http.Error(w, "Please Unblock Cookies - They Help Our Website Run - and Login Again", http.StatusForbidden)
-    return
-  }
+
   type Tourn struct {
     tournament string
     roundnum string
