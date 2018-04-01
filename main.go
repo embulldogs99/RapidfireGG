@@ -409,7 +409,6 @@ func tournaments(w http.ResponseWriter, r *http.Request){
 }
 func freeweekly(w http.ResponseWriter, r *http.Request){
   //are you already logged in?
-	if !alreadyLoggedIn(r) {http.Redirect(w, r, "/login", http.StatusSeeOther)}
   //provides user a cookie for some time and tracks login
   u := getUser(w, r)
   if u.Email == "" {
