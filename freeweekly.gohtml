@@ -29,17 +29,20 @@
 
   <div class="posts">
   <table>
-    <tr>
-      <th>Tournamnet</th>
-      <th>Current ROund</th>
-      <th>Gametype</th>
-      <th>Wins</th>
-      <th>Kills</th>
-      <th>Teamname<th>
-      <th>Status<th>
-      <th>Gamertag<th>
-      <th> Start Time<th>
-    </tr>
+    <thead>
+      <tr>
+        <th>Tournamnet</th>
+        <th>Current Round</th>
+        <th>Gametype</th>
+        <th>Wins</th>
+        <th>Kills</th>
+        <th>Teamname<th>
+        <th>Status<th>
+        <th>Gamertag<th>
+        <th>Start Time<th>
+      </tr>
+    <thead>
+  </tbody>
     <tr>
       {{range .}}
       <td>{{.Tournament}}</td>
@@ -52,6 +55,7 @@
       <td>{{.Starttime}}</td>
       {{end}}
     </tr>
+  </tbody>
   </table>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
