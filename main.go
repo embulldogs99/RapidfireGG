@@ -442,7 +442,7 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
   tname:="'freeweekly1'"
 
   dbtourneys, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-  rowz, err := dbtourneys.Query("SELECT * FROM rfgg.tournaments WHERE tournament=$1",tname)
+  rowz, err := dbtourneys.Query("SELECT * FROM rfgg.tournaments WHERE tournament='freeweekly1'")
   if err != nil{fmt.Println("failed to select from table")}
   data := []Tourn{}
   for rowz.Next(){
