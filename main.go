@@ -57,7 +57,7 @@ func main() {
   rowz, err := dbusers.Query("SELECT * FROM fmi.members")
   if err != nil {log.Fatalf("Could not Scan User Data-select*")}
   for rowz.Next(){
-    err = rowz.Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
+    err := rowz.Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
     if err != nil {log.Fatalf("Could not Scan User Data-last step")}
     dbu[email] = user{email,pass,epicusername}
   }
