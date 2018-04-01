@@ -423,7 +423,7 @@ type Tourn struct {
 
   }
 
-func freeweekly(w http.ResponseWriter, r *http.Request){
+func freeweeklypull() []Tourn{
   dbtourneys, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   rowz, err := dbtourneys.Query("SELECT * FROM rfgg.tournaments WHERE tournament='freeweekly1'")
   if err != nil{fmt.Println("failed to select from table")}
@@ -435,9 +435,14 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
     data=append(data,datas)
     }
   dbtourneys.Close()
+  return data
+}
+
+func freeweekly(w http.ResponseWriter, r *http.Request){
+
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("freeweekly.gohtml","css/main.css","css/mcleod-reset.css"))
-  tpl.Execute(w,data)
+  tpl.Execute(w,freeweeklypull())
 
 }
 
