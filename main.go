@@ -346,7 +346,7 @@ func profile(w http.ResponseWriter, r *http.Request){
   if err != nil{fmt.Println("failed to select from table")}
 
   data:=Data{email, pass, ppal, cwins, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertagt, tournament, roundnum, gametype, matches,teamname,status, kills,starttime}
-
+  fmt.Println(data)
   fmt.Println(email + " logged on")
 
   var tpl *template.Template
