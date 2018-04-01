@@ -416,14 +416,25 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
     http.Error(w, "Please Unblock Cookies - They Help Our Website Run - and Login Again", http.StatusForbidden)
     return
   }
+  type Tourn struct {
+    tournament string
+    roundnum string
+    gametype string
+    matches string
+    teamname string
+    status string
+    kills string
+    starttime string
+
+  }
 
   var tournament string
-  var roundnum int
+  var roundnum string
   var gametype string
-  var matches int
+  var matches string
   var teamname string
   var status string
-  var kills int
+  var kills string
   var starttime string
 
   tname:="freeweekly1"
@@ -431,10 +442,10 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
   dbtourneys, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   rowz, err := dbtourneys.Query("SELECT * FROM rfgg.tournaments WHERE tournament=?",tname)
   if err != nil{fmt.Println("failed to select from table")}
-  data:=Data{}
+  data:=Tourn{}
   for rowz.Next(){
     err=rowz.Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertagt,&starttime)
-    data:=append(data,Data{tournament, roundnum, gametype, matches,teamname,status, kills,starttime})
+    data:=append(data,Tourn{tournament, roundnum, gametype, matches,teamname,status, kills,starttime})
   }
 
   var tpl *template.Template
