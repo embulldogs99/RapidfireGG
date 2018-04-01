@@ -420,10 +420,13 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
     tournament string
     roundnum string
     gametype string
+    epicusername string
+    wins int
     matches string
     teamname string
     status string
     kills string
+    gamertag string
     starttime string
 
   }
@@ -431,10 +434,13 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
   var tournament string
   var roundnum string
   var gametype string
+  var epicusername string
+  var wins int
   var matches string
   var teamname string
   var status string
   var kills string
+  var gamertag string
   var starttime string
 
   tname:="freeweekly1"
@@ -444,7 +450,7 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
   if err != nil{fmt.Println("failed to select from table")}
   data:=Tourn{}
   for rowz.Next(){
-    err=rowz.Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertagt,&starttime)
+    err=rowz.Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertag,&starttime)
     data:=append(Tourn{tournament, roundnum, gametype, matches,teamname,status, kills,starttime},data)
   }
 
