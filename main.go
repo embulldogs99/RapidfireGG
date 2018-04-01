@@ -413,17 +413,17 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
   // u := getUser(w, r)
 
   type Tourn struct {
-    tournament string
-    roundnum string
-    gametype string
-    epicusername string
-    wins string
-    kills string
-    matches string
-    teamname string
-    status string
-    gamertag string
-    starttime string
+    Tournament string
+    Roundnum string
+    Gametype string
+    Epicusername string
+    Wins string
+    Kills string
+    Matches string
+    Teamname string
+    Status string
+    Gamertag string
+    Starttime string
 
   }
   //
