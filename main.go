@@ -421,8 +421,8 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
     roundnum string
     gametype string
     epicusername string
-    wins int
-    matches string
+    wins string
+    matches int
     teamname string
     status string
     kills string
@@ -435,8 +435,8 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
   var roundnum string
   var gametype string
   var epicusername string
-  var wins int
-  var matches string
+  var wins string
+  var matches int
   var teamname string
   var status string
   var kills string
