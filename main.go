@@ -348,6 +348,8 @@ func profile(w http.ResponseWriter, r *http.Request){
   data:=Data{email, pass, ppal, cwins, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertagt, tournament, roundnum, gametype, matches,teamname,status, kills,starttime}
   fmt.Println(data)
   fmt.Println(email + " logged on")
+  dbusers.Close()
+  dbtourneys.Close()
 
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css"))
