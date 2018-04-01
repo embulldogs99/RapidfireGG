@@ -78,7 +78,7 @@ func main() {
   http.HandleFunc("/profile", profile)
   http.HandleFunc("/tsignup", tsignup)
   http.HandleFunc("/tournaments", tournaments)
-  http.HandleFunc("/freewekly1", freeweekly)
+  http.HandleFunc("/freeweekly1", freeweekly)
   log.Fatal(s.ListenAndServe())
 
 }
