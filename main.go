@@ -430,18 +430,18 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
     starttime string
 
   }
-
-  var tournament string
-  var roundnum string
-  var gametype string
-  var epicusername string
-  var wins string
-  var kills string
-  var matches string
-  var teamname string
-  var status string
-  var gamertag string
-  var starttime string
+  // 
+  // var tournament string
+  // var roundnum string
+  // var gametype string
+  // var epicusername string
+  // var wins string
+  // var kills string
+  // var matches string
+  // var teamname string
+  // var status string
+  // var gamertag string
+  // var starttime string
 
   tname:="'freeweekly1'"
 
