@@ -314,46 +314,45 @@ func profile(w http.ResponseWriter, r *http.Request){
   u := getUser(w, r)
   if u.Email == "" {
     http.Error(w, "Please Unblock Cookies - They Help Our Website Run - and Login Again", http.StatusForbidden)
-    return
-  }
-  if u.Pass!=""{
-    var email string
-    var pass string
-    var ppal bool
-    var cwins int
-    var wins int
-    var losses int
-    var heat int
-    var refers int
-    var memberflag string
-    var credits int
-    var grade int
-    var epicusername string
-    var gamertag string
-    var gamertagt string
-    var tournament string
-    var roundnum int
-    var gametype string
-    var matches int
-    var teamname string
-    var status string
-    var kills int
-    var starttime string
+    return}
 
-    dbusers, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-    _ = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",u.Email,u.Pass).Scan(&email, &pass, &ppal, &cwins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
-    dbtourneys, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-    err := dbtourneys.QueryRow("SELECT * FROM rfgg.tournaments WHERE epicusername=$1 AND status='open'",u.Epicusername).Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertagt,&starttime)
-    if err != nil{fmt.Println("failed to select from table")}
+  var email string
+  var pass string
+  var ppal bool
+  var cwins int
+  var wins int
+  var losses int
+  var heat int
+  var refers int
+  var memberflag string
+  var credits int
+  var grade int
+  var epicusername string
+  var gamertag string
+  var gamertagt string
+  var tournament string
+  var roundnum int
+  var gametype string
+  var matches int
+  var teamname string
+  var status string
+  var kills int
+  var starttime string
 
-    data:=Data{email, pass, ppal, cwins, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertagt, tournament, roundnum, gametype, matches,teamname,status, kills,starttime}
+  dbusers, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+  _ = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",u.Email,u.Pass).Scan(&email, &pass, &ppal, &cwins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
+  dbtourneys, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+  err := dbtourneys.QueryRow("SELECT * FROM rfgg.tournaments WHERE epicusername=$1 AND status='open'",u.Epicusername).Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertagt,&starttime)
+  if err != nil{fmt.Println("failed to select from table")}
 
-    fmt.Println(email + " logged on")
+  data:=Data{email, pass, ppal, cwins, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertagt, tournament, roundnum, gametype, matches,teamname,status, kills,starttime}
 
-    var tpl *template.Template
-    tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css"))
-    tpl.Execute(w,data)
-    }
+  fmt.Println(email + " logged on")
+
+  var tpl *template.Template
+  tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css"))
+  tpl.Execute(w,data)
+
 
 }
 
