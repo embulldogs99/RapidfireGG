@@ -45,7 +45,7 @@
     </thead>
     </tbody>
       <tr>
-
+        {{range .}}
         <td>{{.Tournament}}</td>
         <td>{{.Roundnum}}</td>
         <td>{{.Gametype}}</td>
@@ -54,7 +54,7 @@
         <td>{{.Teamname}}</td>
         <td>{{.Status}}</td>
         <td>{{.Starttime}}</td>
-
+        {{end}}
       </tr>
     </tbody>
   </table>
