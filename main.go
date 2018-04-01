@@ -447,7 +447,7 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
   data := []Tourn{}
   for rowz.Next(){
     datas:=Tourn{}
-    err=rowz.Scan(&datas.tournament,&datas.roundnum,&datas.gametype,&datas.epicusername,&datas.wins,&datas.kills,&datas.matches,&datas.teamname,&datas.status,&datas.gamertag,&datas.starttime)
+    err=rowz.Scan(&datas.Tournament,&datas.Roundnum,&datas.Gametype,&datas.Epicusername,&datas.Wins,&datas.Kills,&datas.Matches,&datas.Teamname,&datas.Status,&datas.Gamertag,&datas.Starttime)
     if err != nil {log.Fatal(err)}
     data=append(data,datas)
   }
