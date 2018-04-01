@@ -416,19 +416,7 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
     http.Error(w, "Please Unblock Cookies - They Help Our Website Run - and Login Again", http.StatusForbidden)
     return
   }
-  var email string
-  var pass string
-  var ppal bool
-  var cwins int
-  var wins int
-  var losses int
-  var heat int
-  var refers int
-  var memberflag string
-  var credits int
-  var grade int
-  var epicusername string
-  var gamertagt string
+
   var tournament string
   var roundnum int
   var gametype string
@@ -446,7 +434,7 @@ func freeweekly(w http.ResponseWriter, r *http.Request){
   data:=Data{}
   for rowz.Next(){
     err=rowz.Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertagt,&starttime)
-    data:=append(data,Data{email, pass, ppal, cwins, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertagt, tournament, roundnum, gametype, matches,teamname,status, kills,starttime})
+    data:=append(data,Data{tournament, roundnum, gametype, matches,teamname,status, kills,starttime})
   }
 
   var tpl *template.Template
