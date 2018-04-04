@@ -1,0 +1,6 @@
+flask
+requests
+flask-oauthlib
+six
+validate_email
+selenium

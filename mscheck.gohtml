@@ -1,0 +1,22 @@
+
+<html>
+
+<script src="https://cdn.auth0.com/js/auth0/9.3.1/auth0.min.js"></script>
+<script>
+var auth = new auth0.WebAuth({domain: 'YOUR_AUTH0_DOMAIN', clientID: 'YOUR_CLIENT_ID'});
+
+function signin() {
+     auth.authorize({
+         audience: '{YOUR_API_IDENTIFIER}',
+         scope: 'openid profile',
+         responseType: 'code',
+         redirectUri: 'https://YOUR_APP/callback'
+     });
+}
+</script>
+
+<body>
+<button onclick="signin()">Login</button>
+</body>
+
+</html>
