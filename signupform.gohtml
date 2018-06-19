@@ -23,17 +23,25 @@
 
 
 <body>
-
-<div class="posts">
-  <br><br><br><br>
-  <font size="30">create profile by filling out form below</font><br><br><br><br>
-  to become a member...<br>
-  like us on Facebook or Instagram
-
-  <a href="/signupform"><iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FRapidfireSupport&width=450&layout=standard&action=like&size=large&show_faces=false&share=true&height=10&appId=196067333799979" width="450" style="border:none;overflow:hidden;" scrolling="no" frameborder="0" allowTransparency="false"></iframe></a>
-  <a href="/signupform"><a class="borderbuttons" href="https://www.instagram.com/accounts/login/?next=%2Frapidfire.gg%2F&source=follow">like us on instagram</a></a>
-  already have a username?<br>
-  <a style="border:5px solid black;" href="/login"> Login Here</a><br><br>
+<div class="posts" style="border:solid 2px black;">
+  <form action="/waitingregister" method="POST">
+    epic username&ensp;[obtained from epic/fortnite website]<br>
+    <input type="epicusername" name="epicusername" value=""><br><br>
+    <br>
+    gamertag<br>
+    <input type="gamertag" name="gamertag" value=""><br><br>
+    <br>
+    email<br>
+    <input type="email" name="email" value="" required><br><br>
+    <div class="checked" required>
+    same as paypal email<input type="checkbox" name="paypal" value=true checked>
+    </div>
+    <br>
+    new&ensp;rapidfiregg&ensp;password<br>
+    <input type="password" name="pass" value="" required><br>
+    <br><br>
+    <input type="submit" style="color: black; background-color:white; font-family: 'MyWebFont', Fallback, sans-serif;" value="create rapidfiregg profile">
+  </form>
 
 </div>
 

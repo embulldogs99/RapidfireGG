@@ -73,6 +73,7 @@ func main() {
   http.Handle("/svg/", http.StripPrefix("/svg/", http.FileServer(http.Dir("./svg"))))
   http.HandleFunc("/", serve)
   http.HandleFunc("/signup", signup)
+  http.HandleFunc("/signupform", signupform)
   http.HandleFunc("/waitingverification", waitingverification)
   http.HandleFunc("/login", login)
   http.HandleFunc("/profile", profile)
@@ -127,6 +128,12 @@ func dbuconnect() []user {
 
 
 func signup(w http.ResponseWriter, r *http.Request){
+  var tpl *template.Template
+  tpl = template.Must(template.ParseFiles("signup.gohtml","css/main.css","css/mcleod-reset.css",))
+  tpl.Execute(w, nil)
+}
+
+func signupform(w http.ResponseWriter, r *http.Request){
   if r.Method == http.MethodPost {
     email := r.FormValue("email")
     pass := r.FormValue("pass")
@@ -143,11 +150,11 @@ func signup(w http.ResponseWriter, r *http.Request){
 
     http.Redirect(w, r, "/waitingverification", http.StatusSeeOther)
     }
-    var tpl *template.Template
-    tpl = template.Must(template.ParseFiles("signup.gohtml","css/main.css","css/mcleod-reset.css",))
-    tpl.Execute(w, nil)
-}
+  var tpl *template.Template
+  tpl = template.Must(template.ParseFiles("signupform.gohtml","css/main.css","css/mcleod-reset.css",))
+  tpl.Execute(w, nil)
 
+}
 
 func alreadyLoggedIn(req *http.Request) bool {
 	c, err := req.Cookie("session")
