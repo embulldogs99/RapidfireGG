@@ -125,9 +125,19 @@ func dbuconnect() []user {
 	return userslols
 }
 
+func alreadyLoggedIn(req *http.Request) bool {
+	c, err := req.Cookie("session")
+	if err != nil {
+		return false
+	}
+  email := dbs[c.Value]
+	_, ok := dbu[email]
+	return ok
+}
 
 
 func signup(w http.ResponseWriter, r *http.Request){
+  if alreadyLoggedIn(r) {http.Redirect(w, r, "/profile", http.StatusSeeOther)}
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("signup.gohtml","css/main.css","css/mcleod-reset.css",))
   tpl.Execute(w, nil)
@@ -156,15 +166,7 @@ func signupform(w http.ResponseWriter, r *http.Request){
 
 }
 
-func alreadyLoggedIn(req *http.Request) bool {
-	c, err := req.Cookie("session")
-	if err != nil {
-		return false
-	}
-  email := dbs[c.Value]
-	_, ok := dbu[email]
-	return ok
-}
+
 
 func login(w http.ResponseWriter, r *http.Request) {
 	//if already logged in send to home page
