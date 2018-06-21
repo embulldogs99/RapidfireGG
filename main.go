@@ -76,6 +76,7 @@ func main() {
   http.HandleFunc("/signupform", signupform)
   http.HandleFunc("/waitingverification", waitingverification)
   http.HandleFunc("/login", login)
+  http.HandleFunc("/logout", logout)
   http.HandleFunc("/profile", profile)
   http.HandleFunc("/tsignup", tsignup)
   http.HandleFunc("/tournaments", tournaments)
