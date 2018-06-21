@@ -1,0 +1,478 @@
+/*
+Theme Name: Chosen Gamer
+Theme URI: https://www.competethemes.com/chosen-gamer/
+Author: Compete Themes
+Author URI: https://www.competethemes.com/
+Template: chosen
+Description: Chosen Gamer is a gorgeous and mobile responsive theme for video game blogs, magazines, and podcasts. Built off the Chosen theme, Chosen Gamer has a minimalist aesthetic with sharp typography and a premium feel despite being a free theme. It's best used for blogging and creative sites. If you like the style, you can use it for other non-gaming niches too, such as news, travel, food, music, or corporate topics. View the fully-setup live demo at: https://www.competethemes.com/chosen-gamer-live-demo
+Version: 1.1
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: one-column, two-columns, custom-logo, custom-menu, featured-images, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready, blog, news, photography
+Text Domain: chosen-gamer
+
+Chosen Gamer WordPress Theme, Copyright 2018 Compete Themes
+Chosen Gamer is distributed under the terms of the GNU GPL
+*/
+/*===== Variables =====*/
+/* Theme Colors */
+/* Media Query widths */
+/* Social Media Brand Colors */
+/*===== Mixins =====*/
+/***** Silent Classes *****/
+.search-header .post-title {
+  font-size: 1.3125em;
+  /* 21px / 16px */
+  line-height: 1.143;
+  /* 24px */
+}
+
+.site-title, .design-credit, .sidebar .widget > * {
+  font-size: 0.875em;
+  /* 14px / 16px */
+  line-height: 1.286;
+  /* 18px */
+}
+
+.categories span,
+.after-post-title, .post-content .date, .tags a {
+  font-size: 0.75em;
+  /* 12px / 16px */
+  line-height: 1.5;
+  /* 18px */
+}
+
+.sticky-status span {
+  font-size: 0.625em;
+  /* 10px / 16px */
+  line-height: 1.8;
+  /* 18px */
+}
+
+body {
+  font-family: "PT Serif", serif;
+  color: #2B2B2B;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+textarea {
+  font-family: "PT Serif", serif;
+}
+
+input[type="submit"] {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+
+.site-header {
+  padding: 0.75em 0;
+  text-align: right;
+}
+.site-header:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+
+.title-container {
+  margin: 0;
+  display: inline-block;
+}
+
+.site-title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+
+.tagline {
+  text-transform: none;
+}
+
+@media all and (min-width: 56.25em) {
+  .site-header {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+            align-items: center;
+  }
+
+  .title-container {
+    flex-shrink: 0;
+  }
+
+  .social-media-icons {
+    margin-right: auto;
+    float: none;
+  }
+
+  .search-bar .social-media-icons {
+    margin-left: 42px;
+  }
+}
+.toggle-navigation {
+  float: left;
+  line-height: 3;
+}
+
+.menu-primary-container {
+  font-family: "Montserrat", sans-serif;
+  margin-left: 0;
+  width: 100%;
+}
+
+.menu-primary {
+  margin-top: 1.5em;
+}
+.menu-primary li {
+  margin-bottom: 12px;
+}
+.menu-primary a {
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0;
+}
+.menu-primary a:hover, .menu-primary a:active, .menu-primary a:focus {
+  color: #15D9AF;
+}
+.menu-primary .current-menu-item > a,
+.menu-primary .current_page_item > a {
+  outline: none;
+  border-bottom: solid 2px #15D9AF;
+}
+.menu-primary .sub-menu {
+  margin-right: 12px;
+}
+.menu-primary .sub-menu li {
+  margin-bottom: 12px;
+}
+.menu-primary .sub-menu li:first-child {
+  margin-top: 6px;
+}
+.menu-primary .sub-menu li:last-child {
+  margin-bottom: 0;
+}
+
+.menu-primary .current-menu-item.menu-item-has-children > a,
+.menu-primary .current_page_item.menu-item-has-children > a {
+  margin-right: 0;
+}
+
+.toggle-dropdown {
+  margin-right: 6px;
+}
+
+@media all and (min-width: 56.25em) {
+  .menu-primary-container {
+    -webkit-box-flex: 1;
+            flex-grow: 1;
+  }
+
+  .menu-primary {
+    margin: 0 3em 0 0;
+  }
+  .menu-primary li {
+    margin: 0 0 0 18px;
+  }
+  .menu-primary .sub-menu {
+    margin-right: 0;
+  }
+  .menu-primary .sub-menu li:first-child {
+    margin-top: 12px;
+  }
+  .menu-primary .sub-menu .toggle-dropdown {
+    position: absolute;
+    top: 3px;
+    left: -10px;
+  }
+
+  .menu-primary .current-menu-item.menu-item-has-children > a + .toggle-dropdown,
+  .toggle-dropdown {
+    margin-left: 0;
+  }
+
+  .menu-primary-items .menu-item-has-children .menu-item-has-children > a:hover ~ ul,
+  .menu-primary-items .menu-item-has-children .menu-item-has-children > a:active ~ ul,
+  .menu-primary-items .menu-item-has-children .menu-item-has-children > a:focus ~ ul,
+  .menu-primary-items .menu-item-has-children .menu-item-has-children ul:hover,
+  .menu-primary-items .menu-item-has-children .menu-item-has-children ul.focused {
+    top: -13px;
+  }
+}
+.singular .featured-image {
+  width: calc(100% + 9.5%);
+  right: -4.75%;
+}
+
+.post-header {
+  text-align: right;
+}
+.post-header .entry-subtitle {
+  font-family: "PT Serif", serif;
+  font-style: italic;
+  font-size: 21px;
+  line-height: 1.143;
+  margin: 6px 0 12px;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+.post-title {
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+.categories span,
+.after-post-title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.categories span .comments-link,
+.after-post-title .comments-link {
+  font-size: 1em;
+  line-height: 1.5;
+}
+.categories span a,
+.after-post-title a {
+  color: #15D9AF;
+}
+.categories span a:hover, .categories span a:active, .categories span a:focus,
+.after-post-title a:hover,
+.after-post-title a:active,
+.after-post-title a:focus {
+  text-decoration: underline;
+}
+
+.after-post-title {
+  margin-top: 12px;
+}
+
+.comments-link a {
+  color: #15D9AF;
+}
+.comments-link a:link, .comments-link a:visited {
+  color: #15D9AF;
+}
+.comments-link i {
+  display: none;
+}
+
+.post-content .date {
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 24px 0;
+  color: #666666;
+}
+
+.post-content a:hover, .post-content a:active, .post-content a:focus {
+  color: #15D9AF;
+}
+
+.tags {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+.tags a {
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 5px 10px;
+  border: solid 1px #15D9AF;
+  margin-left: 12px;
+  transition: color 0.2s, background 0.2s;
+}
+.tags a:hover, .tags a:active, .tags a:focus {
+  color: #fff;
+  background: #15D9AF;
+}
+
+.further-reading span {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+
+.entry .featured-slider {
+  margin-bottom: 0;
+}
+
+@media all and (min-width: 43.75em) {
+  .entry {
+    margin-bottom: 3em;
+  }
+
+  .post-header .post-title {
+    line-height: 1.15;
+  }
+  .post-header .entry-subtitle {
+    font-size: 28px;
+    line-height: 1.357;
+  }
+
+  .singular .post-header {
+    margin-bottom: 3em;
+  }
+
+  .singular:not(.right-sidebar):not(.left-sidebar):not(.two-left):not(.two-right) .has-post-thumbnail:not(.has-featured-video):not(.has-featured-slider) .featured-title {
+    position: relative;
+  }
+  .singular:not(.right-sidebar):not(.left-sidebar):not(.two-left):not(.two-right) .has-post-thumbnail:not(.has-featured-video):not(.has-featured-slider) .featured-title:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -4.75%;
+    bottom: 0;
+    right: -4.75%;
+    background: rgba(0, 0, 0, 0.6);
+  }
+  .singular:not(.right-sidebar):not(.left-sidebar):not(.two-left):not(.two-right) .has-post-thumbnail:not(.has-featured-video):not(.has-featured-slider) .post-header {
+    position: absolute;
+    z-index: 9;
+    right: 0;
+    top: 30%;
+    -webkit-transform: translateY(-30%);
+            transform: translateY(-30%);
+    max-width: 650px;
+    color: #fff;
+  }
+  .singular:not(.right-sidebar):not(.left-sidebar):not(.two-left):not(.two-right) .has-post-thumbnail:not(.has-featured-video):not(.has-featured-slider) .comments-link,
+  .singular:not(.right-sidebar):not(.left-sidebar):not(.two-left):not(.two-right) .has-post-thumbnail:not(.has-featured-video):not(.has-featured-slider) .post-title {
+    color: #fff;
+  }
+}
+@media all and (min-width: 56.25em) {
+  .singular:not(.right-sidebar):not(.left-sidebar):not(.two-left):not(.two-right) .post-header {
+    margin: 3em auto;
+    padding: 0;
+    max-width: 750px;
+    text-align: center;
+  }
+  .singular:not(.right-sidebar):not(.left-sidebar):not(.two-left):not(.two-right) .has-post-thumbnail:not(.has-featured-video):not(.has-featured-slider) .post-header {
+    margin: 0;
+    text-align: right;
+  }
+}
+.site-header .search-form-container {
+  top: 0;
+  left: 12px;
+}
+
+@media all and (min-width: 56.25em) {
+  .site-header .search-form-container {
+    position: absolute;
+    top: -7px;
+    left: -10px;
+  }
+}
+.comment-author,
+.comment-footer {
+  font-family: "Montserrat", sans-serif;
+}
+
+.comment-author .avatar {
+  border-radius: 50%;
+}
+
+.comment-respond label {
+  font-family: "Montserrat", sans-serif;
+}
+
+.design-credit {
+  font-family: "Montserrat", sans-serif;
+}
+.design-credit a {
+  text-decoration: underline;
+}
+
+.blog .post-content,
+.archive .post-content,
+.search .post-content {
+  text-align: right;
+}
+
+.post-content .more-link {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  transition: color 0.2s, background 0.2s;
+}
+.post-content .more-link:hover, .post-content .more-link:active, .post-content .more-link:focus {
+  color: #fff;
+  background: #15D9AF;
+}
+
+.archive-header p {
+  margin: 0.75em 0;
+}
+
+.pagination {
+  font-family: "Montserrat", sans-serif;
+}
+
+.full-post .comments-link {
+  display: inline;
+}
+
+.sticky-status span {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+@media all and (min-width: 56.25em) {
+  .blog:not(.extra-wide-post) .loop-container,
+  .archive:not(.extra-wide-post) .loop-container,
+  .search:not(.extra-wide-post) .loop-container {
+    margin-top: 1.5em;
+  }
+
+  .archive-header {
+    margin: 1.5em 0 2.25em;
+  }
+}
+.search-header {
+  margin-bottom: 2.25em;
+}
+.search-header .post-title {
+  font-weight: 400;
+}
+.search-header .search-form-container {
+  margin: 1.5em 0;
+}
+
+.right-sidebar .main,
+.right-sidebar .sidebar-primary,
+.left-sidebar .main,
+.left-sidebar .sidebar-primary,
+.two-right .main,
+.two-right .sidebar-primary,
+.two-left .main,
+.two-left .sidebar-primary {
+  margin-top: 1.5em;
+}
+
+.sidebar .widget .widget-title {
+  font-family: "Montserrat", sans-serif;
+}
+.sidebar .widget li {
+  margin-bottom: 12px;
+}
+.sidebar .widget a:hover, .sidebar .widget a:active, .sidebar .widget a:focus {
+  color: #15D9AF;
+}
