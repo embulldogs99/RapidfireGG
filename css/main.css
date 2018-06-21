@@ -20,7 +20,8 @@ form{
   font-size: 16px;
 }
 .nowrap{
-      white-space: nowrap;
+  float: left;
+  white-space: nowrap;
 }
 .layer {
     background-color: rgba(0,0,0,.1);
