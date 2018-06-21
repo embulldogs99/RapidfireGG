@@ -48,6 +48,10 @@ Chosen Gamer is distributed under the terms of the GNU GPL
   line-height: 1.8;
   /* 18px */
 }
+.nowrap{
+  float: left;
+  white-space: nowrap;
+}
 
 body {
   font-family: "PT Serif", serif;
