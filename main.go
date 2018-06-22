@@ -316,15 +316,49 @@ type Data struct{
 
 }
 
-func profile(w http.ResponseWriter, r *http.Request){
-  //are you already logged in?
-	if !alreadyLoggedIn(r) {http.Redirect(w, r, "/login", http.StatusSeeOther)}
-  //provides user a cookie for some time and tracks login
-  u := getUser(w, r)
-  if u.Email == "" {
-    http.Error(w, "Please Unblock Cookies - They Help Our Website Run - and Login Again", http.StatusForbidden)
-    return}
 
+
+
+
+type Fortnitedata struct{
+  Email string
+  Pass string
+  Ppal bool
+  Cwins int
+  Wins int
+  Losses int
+  Heat int
+  Refers int
+  Memberflag string
+  Credits int
+  Grade int
+  Epicusername string
+  Gamertag string
+  Tournament string
+  Roundnum int
+  Gametype string
+  Matches int
+  Teamname string
+  Status string
+  Kills int
+  Starttime string
+  Last_updated sql.NullString
+  Console sql.NullString
+  Squadkill sql.NullFloat64
+  Squadmatch sql.NullFloat64
+  Squadkm sql.NullFloat64
+  Duokill sql.NullFloat64
+  Duomatch sql.NullFloat64
+  Duokm sql.NullFloat64
+  Solokill sql.NullFloat64
+  Solomatch sql.NullFloat64
+  Solokm sql.NullFloat64
+
+}
+
+
+
+func profilepull(w http.ResponseWriter, r *http.Request) []Fortnitedata{
   var email string
   var pass string
   var ppal bool
@@ -348,49 +382,15 @@ func profile(w http.ResponseWriter, r *http.Request){
   var kills int
   var starttime string
 
+  u := getUser(w, r)
+  if u.Email == "" {http.Error(w, "Please Unblock Cookies - They Help Our Website Run - and Login Again", http.StatusForbidden)
+    return}
+
   dbusers, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   _ = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",u.Email,u.Pass).Scan(&email, &pass, &ppal, &cwins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
   dbtourneys, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   err := dbtourneys.QueryRow("SELECT * FROM rfgg.tournaments WHERE epicusername=$1 AND status='open'",u.Epicusername).Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertagt,&starttime)
   if err != nil{fmt.Println("failed to select from table")}
-
-
-
-  type Fortnitedata struct{
-    Email string
-    Pass string
-    Ppal bool
-    Cwins int
-    Wins int
-    Losses int
-    Heat int
-    Refers int
-    Memberflag string
-    Credits int
-    Grade int
-    Epicusername string
-    Gamertag string
-    Tournament string
-    Roundnum int
-    Gametype string
-    Matches int
-    Teamname string
-    Status string
-    Kills int
-    Starttime string
-    Last_updated sql.NullString
-    Console sql.NullString
-    Squadkill sql.NullFloat64
-    Squadmatch sql.NullFloat64
-    Squadkm sql.NullFloat64
-    Duokill sql.NullFloat64
-    Duomatch sql.NullFloat64
-    Duokm sql.NullFloat64
-    Solokill sql.NullFloat64
-    Solomatch sql.NullFloat64
-    Solokm sql.NullFloat64
-
-  }
 
   var lastupdated sql.NullString
   var console sql.NullString
@@ -412,12 +412,18 @@ func profile(w http.ResponseWriter, r *http.Request){
   fmt.Println(email + " logged on")
   dbusers.Close()
   dbtourneys.Close()
+  return data
+}
 
+
+func profile(w http.ResponseWriter, r *http.Request){
+  //are you already logged in?
+	if !alreadyLoggedIn(r) {http.Redirect(w, r, "/login", http.StatusSeeOther)}
+  //provides user a cookie for some time and tracks login
+  data:=profilepull()
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css"))
   tpl.Execute(w,data)
-
-
 }
 
 func tournaments(w http.ResponseWriter, r *http.Request){
