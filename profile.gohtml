@@ -92,7 +92,15 @@ img.emoji {
 		<div id="max-width" class="max-width">
 						<header class="site-header" id="site-header" role="banner">
         <div id="title-container" class="title-container">
-					<div id='site-title' class='site-title'><a href='http://www.thewulfmarket.com'><span class='screen-reader-text'>RapidFire.GG</span><img class='logo' src='http://www.thewulfmarket.com/wp-content/uploads/2018/06/Rapidfirefistjpg.jpg' alt='RapidFire.GG' /></a></div>									</div>
+					<div id='site-title' class='site-title'><a href='http://www.thewulfmarket.com'><span class='screen-reader-text'>RapidFire.GG</span>
+
+						<!--  Referencing the download location of the lgoo. Can download on home machine
+
+						-->
+						<img class='logo' src='http://www.thewulfmarket.com/wp-content/uploads/2018/06/Rapidfirefistjpg.jpg' alt='RapidFire.GG' /></a></div>									</div>
+
+
+
         <button id="toggle-navigation" class="toggle-navigation" name="toggle-navigation" aria-expanded="false">
 					<span class="screen-reader-text">open menu</span>
 					<svg width="24px" height="18px" viewBox="0 0 24 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -153,7 +161,7 @@ Buttons across the top
 
   <div class="featured-title">
         <div class='post-header'>
-      <h1 class='post-title'>Hello &emsp;{{.Email}}!</h1>
+      <div class='nowrap'><h1 class='post-title'>Hello &emsp;{{.Email}}!</h1></div>
     </div>
   </div>
 		<div class="post-content">
@@ -162,7 +170,7 @@ Buttons across the top
 
 
         firecredits: <font size="20">{{.Credits}}</font><br><br><br><br>
-          <h1 class='post-title'>personal Stats</h1><br><br>
+          <h1 class='post-title'>Personal Stats</h1><br><br>
           Tournament Wins:&emsp;{{.Cwins}}<br><br>
           Heat:&emsp;{{.Heat}}<br><br>
           Grade:&emsp;{{.Grade}}<br><br>
