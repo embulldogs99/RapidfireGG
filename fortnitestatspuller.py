@@ -18,11 +18,11 @@ def statspull(e,ep,c):
     store=json.loads(r.text)
 
 
-    squadkill=store['stats']['curr_p9']['kills']['valueInt']
-    squadmatch=store['stats']['curr_p9']['matches']['valueInt']
+    squadkill=store['stats']['p9']['kills']['valueInt']
+    squadmatch=store['stats']['p9']['matches']['valueInt']
     squadkm=round(squadkill/float(squadmatch),2)
-    duokill=store['stats']['curr_p10']['kills']['valueInt']
-    duomatch=store['stats']['curr_p10']['matches']['valueInt']
+    duokill=store['stats']['p10']['kills']['valueInt']
+    duomatch=store['stats']['p10']['matches']['valueInt']
     duokm=round(duokill/float(duomatch),2)
     solokill=store['stats']['p2']['kills']['valueInt']
     solomatch=store['stats']['p2']['matches']['valueInt']
