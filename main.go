@@ -354,7 +354,7 @@ func profile(w http.ResponseWriter, r *http.Request){
   err := dbtourneys.QueryRow("SELECT * FROM rfgg.tournaments WHERE epicusername=$1 AND status='open'",u.Epicusername).Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertagt,&starttime)
   if err != nil{fmt.Println("failed to select from table")}
 
-  data:=Data{email, pass, ppal, cwins, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertagt, tournament, roundnum, gametype, matches,teamname,status, kills,starttime}
+  data:=[]Data{email, pass, ppal, cwins, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertagt, tournament, roundnum, gametype, matches,teamname,status, kills,starttime}
 
   type Fortnitedata struct{
     Last_updated sql.NullString
@@ -386,7 +386,7 @@ func profile(w http.ResponseWriter, r *http.Request){
 
   dbfortnite, _ :=sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   err = dbfortnite.QueryRow("SELECT last_updated,console,squadkill,squadmatch,squadkm,duokill,duomatch,duokm,solokill,solomatch,solokm, email, epicusername FROM rfgg.fortniteplayerstats WHERE epicusername=$1 and console='xbl' ORDER BY last_updated DESC LIMIT 1",u.Epicusername).Scan(&lastupdated,&console,&squadkill,&squadmatch,&squadkm,&duokill,&duomatch,&duokm,&solokill,&solomatch,&solokm,&email,&epicusername)
-  fortnitedataxbl:=Fortnitedata{lastupdated,console,squadkill,squadmatch,squadkm,duokill,duomatch,duokm,solokill,solomatch,solokm, email, epicusername}
+  fortnitedataxbl:=[]Fortnitedata{lastupdated,console,squadkill,squadmatch,squadkm,duokill,duomatch,duokm,solokill,solomatch,solokm, email, epicusername}
 
   type Profile struct{
     Userdata []Data
