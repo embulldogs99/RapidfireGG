@@ -402,7 +402,7 @@ func profilepull(w http.ResponseWriter, r *http.Request) Fortnitedata{
   var solokm sql.NullFloat64
 
   dbfortnite, _ :=sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-  err = dbfortnite.QueryRow("SELECT last_updated,console,squadkill,squadmatch,squadkm,duokill,duomatch,duokm,solokill,solomatch,solokm FROM rfgg.fortniteplayerstats WHERE epicusername=$1 and console='xbl' ORDER BY last_updated DESC LIMIT 1",u.Epicusername).Scan(&lastupdated,&console,&squadkill,&squadmatch,&squadkm,&duokill,&duomatch,&duokm,&solokill,&solomatch,&solokm)
+  err = dbfortnite.QueryRow("SELECT last_updated,console,squadkill,squadmatch,squadkm,duokill,duomatch,duokm,solokill,solomatch,solokm FROM rfgg.fortniteplayerstats WHERE epicusername=$1 and console='xbl' ORDER BY squadmatch DESC LIMIT 1",u.Epicusername).Scan(&lastupdated,&console,&squadkill,&squadmatch,&squadkm,&duokill,&duomatch,&duokm,&solokill,&solomatch,&solokm)
 
   data:=Fortnitedata{email, pass, ppal, cwins, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertagt, tournament, roundnum, gametype, matches,teamname,status, kills,starttime,lastupdated,console,squadkill,squadmatch,squadkm,duokill,duomatch,duokm,solokill,solomatch,solokm}
   fmt.Println(data)
