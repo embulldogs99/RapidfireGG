@@ -393,8 +393,8 @@ func profile(w http.ResponseWriter, r *http.Request){
     Fortnitestatsxbl Fortnitedata
   }
 
-  x:=Profile{data,fortnitedataxbl}
-  fmt.Println(data)
+  x:=[]Profile{data,fortnitedataxbl}
+  fmt.Println(x)
   fmt.Println(email + " logged on")
   dbusers.Close()
   dbtourneys.Close()
