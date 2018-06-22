@@ -358,7 +358,7 @@ type Fortnitedata struct{
 
 
 
-func profilepull(w http.ResponseWriter, r *http.Request) []Fortnitedata{
+func profilepull(w http.ResponseWriter, r *http.Request) Fortnitedata{
   var email string
   var pass string
   var ppal bool
