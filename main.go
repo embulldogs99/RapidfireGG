@@ -383,10 +383,8 @@ func profile(w http.ResponseWriter, r *http.Request){
   var solokill int
   var solomatch int
   var solokm int
-  var email string
-  var epicusername string
 
-  dbfortnite, _ :sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+  dbfortnite, _ :=sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   err := dbfortnite.QueryRow("SELECT last_updated,console,squadkill,squadmatch,squadkm,duokill,duomatch,duokm,solokill,solomatch,solokm, email, epicusername FROM rfgg.fortniteplayerstats WHERE epicusername=$1 and console='xbl' ORDER BY last_updated DESC LIMIT 1",u.Epicusername).Scan(&lastupdated,&console,&squadkill,&squadmatch,&squadkm,&duokill,&duomatch,&duokm,&solokill,&solomatch,&solokm,&email,&epicusername)
   fortnitedataxbl:=Fortnitedata{lastupdated,console,squadkill,squadmatch,squadkm,duokill,duomatch,duokm,solokill,solomatch,solokm, email, epicusername}
 
