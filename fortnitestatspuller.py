@@ -30,7 +30,7 @@ def statspull(e,ep,c):
 
 
     ts = time.gmtime()
-    lastupdated=time.strftime("%Y-%m-%d", ts))
+    lastupdated=time.strftime("%Y-%m-%d", ts)
 
     #########################################################
     ##############  Database Connection   ###################
