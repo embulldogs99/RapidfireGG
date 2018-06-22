@@ -354,9 +354,30 @@ func profile(w http.ResponseWriter, r *http.Request){
   err := dbtourneys.QueryRow("SELECT * FROM rfgg.tournaments WHERE epicusername=$1 AND status='open'",u.Epicusername).Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertagt,&starttime)
   if err != nil{fmt.Println("failed to select from table")}
 
-  data:=Data{email, pass, ppal, cwins, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertagt, tournament, roundnum, gametype, matches,teamname,status, kills,starttime}
+
 
   type Fortnitedata struct{
+    Email string
+    Pass string
+    Ppal bool
+    Cwins int
+    Wins int
+    Losses int
+    Heat int
+    Refers int
+    Memberflag string
+    Credits int
+    Grade int
+    Epicusername string
+    Gamertag string
+    Tournament string
+    Roundnum int
+    Gametype string
+    Matches int
+    Teamname string
+    Status string
+    Kills int
+    Starttime string
     Last_updated sql.NullString
     Console sql.NullString
     Squadkill sql.NullFloat64
@@ -385,23 +406,17 @@ func profile(w http.ResponseWriter, r *http.Request){
   var solokm sql.NullFloat64
 
   dbfortnite, _ :=sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-  err = dbfortnite.QueryRow("SELECT last_updated,console,squadkill,squadmatch,squadkm,duokill,duomatch,duokm,solokill,solomatch,solokm, email, epicusername FROM rfgg.fortniteplayerstats WHERE epicusername=$1 and console='xbl' ORDER BY last_updated DESC LIMIT 1",u.Epicusername).Scan(&lastupdated,&console,&squadkill,&squadmatch,&squadkm,&duokill,&duomatch,&duokm,&solokill,&solomatch,&solokm,&email,&epicusername)
-  fortnitedataxbl:=Fortnitedata{lastupdated,console,squadkill,squadmatch,squadkm,duokill,duomatch,duokm,solokill,solomatch,solokm, email, epicusername}
+  err = dbfortnite.QueryRow("SELECT last_updated,console,squadkill,squadmatch,squadkm,duokill,duomatch,duokm,solokill,solomatch,solokm FROM rfgg.fortniteplayerstats WHERE epicusername=$1 and console='xbl' ORDER BY last_updated DESC LIMIT 1",u.Epicusername).Scan(&lastupdated,&console,&squadkill,&squadmatch,&squadkm,&duokill,&duomatch,&duokm,&solokill,&solomatch,&solokm)
 
-  type Profile struct{
-    Userdata Data
-    Fortnitestatsxbl Fortnitedata
-  }
-
-  x:=Profile{data,fortnitedataxbl}
-  fmt.Println(x)
+  data:=Fortnitedata{email, pass, ppal, cwins, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertagt, tournament, roundnum, gametype, matches,teamname,status, kills,starttime,lastupdated,console,squadkill,squadmatch,squadkm,duokill,duomatch,duokm,solokill,solomatch,solokm}
+  fmt.Println(data)
   fmt.Println(email + " logged on")
   dbusers.Close()
   dbtourneys.Close()
 
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css"))
-  tpl.Execute(w,x)
+  tpl.Execute(w,data)
 
 
 }
