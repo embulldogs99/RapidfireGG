@@ -372,20 +372,20 @@ func profile(w http.ResponseWriter, r *http.Request){
     Epicusername sql.NullString
   }
 
-  var lastupdated string
-  var console string
-  var squadkill int
-  var squadmatch int
-  var squadkm int
-  var duokill int
-  var duomatch int
-  var duokm int
-  var solokill int
-  var solomatch int
-  var solokm int
+  var lastupdated sql.NullString
+  var console sql.NullString
+  var squadkill sql.NullFloat64
+  var squadmatch sql.NullFloat64
+  var squadkm sql.NullFloat64
+  var duokill sql.NullFloat64
+  var duomatch sql.NullFloat64
+  var duokm sql.NullFloat64
+  var solokill sql.NullFloat64
+  var solomatch sql.NullFloat64
+  var solokm sql.NullFloat64
 
   dbfortnite, _ :=sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-  err := dbfortnite.QueryRow("SELECT last_updated,console,squadkill,squadmatch,squadkm,duokill,duomatch,duokm,solokill,solomatch,solokm, email, epicusername FROM rfgg.fortniteplayerstats WHERE epicusername=$1 and console='xbl' ORDER BY last_updated DESC LIMIT 1",u.Epicusername).Scan(&lastupdated,&console,&squadkill,&squadmatch,&squadkm,&duokill,&duomatch,&duokm,&solokill,&solomatch,&solokm,&email,&epicusername)
+  err = dbfortnite.QueryRow("SELECT last_updated,console,squadkill,squadmatch,squadkm,duokill,duomatch,duokm,solokill,solomatch,solokm, email, epicusername FROM rfgg.fortniteplayerstats WHERE epicusername=$1 and console='xbl' ORDER BY last_updated DESC LIMIT 1",u.Epicusername).Scan(&lastupdated,&console,&squadkill,&squadmatch,&squadkm,&duokill,&duomatch,&duokm,&solokill,&solomatch,&solokm,&email,&epicusername)
   fortnitedataxbl:=Fortnitedata{lastupdated,console,squadkill,squadmatch,squadkm,duokill,duomatch,duokm,solokill,solomatch,solokm, email, epicusername}
 
   type Profile struct{
