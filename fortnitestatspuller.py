@@ -54,7 +54,7 @@ def xblpull():
 
     rows = cur.fetchall()
     for x,y in rows:
-        fortnitestatspuller(x,y,'xbl')
+        statspull(x,y,'xbl')
     # close the communication with the PostgreSQL
     cur.close()
     conn.close()
