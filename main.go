@@ -420,7 +420,7 @@ func profile(w http.ResponseWriter, r *http.Request){
   //are you already logged in?
 	if !alreadyLoggedIn(r) {http.Redirect(w, r, "/login", http.StatusSeeOther)}
   //provides user a cookie for some time and tracks login
-  data:=profilepull()
+  data:=profilepull(w,r)
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css"))
   tpl.Execute(w,data)
