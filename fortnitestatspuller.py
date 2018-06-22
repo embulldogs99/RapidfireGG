@@ -28,7 +28,7 @@ def statspull(e,ep,c):
     solomatch=store['stats']['p2']['matches']['valueInt']
     solokm=round(solokill/float(solomatch),2)
 
-    lastupdated=time.time()
+    lastupdated=time.Date()
 
     #########################################################
     ##############  Database Connection   ###################
