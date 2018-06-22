@@ -389,8 +389,7 @@ func profile(w http.ResponseWriter, r *http.Request){
     Solokill sql.NullFloat64
     Solomatch sql.NullFloat64
     Solokm sql.NullFloat64
-    Email string
-    Epicusername string
+
   }
 
   var lastupdated sql.NullString
