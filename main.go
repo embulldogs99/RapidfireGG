@@ -389,8 +389,8 @@ func profile(w http.ResponseWriter, r *http.Request){
   fortnitedataxbl:=Fortnitedata{lastupdated,console,squadkill,squadmatch,squadkm,duokill,duomatch,duokm,solokill,solomatch,solokm, email, epicusername}
 
   type Profile struct{
-    Userdata Data
-    Fortnitestatsxbl Fortnitedata
+    Userdata []Data
+    Fortnitestatsxbl []Fortnitedata
   }
 
   x:=Profile{data,fortnitedataxbl}
