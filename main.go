@@ -316,8 +316,6 @@ type Data struct{
 
 }
 
-
-
 func profile(w http.ResponseWriter, r *http.Request){
   //are you already logged in?
 	if !alreadyLoggedIn(r) {http.Redirect(w, r, "/login", http.StatusSeeOther)}
@@ -357,6 +355,47 @@ func profile(w http.ResponseWriter, r *http.Request){
   if err != nil{fmt.Println("failed to select from table")}
 
   data:=Data{email, pass, ppal, cwins, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertagt, tournament, roundnum, gametype, matches,teamname,status, kills,starttime}
+
+  type Fortnitedata struct{
+    Last_updated sql.NullString
+    Console sql.NullString
+    Squadkill sql.NullFloat64
+    Squadmatch sql.NullFloat64
+    Squadkm sql.NullFloat64
+    Duokill sql.NullFloat64
+    Duomatch sql.NullFloat64
+    Duokm sql.NullFloat64
+    Solokill sql.NullFloat64
+    Solomatch sql.NullFloat64
+    Solokm sql.NullFloat64
+    Email sql.NullString
+    Epicusername sql.NullString
+  }
+
+  var lastupdated string
+  var console string
+  var squadkill int
+  var squadmatch int
+  var squadkm int
+  var duokill int
+  var duomatch int
+  var duokm int
+  var solokill int
+  var solomatch int
+  var solokm int
+  var email string
+  var epicusername string
+
+  dbfortnite, _ :sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
+  err := dbfortnite.QueryRow("SELECT last_updated,console,squadkill,squadmatch,squadkm,duokill,duomatch,duokm,solokill,solomatch,solokm, email, epicusername FROM rfgg.fortniteplayerstats WHERE epicusername=$1 and console='xbl' ORDER BY last_updated DESC LIMIT 1",u.Epicusername).Scan(&lastupdated,&console,&squadkill,&squadmatch,&squadkm,&duokill,&duomatch,&duokm,&solokill,&solomatch,&solokm,&email,&epicusername)
+  fortnitedataxbl:=Fortnitedata{lastupdated,console,squadkill,squadmatch,squadkm,duokill,duomatch,duokm,solokill,solomatch,solokm, email, epicusername}
+
+  type Profile struct{
+    Userdata Data
+    Fortnitestatsxbl Fortnitedata
+  }
+
+  x:=Profile{data,fortnitedataxbl}
   fmt.Println(data)
   fmt.Println(email + " logged on")
   dbusers.Close()
@@ -364,7 +403,7 @@ func profile(w http.ResponseWriter, r *http.Request){
 
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("profile.gohtml","css/main.css","css/mcleod-reset.css"))
-  tpl.Execute(w,data)
+  tpl.Execute(w,x)
 
 
 }

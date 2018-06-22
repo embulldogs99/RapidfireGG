@@ -157,8 +157,7 @@ Buttons across the top
 		<article>
 
 
-
-
+			{{range .Data}}
   <div class="featured-title">
         <div class='post-header'>
       <div class='nowrap'><h1 class='post-title'>Hello &emsp;{{.Email}}!<br><br></h1></div>
@@ -175,13 +174,37 @@ Buttons across the top
           Heat:&emsp;{{.Heat}}<br><br>
           Grade:&emsp;{{.Grade}}<br><br>
           Referrals:&emsp;{{.Refers}}<br><br>
+					{{end}}
+
+					{{range .Fortnitestatsxbl}}
+					<font size='9px'>Last Updated:{{.Last_updated}}</font><br>
+					<font size='9px'>If Data is blank, you have not submitted your Epicusername</font><br>
+					<a href='tsignup' style='border:2px solid cyan;border-radius:2rem;background-color:cyan;'><font size='13px'>Do so here</font></a>
+					<h1 class='post-title'>Fortnite XBOX Stats</h1><br><br>
+					Squad Kills:{{.Squadkill}}
+					Squad Matches:{{.Squadmatch}}
+					Squad K/M: {{.Squadkm}}
+					<br><br>
+
+					Duo Kills:{{.Duokill}}
+					Duo Matches:{{.Duomatch}}
+					Duo K/M: {{.Duokm}}
+					<br><br>
+
+					Solo Kills:{{.Solokill}}
+					Solo Matches:{{.Solomatch}}
+					Solo K/M: {{.Solokm}}
+					<br><br>
+
+					{{end}}
 
 <br><br>
 
       <div class='nowrap'><h1 class='post-title'>Active Registered Tournaments</h1><div>
 
-	<br><br><br>
 
+	<br><br><br>
+						{{range .Data}}
         <table id="sortable">
           <thead>
             <tr>
@@ -194,6 +217,7 @@ Buttons across the top
           </thead>
           <tbody>
 
+
             <tr>
               <td class=buttons><a href="/{{.Tournament}}">{{.Tournament}}</a></td>
               <td>{{.Gametype}}</td>
@@ -204,9 +228,6 @@ Buttons across the top
 
           </tbody>
         </table>
-
-
-      {{range .}}
       {{end}}
 
 
