@@ -383,9 +383,6 @@ func profilepull(w http.ResponseWriter, r *http.Request) Fortnitedata{
   var starttime string
 
   u := getUser(w, r)
-  if u.Email == "" {http.Error(w, "Please Unblock Cookies - They Help Our Website Run - and Login Again", http.StatusForbidden)
-    return}
-
   dbusers, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   _ = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",u.Email,u.Pass).Scan(&email, &pass, &ppal, &cwins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
   dbtourneys, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
