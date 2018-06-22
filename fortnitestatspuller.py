@@ -28,6 +28,8 @@ def statspull(e,ep,c):
     solomatch=store['stats']['p2']['matches']['valueInt']
     solokm=round(solokill/float(solomatch),2)
 
+    print(squadkm)
+
 
     ts = time.gmtime()
     lastupdated=time.strftime("%Y-%m-%d", ts)
