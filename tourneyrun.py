@@ -65,7 +65,7 @@ conn.commit()
 
 for p,rn in playerlist('freeweekly2',1):
     kv,mv,cv =statspull(p)
-    cur.execute("INSERT INTO rfgg.tourney_temp (epicusername,kills,matches,time_stamp) values('{0}','{1}');".format(p,kv,mv,cv))
+    cur.execute("INSERT INTO rfgg.tourney_temp (epicusername,kills,matches,time_stamp) values('{0}','{1}','{2}','{3}');".format(p,kv,mv,cv))
     conn.commit()
 
 for r in range (1,10):
