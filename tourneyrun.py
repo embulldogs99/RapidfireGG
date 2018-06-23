@@ -95,6 +95,7 @@ for r in range (1,10):
                 pass
         else:
             time.sleep(10)
+    time.sleep(10)
 
 
 
