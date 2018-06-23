@@ -71,7 +71,7 @@ for p,rn in playerlist('freeweekly2',1):
 cur.close()
 conn.close()
 
-for r in range (1,10):
+for r in range (1,30):
     conn = psycopg2.connect("dbname='postgres' user='postgres' password='rk' host='localhost' port='5432'")
     cur = conn.cursor()
     cur.execute("SELECT epicusername, kills FROM rfgg.tourney_temp;")
@@ -85,18 +85,18 @@ for r in range (1,10):
             rows = cur.fetchall()
             for k,m,c in rows:
                 kn,mn,cn = statspull(p)
-                if round(m,0)+.1<round(mn,0):
+                if (mn-m)>=1:
                     print(p+' has submitted tournament entry')
                     cur.execute("UPDATE rfgg.tournaments SET kills='{0}',matches='{1}' WHERE tournament='{2}' AND roundnum='{3}' AND gametype='squad' AND epicusername='{4}';".format((kn-k),(mn-m),'freeweekly2',1,p))
                     conn.commit()
                     cur.execute("DELETE FROM rfgg.tourney_temp where epicusername='{0}';".format(p))
                     conn.commit()
                 else:
-                    time.sleep(30)
+                    time.sleep(2)
 
         else:
-            time.sleep(10)
-    time.sleep(10)
+            time.sleep(1)
+    time.sleep(60)
 
 
 
