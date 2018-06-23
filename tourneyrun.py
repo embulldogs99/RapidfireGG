@@ -26,9 +26,10 @@ def statspull(ep):
 
     print(' ')
     print('--------------------------------------------------')
-    print(epicusername+"'s Initial Stats")
+    print(epicusername+"'Stats")
     print(' Kills: '+str(kills))
     print(' Matches: '+str(matchcount))
+    print(' Timestamp: '+str(curtime))
     print('--------------------------------------------------')
     print(' ')
 
@@ -67,6 +68,7 @@ for p,rn in playerlist('freeweekly2',1):
     kv,mv,cv =statspull(p)
     cur.execute("INSERT INTO rfgg.tourney_temp (epicusername,kills,matches,time_stamp) values('{0}','{1}','{2}','{3}');".format(p,kv,mv,cv))
     conn.commit()
+    print('Loading Initial Data for '+p)
 
 cur.close()
 conn.close()
@@ -79,7 +81,6 @@ for r in range (1,30):
     playerlist = cur.fetchall()
     for p,t in playerlist:
         if len(p)>3:
-            print(p)
             cur.execute("SELECT kills,matches,time_stamp FROM rfgg.tourney_temp WHERE epicusername='{0}';".format(p))
             conn.commit()
             rows = cur.fetchall()
