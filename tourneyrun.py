@@ -85,16 +85,18 @@ for r in range (1,30):
             rows = cur.fetchall()
             for k,m,c in rows:
                 kn,mn,cn = statspull(p)
-                if round(int(m),0)+.1<round(int(mn),0):
-                    print(p+' has submitted tournament entry')
-                    cur.execute("UPDATE rfgg.tournaments SET kills='{0}',matches='{1}' WHERE tournament='{2}' AND roundnum='{3}' AND gametype='squad' AND epicusername='{4}';".format((kn-k),(mn-m),'freeweekly2',1,p))
-                    conn.commit()
-                    cur.execute("DELETE FROM rfgg.tourney_temp where epicusername='{0}';".format(p))
-                    conn.commit()
+                if mn<n+2:
+                    if round(int(m),0)+.1<round(int(mn),0):
+                        print(p+' has submitted tournament entry')
+                        cur.execute("UPDATE rfgg.tournaments SET kills='{0}',matches='{1}' WHERE tournament='{2}' AND roundnum='{3}' AND gametype='squad' AND epicusername='{4}';".format((kn-k),(mn-m),'freeweekly2',1,p))
+                        conn.commit()
+                        cur.execute("DELETE FROM rfgg.tourney_temp where epicusername='{0}';".format(p))
+                        conn.commit()
+                    else:
+                        print(p+' is Still at '+str(mn)+' Matches')
+                        time.sleep(2)
                 else:
-                    print(p+' is Still at '+str(mn)+' Matches')
                     time.sleep(2)
-
         else:
             time.sleep(10)
     time.sleep(60)
