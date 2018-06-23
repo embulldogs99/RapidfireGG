@@ -63,8 +63,9 @@ conn.commit()
 
 for p in playerlist('freeweekly2',1):
     stats=statspull(p)
-    cur.execute("INSERT INTO rfgg.tourney_temp (epicusername,kills,matches,time_stamp) values('{0}','{1}');".format(p,stats))
-    conn.commit()
+    for k,m,c in stats:
+        cur.execute("INSERT INTO rfgg.tourney_temp (epicusername,kills,matches,time_stamp) values('{0}','{1}');".format(p,k,m,c))
+        conn.commit()
 
 for r in range (1,10):
     cur.execture("SELECT DISTINCT epicusername FROM rfgg.tourney_temp;")
@@ -85,7 +86,7 @@ for r in range (1,10):
                     conn.commit()
                 else:
                     time.sleep(10)
-                        
+
 
 
 
