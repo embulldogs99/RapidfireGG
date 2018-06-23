@@ -78,17 +78,20 @@ for r in range (1,10):
     conn.commit()
     playerlist = cur.fetchall()
     for p,t in playerlist:
-        print(p)
-        cur.execute("SELECT kills,matches,time_stamp FROM rfgg.tourney_temp WHERE epicusername='{0}';".format(p))
-        conn.commit()
-        k,m,c = cur.fetchall()
-        kn,mn,cn = statspull(p)
-        if m<mn:
-            print(p+'has completed a tournament with '+k+' kills')
-            cur.execute("UPDATE rfgg.tournaments (kills,matches) values('{0}','{1}') WHERE tournament='{2}' AND roundnum='{3}' AND gametype='squad';".format(kn,mn,'freeweekly2',1))
+        if len(p)>3:
+            print(p)
+            cur.execute("SELECT kills,matches,time_stamp FROM rfgg.tourney_temp WHERE epicusername='{0}';".format(p))
             conn.commit()
-            cur.execute("DELETE FROM rfgg.tourney_temp where epicusername='{0}';".format(e))
-            conn.commit()
+            k,m,c = cur.fetchall()
+            kn,mn,cn = statspull(p)
+            if m<mn:
+                print(p+'has completed a tournament with '+k+' kills')
+                cur.execute("UPDATE rfgg.tournaments (kills,matches) values('{0}','{1}') WHERE tournament='{2}' AND roundnum='{3}' AND gametype='squad';".format(kn,mn,'freeweekly2',1))
+                conn.commit()
+                cur.execute("DELETE FROM rfgg.tourney_temp where epicusername='{0}';".format(e))
+                conn.commit()
+            else:
+                time.sleep(10)
         else:
             time.sleep(10)
 
