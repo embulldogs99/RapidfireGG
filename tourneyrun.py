@@ -79,7 +79,7 @@ for r in range (1,10):
     playerlist = cur.fetchall()
     for p in playerlist:
         print(p)
-        cur.execute("SELECT kills,matches,time_stamp FROM rfgg.tourney_temp WHERE epicusername=;".format(str(p)))
+        cur.execute("SELECT kills,matches,time_stamp FROM rfgg.tourney_temp WHERE epicusername=;".format(str(p.replace("(","").replace(",","").replace(")","")))))
         conn.commit()
         k,m,c = cur.fetchall()
         kn,mn,cn = statspull(p)
