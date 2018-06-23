@@ -108,4 +108,4 @@ def tourneyrun(tournament,rn):
     conn.close()
 
 
-tourneyrun('freeweekly1',1)
+tourneyrun('freeweekly2',1)
