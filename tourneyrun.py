@@ -69,7 +69,7 @@ for p,rn in playerlist('freeweekly2',1):
     conn.commit()
 
 for r in range (1,10):
-    cur.execture("SELECT DISTINCT epicusername FROM rfgg.tourney_temp;")
+    cur.execute("SELECT DISTINCT epicusername FROM rfgg.tourney_temp;")
     conn.commit()
     playerlist = cur.fetchall()
     for p in playerlist:
