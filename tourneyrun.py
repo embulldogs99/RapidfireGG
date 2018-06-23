@@ -26,7 +26,7 @@ def statspull(ep):
 
     print(' ')
     print('--------------------------------------------------')
-    print(epicusername+"'s Initial Stats")
+    print(epicusername+"'s Stats")
     print(' Kills: '+str(kills))
     print(' Matches: '+str(matchcount))
     print('--------------------------------------------------')
@@ -67,6 +67,7 @@ for p,rn in playerlist('freeweekly2',1):
     kv,mv,cv =statspull(p)
     cur.execute("INSERT INTO rfgg.tourney_temp (epicusername,kills,matches,time_stamp) values('{0}','{1}','{2}','{3}');".format(p,kv,mv,cv))
     conn.commit()
+    print('Loading Initial Stats')
 
 cur.close()
 conn.close()
@@ -79,13 +80,12 @@ for r in range (1,30):
     playerlist = cur.fetchall()
     for p,t in playerlist:
         if len(p)>3:
-            print(p)
             cur.execute("SELECT kills,matches,time_stamp FROM rfgg.tourney_temp WHERE epicusername='{0}';".format(p))
             conn.commit()
             rows = cur.fetchall()
             for k,m,c in rows:
                 kn,mn,cn = statspull(p)
-                if round(m,0)+.1<round(mn,0):
+                if round(int(m),0)+.1<round(int(mn),0):
                     print(p+' has submitted tournament entry')
                     cur.execute("UPDATE rfgg.tournaments SET kills='{0}',matches='{1}' WHERE tournament='{2}' AND roundnum='{3}' AND gametype='squad' AND epicusername='{4}';".format((kn-k),(mn-m),'freeweekly2',1,p))
                     conn.commit()
