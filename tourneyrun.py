@@ -75,10 +75,8 @@ for r in range (1,10):
     for p in playerlist:
         cur.execute("SELECT kills,matches,time_stamp FROM rfgg.tourney_temp WHERE epicusername='0';".format(p))
         conn.commit()
-        oldstats = cur.fetchall()
-        newstats=statspull(p)
-        k,m,c =oldstats
-        kn,mn,cn = newstats
+        k,m,c = cur.fetchall()
+        kn,mn,cn = statspull(p)
         if m<mn:
             print(p+'has completed a tournament with '+k+' kills')
             cur.execute("UPDATE rfgg.tournaments (kills,matches) values('{0}','{1}') WHERE tournament='{2}' AND roundnum='{3}' AND gametype='squad';".format(kn,mn,'freeweekly2',1))
