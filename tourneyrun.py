@@ -87,7 +87,7 @@ for r in range (1,10):
                 kn,mn,cn = statspull(p)
                 if m<mn:
                     print(p+' has submitted tournament entry')
-                    cur.execute("UPDATE rfgg.tournaments (kills,matches) values('{0}','{1}') WHERE tournament='{2}' AND roundnum='{3}' AND gametype='squad';".format(kn,mn,'freeweekly2',1))
+                    cur.execute("UPDATE rfgg.tournaments SET kills='{0}',matches='{1}' WHERE tournament='{2}' AND roundnum='{3}' AND gametype='squad';".format(kn,mn,'freeweekly2',1))
                     conn.commit()
                     cur.execute("DELETE FROM rfgg.tourney_temp where epicusername='{0}';".format(e))
                     conn.commit()
