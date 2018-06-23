@@ -22,10 +22,10 @@ def statspull(t,r,g,ga,ep):
     store=json.loads(r.text)
 
 
-    squadkillstart=store['stats']['curr_p9']['kills']['valueInt']
-    squadmatchstart=store['stats']['curr_p9']['matches']['valueInt']
-    duokillstart=store['stats']['curr_p10']['kills']['valueInt']
-    duomatchstart=store['stats']['curr_p10']['matches']['valueInt']
+    squadkillstart=store['stats']['p9']['kills']['valueInt']
+    squadmatchstart=store['stats']['p9']['matches']['valueInt']
+    duokillstart=store['stats']['p10']['kills']['valueInt']
+    duomatchstart=store['stats']['p10']['matches']['valueInt']
     solokillstart=store['stats']['p2']['kills']['valueInt']
     solomatchstart=store['stats']['p2']['matches']['valueInt']
 
@@ -56,22 +56,22 @@ def statspull(t,r,g,ga,ep):
 
         print('--------------------------------------------------')
         print(str(round((time.time()-timestart)/60,0))+' Mins after Tournament Start')
-        print('Squad Kills: '+str(round(newstore['stats']['curr_p9']['kills']['valueInt']-squadkillstart)))
-        print('Squad Matches: '+str(round(newstore['stats']['curr_p9']['matches']['valueInt']-squadmatchstart)))
-        print('Duo Kills: '+str(round(newstore['stats']['curr_p10']['kills']['valueInt']-duokillstart)))
-        print('Duo Matches: '+str(round(newstore['stats']['curr_p10']['matches']['valueInt']-duomatchstart)))
+        print('Squad Kills: '+str(round(newstore['stats']['p9']['kills']['valueInt']-squadkillstart)))
+        print('Squad Matches: '+str(round(newstore['stats']['p9']['matches']['valueInt']-squadmatchstart)))
+        print('Duo Kills: '+str(round(newstore['stats']['p10']['kills']['valueInt']-duokillstart)))
+        print('Duo Matches: '+str(round(newstore['stats']['p10']['matches']['valueInt']-duomatchstart)))
         print('Solo Kills: '+str(round(newstore['stats']['p2']['kills']['valueInt']-solokillstart)))
         print('Solo Matches: '+str(round(newstore['stats']['p2']['matches']['valueInt']-solomatchstart)))
         print('--------------------------------------------------')
         print(' ')
 
-        kills=round(newstore['stats']['curr_p9']['kills']['valueInt']-squadkillstart)+round(newstore['stats']['curr_p10']['kills']['valueInt']-duokillstart)+round(newstore['stats']['p2']['kills']['valueInt']-solokillstart)
+        kills=round(newstore['stats']['p9']['kills']['valueInt']-squadkillstart)+round(newstore['stats']['p10']['kills']['valueInt']-duokillstart)+round(newstore['stats']['p2']['kills']['valueInt']-solokillstart)
         wins=0
 
 
         curtime=str(round((time.time()-timestart)/60,0))+' Minutes'
-        squadmatchcount=round(newstore['stats']['curr_p9']['matches']['valueInt']-squadmatchstart)
-        duomatchcount=round(newstore['stats']['curr_p10']['matches']['valueInt']-duomatchstart)
+        squadmatchcount=round(newstore['stats']['p9']['matches']['valueInt']-squadmatchstart)
+        duomatchcount=round(newstore['stats']['p10']['matches']['valueInt']-duomatchstart)
         solomatchcount=round(newstore['stats']['p2']['matches']['valueInt']-solomatchstart)
         matchcount=squadmatchcount+duomatchcount+solomatchcount
 
