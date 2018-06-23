@@ -49,11 +49,12 @@ def playerlist(tournament,rn):
     conn.commit()
 
     rows = cur.fetchall()
-    return rows
+
 
     # close the communication with the PostgreSQL
     cur.close()
     conn.close()
+    return rows
 
 
 
@@ -63,7 +64,7 @@ cur = conn.cursor()
 cur.execute("CREATE TABLE rfgg.tourney_temp (epicusername VARCHAR(500),kills INTEGER,matches INTEGER, time_stamp time);")
 conn.commit()
 
-for p in playerlist('freeweekly2',1):
+for p,rn in playerlist('freeweekly2',1):
     for k,m,c in statspull(p):
         cur.execute("INSERT INTO rfgg.tourney_temp (epicusername,kills,matches,time_stamp) values('{0}','{1}');".format(p,k,m,c))
         conn.commit()
