@@ -80,7 +80,7 @@ func main() {
   http.HandleFunc("/profile", profile)
   http.HandleFunc("/tsignup", tsignup)
   http.HandleFunc("/tournaments", tournaments)
-  http.HandleFunc("/freeweekly1", freeweekly)
+  http.HandleFunc("/freeweekly", freeweekly)
   log.Fatal(s.ListenAndServe())
 
 }
