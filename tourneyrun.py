@@ -21,7 +21,7 @@ def statspull(ep):
     solokill=store['stats']['p2']['kills']['valueInt']
     solomatch=store['stats']['p2']['matches']['valueInt']
     kills=squadkill+duokill+solokill
-    curtime=round(time.time()*100000,7)
+    curtime=round(time.time()*1000,7)
     matchcount=squadmatch+duomatch+solomatch
 
     print(' ')
