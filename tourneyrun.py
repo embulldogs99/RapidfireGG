@@ -65,7 +65,7 @@ conn.commit()
 
 for p,rn in playerlist('freeweekly2',1):
     kv,mv,cv =statspull(p)
-    cur.execute("INSERT INTO rfgg.tourney_temp (epicusername,kills,matches,time_stamp) values('{0}','{1}');".format(p,k,m,c))
+    cur.execute("INSERT INTO rfgg.tourney_temp (epicusername,kills,matches,time_stamp) values('{0}','{1}');".format(p,kv,mv,cv))
     conn.commit()
 
 for r in range (1,10):
@@ -77,16 +77,16 @@ for r in range (1,10):
         conn.commit()
         oldstats = cur.fetchall()
         newstats=statspull(p)
-        for k,m,c in oldstats:
-            for kn,mn,cn in newstats:
-                if m<mn:
-                    print(p+'has completed a tournament with '+k+' kills')
-                    cur.execute("UPDATE rfgg.tournaments (kills,matches) values('{0}','{1}') WHERE tournament='{2}' AND roundnum='{3}' AND gametype='squad';".format(kn,mn,'freeweekly2',1))
-                    conn.commit()
-                    cur.execute("DELETE FROM rfgg.tourney_temp where epicusername='{0}';".format(e))
-                    conn.commit()
-                else:
-                    time.sleep(10)
+        k,m,c =oldstats
+        kn,mn,cn = newstats
+            if m<mn:
+                print(p+'has completed a tournament with '+k+' kills')
+                cur.execute("UPDATE rfgg.tournaments (kills,matches) values('{0}','{1}') WHERE tournament='{2}' AND roundnum='{3}' AND gametype='squad';".format(kn,mn,'freeweekly2',1))
+                conn.commit()
+                cur.execute("DELETE FROM rfgg.tourney_temp where epicusername='{0}';".format(e))
+                conn.commit()
+            else:
+                time.sleep(10)
 
 
 
