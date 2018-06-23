@@ -382,11 +382,12 @@ func profilepull(w http.ResponseWriter, r *http.Request) Fortnitedata{
   var kills int
   var starttime string
 
+
   u := getUser(w, r)
   dbusers, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   _ = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",u.Email,u.Pass).Scan(&email, &pass, &ppal, &cwins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
   dbtourneys, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-  err := dbtourneys.QueryRow("SELECT * FROM rfgg.tournaments WHERE epicusername=$1 AND status='open'",u.Epicusername).Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertagt,&starttime)
+  err := dbtourneys.QueryRow("SELECT tournament, roundnum, gametype, epicusername, wins, kills, matches,teamname,status,gamertag,starttime FROM rfgg.tournaments WHERE epicusername=$1 AND status='open'",u.Epicusername).Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertagt,&starttime)
   if err != nil{fmt.Println("failed to select from table")}
 
   var lastupdated sql.NullString
@@ -484,17 +485,19 @@ type Tourn struct {
     Status string
     Gamertag string
     Starttime string
-
+    Rank int
   }
+
+
 
 func freeweeklypull() []Tourn{
   dbtourneys, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-  rowz, err := dbtourneys.Query("SELECT * FROM rfgg.tournaments WHERE tournament='freeweekly1'")
+  rowz, err := dbtourneys.Query("SELECT tournament, roundnum, gametype, epicusername, wins, kills, matches,teamname,status,gamertag,starttime, rank() over (order by kills desc) as rank FROM rfgg.tournaments WHERE tournament like 'freeweekly%' AND status='open'")
   if err != nil{fmt.Println("failed to select from table")}
   data := []Tourn{}
   for rowz.Next(){
     datas:=Tourn{}
-    err=rowz.Scan(&datas.Tournament,&datas.Roundnum,&datas.Gametype,&datas.Epicusername,&datas.Wins,&datas.Kills,&datas.Matches,&datas.Teamname,&datas.Status,&datas.Gamertag,&datas.Starttime)
+    err=rowz.Scan(&datas.Tournament,&datas.Roundnum,&datas.Gametype,&datas.Epicusername,&datas.Wins,&datas.Kills,&datas.Matches,&datas.Teamname,&datas.Status,&datas.Gamertag,&datas.Starttime,&datas.Rank)
     if err != nil {log.Fatal(err)}
     data=append(data,datas)
     }
