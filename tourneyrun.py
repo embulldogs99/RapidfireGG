@@ -82,8 +82,8 @@ for r in range (1,10):
             print(p)
             cur.execute("SELECT kills,matches,time_stamp FROM rfgg.tourney_temp WHERE epicusername='{0}';".format(p))
             conn.commit()
-            try:
-                k,m,c = cur.fetchall()
+            rows = cur.fetchall()
+            for k,m,c in rows:
                 kn,mn,cn = statspull(p)
                 if m<mn:
                     print(p+'has completed a tournament with '+k+' kills')
