@@ -74,10 +74,10 @@ conn.close()
 for r in range (1,10):
     conn = psycopg2.connect("dbname='postgres' user='postgres' password='rk' host='localhost' port='5432'")
     cur = conn.cursor()
-    cur.execute("SELECT epicusername FROM rfgg.tourney_temp;")
+    cur.execute("SELECT epicusername, kills FROM rfgg.tourney_temp;")
     conn.commit()
     playerlist = cur.fetchall()
-    for p in playerlist:
+    for p,t in playerlist:
         print(p)
         cur.execute("SELECT kills,matches,time_stamp FROM rfgg.tourney_temp WHERE epicusername=;".format(str(p.replace("(","").replace(",","").replace(")",""))))
         conn.commit()
