@@ -32,7 +32,8 @@ def statspull(ep):
     print('--------------------------------------------------')
     print(' ')
 
-    return (kills,matchcount,curtime)
+    a={kills,matchcount,curtime}
+    return (a)
 
 
 
