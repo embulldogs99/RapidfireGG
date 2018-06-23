@@ -92,7 +92,7 @@ for r in range (1,10):
                     cur.execute("DELETE FROM rfgg.tourney_temp where epicusername='{0}';".format(e))
                     conn.commit()
             except:
-                return
+                pass
         else:
             time.sleep(10)
 
