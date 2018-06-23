@@ -67,9 +67,13 @@ for p,rn in playerlist('freeweekly2',1):
     kv,mv,cv =statspull(p)
     cur.execute("INSERT INTO rfgg.tourney_temp (epicusername,kills,matches,time_stamp) values('{0}','{1}','{2}','{3}');".format(p,kv,mv,cv))
     conn.commit()
+    cur.close()
+    conn.close()
 
 for r in range (1,10):
-    cur.execute("SELECT DISTINCT epicusername FROM rfgg.tourney_temp;")
+    conn = psycopg2.connect("dbname='postgres' user='postgres' password='rk' host='localhost' port='5432'")
+    cur = conn.cursor()
+    cur.execute("SELECT epicusername FROM rfgg.tourney_temp;")
     conn.commit()
     playerlist = cur.fetchall()
     for p in playerlist:
@@ -92,3 +96,5 @@ for r in range (1,10):
 
 cur.execute("DROP TABLE rfgg.tourney_temp;")
 conn.commit()
+cur.close()
+conn.close()
