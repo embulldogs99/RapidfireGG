@@ -64,7 +64,7 @@ cur.execute("CREATE TABLE rfgg.tourney_temp (epicusername VARCHAR(500),kills INT
 conn.commit()
 
 for p,rn in playerlist('freeweekly2',1):
-    for kv,mv,cv in statspull(p):
+    for kv,mv,cv in range(statspull(p)):
         cur.execute("INSERT INTO rfgg.tourney_temp (epicusername,kills,matches,time_stamp) values('{0}','{1}');".format(p,k,m,c))
         conn.commit()
 
