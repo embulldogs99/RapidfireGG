@@ -85,7 +85,7 @@ for r in range (1,10):
             rows = cur.fetchall()
             for k,m,c in rows:
                 kn,mn,cn = statspull(p)
-                if m<mn:
+                if round(m,0)+.1<round(mn,0):
                     print(p+' has submitted tournament entry')
                     cur.execute("UPDATE rfgg.tournaments SET kills='{0}',matches='{1}' WHERE tournament='{2}' AND roundnum='{3}' AND gametype='squad' AND epicusername='{4}';".format((kn-k),(mn-m),'freeweekly2',1,p))
                     conn.commit()
