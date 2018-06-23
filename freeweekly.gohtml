@@ -44,13 +44,12 @@
 <body>
 <br><br><br><br>
   <div class="posts">
-    {{range .}}
-    {{.Tournament}}&emsp;Scoreboard<br><br>
+
 
   <table id="sortable" width="600">
     <thead>
       <tr>
-        <th>Rank</th>
+
         <th>Tournamnet</th>
         <th>Round</th>
         <th>Gametype</th>
@@ -60,13 +59,13 @@
         <th>Status</th>
         <th>Gamertag</th>
         <th>Start Time</th>
-
+        <th>Rank</th>
       </tr>
     </thead>
     </tbody>
+        {{range .}}
+        
       <tr>
-
-        <td>{{.Rank}}</td>
         <td>{{.Tournament}}</td>
         <td>{{.Roundnum}}</td>
         <td>{{.Gametype}}</td>
@@ -76,12 +75,13 @@
         <td>{{.Status}}</td>
         <td>{{.Gamertag}}</td>
         <td>{{.Starttime}}</td>
-
-
+        <td>{{.Rank}}</td>
       </tr>
+
+        {{end}}
     </tbody>
   </table>
-  {{end}}
+
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
