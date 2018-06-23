@@ -50,6 +50,7 @@
   <table id="sortable" width="600">
     <thead>
       <tr>
+        <th>Rank</th>
         <th>Tournamnet</th>
         <th>Round</th>
         <th>Gametype</th>
@@ -59,11 +60,13 @@
         <th>Status</th>
         <th>Gamertag</th>
         <th>Start Time</th>
+
       </tr>
     </thead>
     </tbody>
       <tr>
         {{range .}}
+        <td>{{.Rank}}</td>
         <td>{{.Tournament}}</td>
         <td>{{.Roundnum}}</td>
         <td>{{.Gametype}}</td>
@@ -73,7 +76,7 @@
         <td>{{.Status}}</td>
         <td>{{.Gamertag}}</td>
         <td>{{.Starttime}}</td>
-        <td>{{.Rank}}</td>
+
 
       </tr>
     </tbody>
