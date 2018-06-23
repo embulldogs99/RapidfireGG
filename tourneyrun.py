@@ -78,7 +78,7 @@ for r in range (1,10):
     conn.commit()
     playerlist = cur.fetchall()
     for p in playerlist:
-        cur.execute("SELECT kills,matches,time_stamp FROM rfgg.tourney_temp WHERE epicusername='{0}';".format(p))
+        cur.execute("SELECT kills,matches,time_stamp FROM rfgg.tourney_temp WHERE epicusername='{0}';".format(str(p)))
         conn.commit()
         k,m,c = cur.fetchall()
         kn,mn,cn = statspull(p)
