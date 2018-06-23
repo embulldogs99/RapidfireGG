@@ -21,7 +21,7 @@ def statspull(ep):
     solokill=store['stats']['p2']['kills']['valueInt']
     solomatch=store['stats']['p2']['matches']['valueInt']
     kills=squadkill+duokill+solokill
-    curtime=time.time()*100
+    curtime=round(time.time()*100000,7)
     matchcount=squadmatch+duomatch+solomatch
 
     print(' ')
@@ -60,7 +60,7 @@ def playerlist(tournament,rn):
 
 conn = psycopg2.connect("dbname='postgres' user='postgres' password='rk' host='localhost' port='5432'")
 cur = conn.cursor()
-cur.execute("CREATE TABLE rfgg.tourney_temp (epicusername VARCHAR(500),kills INTEGER,matches INTEGER, time_stamp NUMERIC);")
+cur.execute("CREATE TABLE rfgg.tourney_temp (epicusername VARCHAR(500),kills INTEGER,matches INTEGER, time_stamp NUMERIC(7,2));")
 conn.commit()
 
 for p,rn in playerlist('freeweekly2',1):
