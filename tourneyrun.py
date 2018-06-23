@@ -89,7 +89,7 @@ for r in range (1,10):
                     print(p+' has submitted tournament entry')
                     cur.execute("UPDATE rfgg.tournaments SET kills='{0}',matches='{1}' WHERE tournament='{2}' AND roundnum='{3}' AND gametype='squad';".format(kn,mn,'freeweekly2',1))
                     conn.commit()
-                    cur.execute("DELETE FROM rfgg.tourney_temp where epicusername='{0}';".format(e))
+                    cur.execute("DELETE FROM rfgg.tourney_temp where epicusername='{0}';".format(p))
                     conn.commit()
         else:
             time.sleep(10)
