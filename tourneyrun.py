@@ -91,8 +91,6 @@ for r in range (1,10):
                     conn.commit()
                     cur.execute("DELETE FROM rfgg.tourney_temp where epicusername='{0}';".format(e))
                     conn.commit()
-            except:
-                pass
         else:
             time.sleep(10)
     time.sleep(10)
