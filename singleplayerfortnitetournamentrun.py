@@ -96,7 +96,7 @@ def playerpull(tournament,rn):
     conn = psycopg2.connect("dbname='postgres' user='postgres' password='rk' host='localhost' port='5432'")
     cur = conn.cursor()
     # execute a statement
-    cur.execute("SELECT tournaments.epicusername, tournaments.gamertag FROM rfgg.tournaments WHERE tournament='freeweekly2' AND roundnum='{1}';".format(tournament,rn))
+    cur.execute("SELECT tournaments.epicusername, tournaments.gamertag FROM rfgg.tournaments WHERE tournament='freeweekly2' AND roundnum=1;".format(tournament,rn))
     conn.commit()
 
     rows = cur.fetchall()
