@@ -92,6 +92,7 @@ for r in range (1,30):
                     cur.execute("DELETE FROM rfgg.tourney_temp where epicusername='{0}';".format(p))
                     conn.commit()
                 else:
+                    print(p+' is Still at '+str(mn)+' Matches')
                     time.sleep(2)
 
         else:
