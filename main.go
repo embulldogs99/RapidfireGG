@@ -377,7 +377,7 @@ func tlaunch(w http.ResponseWriter, r *http.Request){
 		http.Redirect(w, r, "/freeweekly2", http.StatusSeeOther)
 		var tpl *template.Template
 		tpl = template.Must(template.ParseFiles("tlaunchafter.gohtml","css/main.css","css/mcleod-reset.css"))
-		tpl.Execute(w, nil)
+		tpl.Execute(w, tournamentname)
 		}
 }
 
