@@ -377,16 +377,16 @@ func tlaunch(w http.ResponseWriter, r *http.Request){
 
 
 func tlaunchpython( teamname string) {
-
+	byteArray :=[]byte(teamname)
 	cmd := exec.Command("/usr/bin/python", "tlaunch.py")
 
 	stdin, err := cmd.StdinPipe()
 	if err != nil {fmt.Print(err)}
 	defer stdin.Close()
-	_, err := stdin.Write(teamname)
+	_, err := stdin.Write(byteArray)
 	if err != nil {fmt.Print(err)}
 
-	fmt.Printf("Python output:\n%s", out)
+	fmt.Println("Exec Status:", cmd.Run())
 }
 
 
