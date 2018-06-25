@@ -378,11 +378,19 @@ func tlaunch(w http.ResponseWriter, r *http.Request){
 
 func tlaunchpython( teamname string) {
 	fmt.Println(teamname+" Launched a tournament")
+	byteArray:=[]bye(teamname)
+	
 	cmd := exec.Command("python", "tlaunch.py")
-
-	stdin, err := cmd.StdinPipe()
-	if err != nil {fmt.Print(err)}
+	
+	stdin, _ := cmd.StdinPipe()
+		
+	go func(){
 	defer stdin.Close()
+	if _,err :=stdin.Write(byteArray); err != nil{
+		panic(err)
+	}
+}()
+
 	out, _ := cmd.CombinedOutput()
 	fmt.Println(string(out))
 }
