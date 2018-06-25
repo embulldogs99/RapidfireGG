@@ -79,6 +79,7 @@ func main() {
   http.HandleFunc("/logout", logout)
   http.HandleFunc("/profile", profile)
   http.HandleFunc("/tsignup", tsignup)
+  http.HandleFunc("/tlaunch", tlaunch)
   http.HandleFunc("/tournaments", tournaments)
   http.HandleFunc("/freeweekly2", freeweekly)
   http.HandleFunc("/freeweekly3", freeweekly)
@@ -362,6 +363,11 @@ type Fortnitedata struct{
 
 }
 
+func tlaunch(w http.ResponseWriter, r *http.Request){
+  var tpl *template.Template
+  tpl = template.Must(template.ParseFiles("tlunch.gohtml","css/main.css","css/mcleod-reset.css"))
+  tpl.Execute(w, nil)
+}
 
 
 func profilepull(w http.ResponseWriter, r *http.Request) Fortnitedata{
