@@ -365,7 +365,7 @@ type Fortnitedata struct{
 
 func tlaunch(w http.ResponseWriter, r *http.Request){
   var tpl *template.Template
-  tpl = template.Must(template.ParseFiles("tlunch.gohtml","css/main.css","css/mcleod-reset.css"))
+  tpl = template.Must(template.ParseFiles("tlaunch.gohtml","css/main.css","css/mcleod-reset.css"))
   tpl.Execute(w, nil)
 }
 
