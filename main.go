@@ -190,7 +190,6 @@ func login(w http.ResponseWriter, r *http.Request) {
 		//defines u as dbu user
 
 		u:= dbu[email]
-    fmt.Println(u)
 		//pulls password from u and checks it with stored password
 		if pass != u.Pass {
 			http.Error(w, "Username and/or password not found", http.StatusForbidden)
