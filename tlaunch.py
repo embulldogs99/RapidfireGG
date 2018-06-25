@@ -1,9 +1,9 @@
-`import requests
+import requests
 import json
 import time
 import psycopg2
 import cgi
-
+import sys
 
 def statspull(ep):
     epicusername=ep
@@ -43,8 +43,7 @@ def statspull(ep):
 def playerlist(tournament,rn):
     #########################################################
     ##############  Database Connection   ###################
-    form = cgi.FieldStorage()
-    teamname =  form.getvalue('teamname')
+    teamname=sys.stdin.red()
 
     conn = psycopg2.connect("dbname='postgres' user='postgres' password='rk' host='localhost' port='5432'")
     cur = conn.cursor()
@@ -111,4 +110,3 @@ cur.execute("DROP TABLE rfgg.tourney_temp;")
 conn.commit()
 cur.close()
 conn.close()
-`
