@@ -366,9 +366,6 @@ type Fortnitedata struct{
 
 func tlaunch(w http.ResponseWriter, r *http.Request){
 	if !alreadyLoggedIn(r) {http.Redirect(w, r, "/login", http.StatusSeeOther)}
-	var tpl *template.Template
-	tpl = template.Must(template.ParseFiles("tlaunch.gohtml","css/main.css","css/mcleod-reset.css"))
-	tpl.Execute(w, nil)
 	
 	if r.Method == http.MethodPost {
 		teamname:=r.FormValue("teamname")
@@ -378,7 +375,13 @@ func tlaunch(w http.ResponseWriter, r *http.Request){
 		var tpl *template.Template
 		tpl = template.Must(template.ParseFiles("tlaunchafter.gohtml","css/main.css","css/mcleod-reset.css"))
 		tpl.Execute(w, tournamentname)
-		}
+	}else{
+
+	var tpl *template.Template
+	tpl = template.Must(template.ParseFiles("tlaunch.gohtml","css/main.css","css/mcleod-reset.css"))
+	tpl.Execute(w, nil)
+	}
+
 }
 
 
