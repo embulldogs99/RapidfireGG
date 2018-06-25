@@ -40,17 +40,14 @@ def statspull(ep):
 
 
 
-def playerlist(tournament,rn):
+def playerlist(tournament,rn,teamname):
     #########################################################
     ##############  Database Connection   ###################
-    teamname=sys.stdin.read()
-    teamnamestring=str(teamname)
-    print(teamnamestring)
 
     conn = psycopg2.connect("dbname='postgres' user='postgres' password='rk' host='localhost' port='5432'")
     cur = conn.cursor()
     # execute a statement
-    cur.execute("SELECT tournaments.epicusername, tournaments.gamertag FROM rfgg.tournaments WHERE tournament='{0}' AND roundnum='{1}' AND teamname='{2}';".format(tournament,rn,teamnamestring))
+    cur.execute("SELECT tournaments.epicusername, tournaments.gamertag FROM rfgg.tournaments WHERE tournament='{0}' AND roundnum='{1}' AND teamname='{2}';".format(tournament,rn,teamname))
     conn.commit()
 
     rows = cur.fetchall()
@@ -79,14 +76,14 @@ conn.commit()
 
 
 
-for p,rn in playerlist('freeweekly2',1):
+for p,rn in playerlist('freeweekly2',1,teamnamestring):
     kv,mv,cv =statspull(p)
     cur.execute("INSERT INTO rfgg.tourney_temp_{0} (epicusername,kills,matches,time_stamp) values('{1}','{2}','{3}','{4}');".format(teamnamestring,p,kv,mv,cv))
     conn.commit()
     print('Loading Initial Stats')
 
 
-for r in range (1,1):
+for r in range (1,2):
     cur.execute("SELECT epicusername, kills FROM rfgg.tourney_temp_{0};".format(teamnamestring))
     conn.commit()
     playerlist = cur.fetchall()
