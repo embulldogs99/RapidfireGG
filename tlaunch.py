@@ -43,14 +43,7 @@ def statspull(ep):
 def playerlist(tournament,rn):
     #########################################################
     ##############  Database Connection   ###################
-    
-
-    f=open('output','w')
-    f.write(sys.stdin.read())
-    teamnamestring=f.read()
-    f.close()
-    
-    print(teamnamestring)
+    teamnamestring='wulfhaus'
 
     conn = psycopg2.connect("dbname='postgres' user='postgres' password='rk' host='localhost' port='5432'")
     cur = conn.cursor()
