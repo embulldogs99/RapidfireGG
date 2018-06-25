@@ -78,7 +78,7 @@ for p,rn in playerlist('freeweekly2',1):
     print('Loading Initial Stats')
 
 
-for r in range (1,1):
+for r in range (1,3):
     cur.execute("SELECT epicusername, kills FROM rfgg.tourney_temp;")
     conn.commit()
     playerlist = cur.fetchall()
