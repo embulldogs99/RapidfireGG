@@ -451,7 +451,6 @@ func profilepull(w http.ResponseWriter, r *http.Request) Fortnitedata{
   err = dbfortnite.QueryRow("SELECT last_updated,console,squadkill,squadmatch,squadkm,duokill,duomatch,duokm,solokill,solomatch,solokm FROM rfgg.fortniteplayerstats WHERE epicusername=$1 and console='xbl' ORDER BY squadmatch DESC LIMIT 1",u.Epicusername).Scan(&lastupdated,&console,&squadkill,&squadmatch,&squadkm,&duokill,&duomatch,&duokm,&solokill,&solomatch,&solokm)
 
   data:=Fortnitedata{email, pass, ppal, cwins, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertagt, tournament, roundnum, gametype, matches,teamname,status, kills,starttime,lastupdated,console,squadkill,squadmatch,squadkm,duokill,duomatch,duokm,solokill,solomatch,solokm}
-  fmt.Println(data)
   fmt.Println(email + " logged on")
   dbusers.Close()
   dbtourneys.Close()
@@ -538,7 +537,7 @@ type Tourn struct {
 func freeweeklypull() []Tourn{
   dbtourneys, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   rowz, err := dbtourneys.Query("SELECT tournament, roundnum, gametype, epicusername, wins, kills, matches,teamname,status,gamertag,starttime, rank() over (order by kills desc) as rank FROM rfgg.tournaments WHERE tournament like 'freeweekly%' AND status='open'")
-  if err != nil{fmt.Println("failed to select from table")}
+  if err != nil{fmt.Println("failed to select from tournaments table")}
   data := []Tourn{}
   for rowz.Next(){
     datas:=Tourn{}
