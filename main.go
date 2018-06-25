@@ -378,7 +378,7 @@ func tlaunch(w http.ResponseWriter, r *http.Request){
 
 func tlaunchpython( teamname string) {
 	fmt.Println(teamname+" Launched a tournament")
-	byteArray:=[]bye(teamname)
+	byteArray:=[]byte(teamname)
 	
 	cmd := exec.Command("python", "tlaunch.py")
 	
