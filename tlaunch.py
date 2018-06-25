@@ -45,8 +45,11 @@ def playerlist(tournament,rn):
     ##############  Database Connection   ###################
     
 
-    form = cgi.FieldStorage()
-    teamnamestring=form["teamname"]
+    f=open('output','w')
+    f.write(sys.stdin.read())
+    teamnamestring=f.read()
+    f.close()
+    
     print(teamnamestring)
 
     conn = psycopg2.connect("dbname='postgres' user='postgres' password='rk' host='localhost' port='5432'")
