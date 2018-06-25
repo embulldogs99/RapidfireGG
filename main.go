@@ -383,7 +383,7 @@ func tlaunchpython( teamname string) {
 	stdin, err := cmd.StdinPipe()
 	if err != nil {fmt.Print(err)}
 	defer stdin.Close()
-	_, err := stdin.Write(byteArray)
+	_, err = stdin.Write(byteArray)
 	if err != nil {fmt.Print(err)}
 
 	fmt.Println("Exec Status:", cmd.Run())
