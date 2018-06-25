@@ -369,11 +369,15 @@ func tlaunch(w http.ResponseWriter, r *http.Request){
 	var tpl *template.Template
 	tpl = template.Must(template.ParseFiles("tlaunch.gohtml","css/main.css","css/mcleod-reset.css"))
 	tpl.Execute(w, nil)
+	
 	if r.Method == http.MethodPost {
 		teamname:=r.FormValue("teamname")
 		tournamentname:=r.FormValue("tournamentname")
 		tlaunchpython(teamname)
-		http.Redirect(w, r, "/"+tournamentname, http.StatusSeeOther)
+		http.Redirect(w, r, "/freeweekly2", http.StatusSeeOther)
+		var tpl *template.Template
+		tpl = template.Must(template.ParseFiles("tlaunchafter.gohtml","css/main.css","css/mcleod-reset.css"))
+		tpl.Execute(w, nil)
 		}
 }
 
