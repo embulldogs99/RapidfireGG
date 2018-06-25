@@ -81,7 +81,6 @@ func main() {
   http.HandleFunc("/profile", profile)
   http.HandleFunc("/tsignup", tsignup)
   http.HandleFunc("/tlaunch", tlaunch)
-  http.HandleFunc("/ttimer", ttimer)
   http.HandleFunc("/tournaments", tournaments)
   http.HandleFunc("/freeweekly2", freeweekly)
   http.HandleFunc("/freeweekly3", freeweekly)
