@@ -364,23 +364,17 @@ type Fortnitedata struct{
 
 }
 
-func ttimer(w http.ResponseWriter, r *http.Request){
-	if r.Method == http.MethodPost {
-		var tpl *template.Template
-  		tpl = template.Must(template.ParseFiles("ttimer.gohtml","css/main.css","css/mcleod-reset.css"))
- 		tpl.Execute(w, nil)
-		
-		teamname:=r.FormValue("teamname")
-
-		tlaunchpython(teamname)
-
-    }
-  var tpl *template.Template
-  tpl = template.Must(template.ParseFiles("ttimer.gohtml","css/main.css","css/mcleod-reset.css"))
-  tpl.Execute(w, nil)
-}
 
 func tlaunch(w http.ResponseWriter, r *http.Request){
+		if r.Method == http.MethodPost {
+
+		
+		teamname:=r.FormValue("teamname")
+		tournamentname:=r.FormValue("tournamentname")
+		tlaunchpython(teamname)
+		http.Redirect(w, r, "/"+tournamentname, http.StatusSeeOther)
+
+    }
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("tlaunch.gohtml","css/main.css","css/mcleod-reset.css"))
   tpl.Execute(w, nil)
