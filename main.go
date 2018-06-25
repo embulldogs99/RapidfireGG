@@ -367,13 +367,13 @@ type Fortnitedata struct{
 func tlaunch(w http.ResponseWriter, r *http.Request){
     if r.Method == http.MethodPost {
       teamname:=r.FormValue("teamname")
-      http.Redirect(w, r, "/ttimer", http.StatusSeeOther)
-      tlaunchpython(teamname)
+	    ttimer(w,r,teamname)
     }
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("tlaunch.gohtml","css/main.css","css/mcleod-reset.css"))
   tpl.Execute(w, nil)
 }
+
 
 
 func tlaunchpython( teamname string) {
@@ -395,8 +395,8 @@ func tlaunchpython( teamname string) {
 	fmt.Println(string(out))
 }
 
-func ttimer(w http.ResponseWriter, r *http.Request){
-
+func ttimer(w http.ResponseWriter, r *http.Request, teamname string){
+  tlaunchpython(teamname)
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("ttimer.gohtml","css/main.css","css/mcleod-reset.css"))
   tpl.Execute(w, nil)
