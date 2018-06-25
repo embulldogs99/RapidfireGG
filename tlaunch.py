@@ -71,25 +71,25 @@ cur = conn.cursor()
 teamname=sys.stdin.read()
 teamnamestring=str(teamname)
 
-cur.execute("CREATE TABLE rfgg.tourney_temp_'{0}' (epicusername VARCHAR(500),kills INTEGER,matches INTEGER, time_stamp BIGINT);".format(teamname))
+cur.execute("CREATE TABLE rfgg.tourney_temp_{0} (epicusername VARCHAR(500),kills INTEGER,matches INTEGER, time_stamp BIGINT);".format(teamname))
 conn.commit()
 
 
 
 for p,rn in playerlist('freeweekly2',1):
     kv,mv,cv =statspull(p)
-    cur.execute("INSERT INTO rfgg.tourney_temp_'{0}' (epicusername,kills,matches,time_stamp) values('{1}','{2}','{3}','{4}');".format(teamname,p,kv,mv,cv))
+    cur.execute("INSERT INTO rfgg.tourney_temp_{0} (epicusername,kills,matches,time_stamp) values('{1}','{2}','{3}','{4}');".format(teamname,p,kv,mv,cv))
     conn.commit()
     print('Loading Initial Stats')
 
 
 for r in range (1,2):
-    cur.execute("SELECT epicusername, kills FROM rfgg.tourney_temp_'{0}';".format(teamname))
+    cur.execute("SELECT epicusername, kills FROM rfgg.tourney_temp_{0};".format(teamname))
     conn.commit()
     playerlist = cur.fetchall()
     for p,t in playerlist:
         if len(p)>3:
-            cur.execute("SELECT kills,matches,time_stamp FROM rfgg.tourney_temp_'{0}' WHERE epicusername='{1}';".format(teamname,p))
+            cur.execute("SELECT kills,matches,time_stamp FROM rfgg.tourney_temp_{0} WHERE epicusername='{1}';".format(teamname,p))
             conn.commit()
             rows = cur.fetchall()
             for k,m,c in rows:
@@ -99,7 +99,7 @@ for r in range (1,2):
                         print(p+' has submitted tournament entry')
                         cur.execute("UPDATE rfgg.tournaments SET kills='{0}',matches='{1}' WHERE tournament='{2}' AND roundnum='{3}' AND gametype='squad' AND epicusername='{4}';".format((kn-k),(mn-m),'freeweekly2',1,p))
                         conn.commit()
-                        cur.execute("DELETE FROM rfgg.tourney_temp_'{0}' where epicusername='{1}';".format(teamname,p))
+                        cur.execute("DELETE FROM rfgg.tourney_temp_{0} where epicusername='{1}';".format(teamname,p))
                         conn.commit()
                     else:
                         print(p+' is Still at '+str(mn)+' Matches')
@@ -111,7 +111,7 @@ for r in range (1,2):
     time.sleep(60)
 
 
-cur.execute("DROP TABLE rfgg.tourney_temp_'{0}';".format(teamname))
+cur.execute("DROP TABLE rfgg.tourney_temp_{0};".format(teamname))
 conn.commit()
 cur.close()
 conn.close()
