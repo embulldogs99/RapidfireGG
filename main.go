@@ -81,6 +81,7 @@ func main() {
   http.HandleFunc("/profile", profile)
   http.HandleFunc("/tsignup", tsignup)
   http.HandleFunc("/tlaunch", tlaunch)
+  http.HandleFunc("/ttimer", ttimer)
   http.HandleFunc("/tournaments", tournaments)
   http.HandleFunc("/freeweekly2", freeweekly)
   http.HandleFunc("/freeweekly3", freeweekly)
@@ -367,8 +368,9 @@ type Fortnitedata struct{
 func tlaunch(w http.ResponseWriter, r *http.Request){
     if r.Method == http.MethodPost {
       teamname:=r.FormValue("teamname")
+	    fmt.Println(teamname)
       tlaunchpython(teamname)
-      http.Redirect(w, r, "/freeweekly2", http.StatusSeeOther)
+      http.Redirect(w, r, "/ttimer", http.StatusSeeOther)
     }
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("tlaunch.gohtml","css/main.css","css/mcleod-reset.css"))
@@ -378,7 +380,7 @@ func tlaunch(w http.ResponseWriter, r *http.Request){
 
 func tlaunchpython( teamname string) {
 	byteArray :=[]byte(teamname)
-	cmd := exec.Command("/usr/bin/python", "tlaunch.py")
+	cmd := exec.Command("python", "tlaunch.py")
 
 	stdin, err := cmd.StdinPipe()
 	if err != nil {fmt.Print(err)}
@@ -389,6 +391,12 @@ func tlaunchpython( teamname string) {
 	fmt.Println("Exec Status:", cmd.Run())
 }
 
+func ttimer(w http.ResponseWriter, r *http.Request){
+
+  var tpl *template.Template
+  tpl = template.Must(template.ParseFiles("ttimer.gohtml","css/main.css","css/mcleod-reset.css"))
+  tpl.Execute(w, nil)
+}
 
 
 
