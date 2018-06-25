@@ -81,7 +81,6 @@ func main() {
   http.HandleFunc("/profile", profile)
   http.HandleFunc("/tsignup", tsignup)
   http.HandleFunc("/tlaunch", tlaunch)
-  http.HandleFunc("/tlaunchrun", tlaunchrun)	
   http.HandleFunc("/tournaments", tournaments)
   http.HandleFunc("/freeweekly2", freeweekly)
   http.HandleFunc("/freeweekly3", freeweekly)
@@ -369,14 +368,11 @@ func tlaunch(w http.ResponseWriter, r *http.Request){
 	var tpl *template.Template
 	tpl = template.Must(template.ParseFiles("tlaunch.gohtml","css/main.css","css/mcleod-reset.css"))
 	tpl.Execute(w, nil)
-}
-
-func tlaunchrun(w http.ResponseWriter, r *http.Request){
 	if r.Method == http.MethodPost {
-	teamname:=r.FormValue("teamname")
-	tournamentname:=r.FormValue("tournamentname")
-	tlaunchpython(teamname)
-	http.Redirect(w, r, "/"+tournamentname, http.StatusSeeOther)}
+		teamname:=r.FormValue("teamname")
+		tournamentname:=r.FormValue("tournamentname")
+		tlaunchpython(teamname)
+		http.Redirect(w, r, "/"+tournamentname, http.StatusSeeOther)}
 }
 
 
