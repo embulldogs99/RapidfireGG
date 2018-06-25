@@ -1,4 +1,4 @@
-import requests
+`import requests
 import json
 import time
 import psycopg2
@@ -111,3 +111,4 @@ cur.execute("DROP TABLE rfgg.tourney_temp;")
 conn.commit()
 cur.close()
 conn.close()
+`
