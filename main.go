@@ -371,6 +371,7 @@ func tlaunch(w http.ResponseWriter, r *http.Request){
 	if r.Method == http.MethodPost {
 		teamname:=r.FormValue("teamname")
 		tournamentname:=r.FormValue("tournamentname")
+		fmt.Println(tournamentname)
 		http.Redirect(w, r, "/freeweekly2", http.StatusSeeOther)
 		tlaunchpython(teamname)
 		}
