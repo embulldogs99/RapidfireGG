@@ -367,7 +367,7 @@ type Fortnitedata struct{
 func tlaunch(w http.ResponseWriter, r *http.Request){
     if r.Method == http.MethodPost {
       tlaunchpython()
-      http.Redirect(w, r, "/tournaments", http.StatusSeeOther)
+      http.Redirect(w, r, "/freeweekly2", http.StatusSeeOther)
     }
   var tpl *template.Template
   tpl = template.Must(template.ParseFiles("tlaunch.gohtml","css/main.css","css/mcleod-reset.css"))
@@ -486,7 +486,7 @@ func tlaunchpython() {
 
 	out, err := cmd.CombinedOutput()
 	if err != nil {
-		log.Fatal(err)
+		fmt.Printf(err)
 	}
 
 	fmt.Printf("Python output:\n%s", out)
