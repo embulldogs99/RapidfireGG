@@ -367,7 +367,6 @@ type Fortnitedata struct{
 func tlaunch(w http.ResponseWriter, r *http.Request){
     if r.Method == http.MethodPost {
       teamname:=r.FormValue("teamname")
-	    fmt.Println(teamname)
       tlaunchpython(teamname)
       http.Redirect(w, r, "/ttimer", http.StatusSeeOther)
     }
@@ -378,6 +377,7 @@ func tlaunch(w http.ResponseWriter, r *http.Request){
 
 
 func tlaunchpython( teamname string) {
+	fmt.Println(teamname+" Launched a tournament")
 	cmd := exec.Command("python", "tlaunch.py")
 
 	stdin, err := cmd.StdinPipe()
