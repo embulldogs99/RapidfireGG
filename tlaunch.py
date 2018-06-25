@@ -69,7 +69,7 @@ conn = psycopg2.connect("dbname='postgres' user='postgres' password='rk' host='l
 cur = conn.cursor()
 
 teamname=sys.stdin.read()
-teamnamestring=str(teamname)
+teamnamestring='wulfhaus'  #str(teamname)
 print(teamnamestring)
 sqlstatement="CREATE TABLE rfgg.tourney_temp_{0} (epicusername VARCHAR(500),kills INTEGER,matches INTEGER, time_stamp BIGINT);".format(teamnamestring)
 print(sqlstatement)
