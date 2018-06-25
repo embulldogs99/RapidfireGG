@@ -71,10 +71,10 @@ try:
     conn.commit()
 except psycopg2.Error as e:
     print(e)
+    cur.execute("CREATE TABLE rfgg.tourney_temp (epicusername VARCHAR(500),kills INTEGER,matches INTEGER, time_stamp BIGINT);")
+    conn.commit()
 
 
-cur.execute("CREATE TABLE rfgg.tourney_temp (epicusername VARCHAR(500),kills INTEGER,matches INTEGER, time_stamp BIGINT);")
-conn.commit()
 
 for p,rn in playerlist('freeweekly2',1):
     kv,mv,cv =statspull(p)
