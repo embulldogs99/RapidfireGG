@@ -71,7 +71,7 @@ cur = conn.cursor()
 teamname=sys.stdin.read()
 teamnamestring=str(teamname)
 
-cur.execute("CREATE TABLE rfgg.tourney_temp_'{0}' (epicusername VARCHAR(500),kills INTEGER,matches INTEGER, time_stamp BIGINT);".format(teamname)
+cur.execute("CREATE TABLE rfgg.tourney_temp_'{0}' (epicusername VARCHAR(500),kills INTEGER,matches INTEGER, time_stamp BIGINT);".format(teamname))
 conn.commit()
 
 
