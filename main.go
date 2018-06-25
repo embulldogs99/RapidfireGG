@@ -481,7 +481,7 @@ conn.commit()
 cur.close()
 conn.close()`
 
-	cmd := exec.Command("/usr/bin/python3.6", "-c", code)
+	cmd := exec.Command("/usr/bin/python", "-c", code)
 
 	out, err := cmd.CombinedOutput()
 	if err != nil {
