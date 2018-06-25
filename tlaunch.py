@@ -62,9 +62,11 @@ def playerlist(tournament,rn):
 conn = psycopg2.connect("dbname='postgres' user='postgres' password='rk' host='localhost' port='5432'")
 cur = conn.cursor()
 
+try:
+    cur.execute("DROP TABLE rfgg.tourney_temp;")
+except psychopg2.Error as e:
+    print(e)
 
-cur.execute("DROP TABLE rfgg.tourney_temp;")
-conn.commit()
 
 cur.execute("CREATE TABLE rfgg.tourney_temp (epicusername VARCHAR(500),kills INTEGER,matches INTEGER, time_stamp BIGINT);")
 conn.commit()
