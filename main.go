@@ -378,7 +378,6 @@ func tlaunch(w http.ResponseWriter, r *http.Request){
 
 
 func tlaunchpython( teamname string) {
-	byteArray :=[]byte(teamname)
 	cmd := exec.Command("python", "tlaunch.py")
 
 	stdin, err := cmd.StdinPipe()
