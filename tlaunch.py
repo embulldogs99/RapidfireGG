@@ -65,11 +65,11 @@ cur = conn.cursor()
 try:
     cur.execute("DROP TABLE rfgg.tourney_temp;")
     conn.commit()
+    cur.execute("CREATE TABLE rfgg.tourney_temp (epicusername VARCHAR(500),kills INTEGER,matches INTEGER, time_stamp BIGINT);")
+    conn.commit()
 except:
-    pass
-
-cur.execute("CREATE TABLE rfgg.tourney_temp (epicusername VARCHAR(500),kills INTEGER,matches INTEGER, time_stamp BIGINT);")
-conn.commit()
+    cur.execute("CREATE TABLE rfgg.tourney_temp (epicusername VARCHAR(500),kills INTEGER,matches INTEGER, time_stamp BIGINT);")
+    conn.commit()
 
 for p,rn in playerlist('freeweekly2',1):
     kv,mv,cv =statspull(p)
