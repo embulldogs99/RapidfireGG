@@ -371,10 +371,8 @@ func tlaunch(w http.ResponseWriter, r *http.Request){
 		teamname:=r.FormValue("teamname")
 		tournamentname:=r.FormValue("tournamentname")
 		tlaunchpython(teamname)
-		http.Redirect(w, r, "/freeweekly2", http.StatusSeeOther)
-		var tpl *template.Template
-		tpl = template.Must(template.ParseFiles("tlaunchafter.gohtml","css/main.css","css/mcleod-reset.css"))
-		tpl.Execute(w, tournamentname)
+		redirectstring:="/"+tournamentname
+		http.Redirect(w, r,redirectstring, http.StatusSeeOther)
 	}else{
 
 	var tpl *template.Template
