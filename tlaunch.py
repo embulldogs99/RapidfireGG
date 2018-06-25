@@ -68,15 +68,14 @@ cur = conn.cursor()
 teamname=sys.stdin.read()
 teamnamestring=str(teamname)
 print(teamnamestring)
-sqlstatement="CREATE TABLE rfgg.tourney_temp_{0} (epicusername VARCHAR(500),kills INTEGER,matches INTEGER, time_stamp BIGINT);".format(teamnamestring)
-print(sqlstatement)
+tournament='freeweekly2'
 
 cur.execute("CREATE TABLE rfgg.tourney_temp_{0} (epicusername VARCHAR(500),kills INTEGER,matches INTEGER, time_stamp BIGINT);".format(teamnamestring))
 conn.commit()
 
 
 
-for p,rn in playerlist('freeweekly2',1,teamnamestring):
+for p,rn in playerlist(tournament,1,teamnamestring):
     kv,mv,cv =statspull(p)
     cur.execute("INSERT INTO rfgg.tourney_temp_{0} (epicusername,kills,matches,time_stamp) values('{1}','{2}','{3}','{4}');".format(teamnamestring,p,kv,mv,cv))
     conn.commit()
@@ -97,7 +96,7 @@ for r in range (1,2):
                 if mn<m+3:
                     if round(int(m),0)+.1<round(int(mn),0):
                         print(p+' has submitted tournament entry')
-                        cur.execute("UPDATE rfgg.tournaments SET kills='{0}',matches='{1}',status="closed" WHERE tournament='{2}' AND roundnum='{3}' AND gametype='squad' AND epicusername='{4}';".format((kn-k),(mn-m),'freeweekly2',1,p))
+                        cur.execute("UPDATE rfgg.tournaments SET kills='{0}',matches='{1}',status='closed' WHERE tournament='{2}' AND roundnum='{3}' AND gametype='squad' AND epicusername='{4}';".format((kn-k),(mn-m),tournament,1,p))
                         conn.commit()
                         cur.execute("DELETE FROM rfgg.tourney_temp_{0} where epicusername='{1}';".format(teamnamestring,p))
                         conn.commit()
