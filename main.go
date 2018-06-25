@@ -486,7 +486,7 @@ func tlaunchpython() {
 
 	out, err := cmd.CombinedOutput()
 	if err != nil {
-		fmt.Printf(err)
+		fmt.Print(err)
 	}
 
 	fmt.Printf("Python output:\n%s", out)
