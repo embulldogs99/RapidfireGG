@@ -75,7 +75,7 @@ for p,rn in playerlist('freeweekly2',1):
 cur.close()
 conn.close()
 
-for r in range (1,30):
+for r in range (1,1):
     conn = psycopg2.connect("dbname='postgres' user='postgres' password='rk' host='localhost' port='5432'")
     cur = conn.cursor()
     cur.execute("SELECT epicusername, kills FROM rfgg.tourney_temp;")
