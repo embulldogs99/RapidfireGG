@@ -64,7 +64,7 @@ cur = conn.cursor()
 
 try:
     cur.execute("DROP TABLE rfgg.tourney_temp;")
-except psychopg2.Error as e:
+except psycopg2.Error as e:
     print(e)
 
 
