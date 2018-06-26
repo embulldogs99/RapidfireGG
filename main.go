@@ -55,7 +55,7 @@ func main() {
 
   dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   if err != nil {log.Fatalf("Unable to connect to the database")}
-  rowz, err := dbusers.Query("SELECT * FROM rfgg.members")
+  rowz, err := dbusers.Query("SELECT email,pass,ppal,wins,losses,heat,refers,memberflag,credits,grade,epicusername,gamertag FROM rfgg.members")
   if err != nil {log.Fatalf("Could not Scan User Data-select*")}
   for rowz.Next(){
     err := rowz.Scan(&email, &pass, &ppal, &wins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
@@ -105,7 +105,7 @@ func dbuconnect() []user {
 
 	dbusers, err := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
 	if err != nil {log.Fatalf("Unable to connect to the database")}
-	rows, err := dbusers.Query("SELECT * FROM rfgg.members")
+	rows, err := dbusers.Query("SELECT email,pass,ppal,wins,losses,heat,refers,memberflag,credits,grade,epicusername,gamertag FROM rfgg.members")
 	if err != nil {log.Fatal(err)}
 	userslols := []user{}
 	//cycles through the rows to grab the data by row
@@ -366,7 +366,7 @@ type Fortnitedata struct{
 
 func tlaunch(w http.ResponseWriter, r *http.Request){
 	if !alreadyLoggedIn(r) {http.Redirect(w, r, "/login", http.StatusSeeOther)}
-	
+
 	if r.Method == http.MethodPost {
 		teamname:=r.FormValue("teamname")
 		tournamentname:=r.FormValue("tournamentname")
@@ -386,11 +386,11 @@ func tlaunch(w http.ResponseWriter, r *http.Request){
 func tlaunchpython( teamname string) {
 	fmt.Println(teamname+" Launched a tournament")
 	byteArray:=[]byte(teamname)
-	
+
 	cmd := exec.Command("python", "tlaunch.py")
-	
+
 	stdin, _ := cmd.StdinPipe()
-		
+
 	go func(){
 	defer stdin.Close()
 	if _,err :=stdin.Write(byteArray); err != nil{
@@ -436,7 +436,7 @@ func profilepull(w http.ResponseWriter, r *http.Request) Fortnitedata{
 
   u := getUser(w, r)
   dbusers, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-  _ = dbusers.QueryRow("SELECT * FROM rfgg.members WHERE email=$1 AND pass=$2",u.Email,u.Pass).Scan(&email, &pass, &ppal, &cwins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
+  _ = dbusers.QueryRow("SELECT email,pass,ppal,wins,losses,heat,refers,memberflag,credits,grade,epicusername,gamertag FROM rfgg.members WHERE email=$1 AND pass=$2",u.Email,u.Pass).Scan(&email, &pass, &ppal, &cwins, &losses, &heat, &refers, &memberflag,&credits,&grade,&epicusername,&gamertag)
   dbtourneys, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
   err := dbtourneys.QueryRow("SELECT tournament, roundnum, gametype, epicusername, wins, kills, matches,teamname,status,gamertag,starttime FROM rfgg.tournaments WHERE epicusername=$1 AND status='open'",u.Epicusername).Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertagt,&starttime)
   if err != nil{fmt.Println("failed to select from table")}
@@ -507,8 +507,8 @@ func tournaments(w http.ResponseWriter, r *http.Request){
     var starttime string
 
     dbtourneys, _ := sql.Open("postgres", "postgres://postgres:rk@localhost:5432/postgres?sslmode=disable")
-    err := dbtourneys.QueryRow("SELECT * FROM rfgg.tournaments WHERE status='open'").Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertagt,&starttime)
-    if err != nil{fmt.Println("failed to select from table")}
+    err := dbtourneys.QueryRow("SELECT tournament,roundnum,gametype,epicusername,wins,kills,matches,teamname,status,gamertag,starttime FROM rfgg.tournaments WHERE status='open'").Scan(&tournament,&roundnum,&gametype,&epicusername,&wins,&kills,&matches,&teamname,&status,&gamertagt,&starttime)
+    if err != nil{fmt.Println("failed to select tournament data from rfgg.tournaments for func tournament")}
 
     data:=Data{email, pass, ppal, cwins, wins, losses, heat, refers, memberflag, credits, grade, epicusername, gamertagt, tournament, roundnum, gametype, matches,teamname,status, kills,starttime}
 
