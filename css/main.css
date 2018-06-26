@@ -10,6 +10,15 @@ iframe{
   height: 40px;
   width:300px;
 }
+#item-header-content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.bp-wrap{
+  color:black;
+}
 .bigiframe{
   padding:1px 1px 1px 1px;
   height: 1280px;
