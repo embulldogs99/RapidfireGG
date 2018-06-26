@@ -10,7 +10,7 @@ iframe{
   height: 40px;
   width:300px;
 }
-#item-header-content{
+#post-0 , #item-header-content{
   display: flex;
   justify-content: center;
   align-items: center;
