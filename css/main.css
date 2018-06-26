@@ -16,7 +16,7 @@ iframe{
   align-items: center;
   text-align: center;
 }
-#item-body{
+#item-body :nth-child(1){
   color:black;
 }
 .bigiframe{
